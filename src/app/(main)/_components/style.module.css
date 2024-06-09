@@ -1,0 +1,34 @@
+.draw {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: draw 3s linear 500ms forwards;
+}
+
+@keyframes draw {
+  0% {
+    fill: transparent;
+  }
+  50% {
+    fill: transparent;
+  }
+  66% {
+    fill: #f8b02e;
+  }
+  100% {
+    fill: #f8b02e;
+    stroke-dashoffset: 0;
+  }
+}
+
+.fade {
+  animation: fadeKeyFrame .8s linear 2s forwards;
+}
+
+@keyframes fadeKeyFrame {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
