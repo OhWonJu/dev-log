@@ -8,10 +8,10 @@
   0% {
     fill: transparent;
   }
-  50% {
+  48% {
     fill: transparent;
   }
-  66% {
+  55% {
     fill: #f8b02e;
   }
   100% {
@@ -21,7 +21,7 @@
 }
 
 .fade {
-  animation: fadeKeyFrame .8s linear 2s forwards;
+  animation: fadeKeyFrame .5s linear 2s forwards;
 }
 
 @keyframes fadeKeyFrame {

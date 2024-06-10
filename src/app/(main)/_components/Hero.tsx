@@ -12,7 +12,7 @@ const Hero = ({ className }: { className?: string }) => {
       <p
         className={cn(
           style.fade,
-          "text-symbol-500 font-Kenwave text-[1.5rem] mt-6 opacity-0"
+          "text-symbol-500 font-Kenwave text-[1.5rem] mb-10 opacity-0"
         )}
       >
         Portfolio & Devlog

@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { QueryProvider } from "@/components/providers/QueryProvider";
 
 import { cn } from "@/lib/utils";
+import { Navigator } from "@/components";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -40,9 +41,10 @@ export default function RootLayout({
         >
           <QueryProvider>
             <div
-              className="h-full w-full bg-background text-primary"
+              className="bg-background text-primary"
               style={{ backgroundImage: "var(--background-image)" }}
             >
+              <Navigator />
               {children}
             </div>
           </QueryProvider>
