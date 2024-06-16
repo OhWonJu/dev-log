@@ -5,12 +5,13 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
+import { TAB_MAP } from "@/constants/navigator";
+import { NAV_HEIGHT } from "@/constants/style";
+
 import { cn } from "@/lib/utils";
 import { useScrollTop } from "@/hooks/useScrollTop";
 
 import { useNavTab } from "@/store/useNavTab";
-
-import { TAB_MAP } from "@/constants/navigator";
 
 import { Recipe } from "./icons";
 import ModeToggle from "./providers/ModeToggle";
@@ -45,9 +46,10 @@ const Navigator = () => {
   return (
     <nav
       className={cn(
-        "z-50 bg-transparent fixed top-0 flex items-center w-full h-[3.5rem] px-6 box-border",
+        "z-50 bg-transparent fixed top-0 flex items-center w-full px-6 box-border",
         scrolled && "bg-background border-b shadow-sm"
       )}
+      style={{ height: NAV_HEIGHT }}
     >
       {scrolled && <Recipe scale={0.18} fill={true} />}
       <div className="md:ml-auto md:justify-end w-full h-full flex items-center gap-x-6">
