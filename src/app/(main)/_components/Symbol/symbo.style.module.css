@@ -19,16 +19,3 @@
     stroke-dashoffset: 0;
   }
 }
-
-.fade {
-  animation: fadeKeyFrame .5s linear 2s forwards;
-}
-
-@keyframes fadeKeyFrame {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}

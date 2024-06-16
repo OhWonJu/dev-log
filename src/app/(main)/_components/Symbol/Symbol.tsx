@@ -1,6 +1,6 @@
 import { Recipe } from "@/components/icons";
 
-import style from "./style.module.css";
+import style from "./symbo.style.module.css";
 
 const Symbol = () => {
   return <Recipe className={style.draw} scale={1.5} />;

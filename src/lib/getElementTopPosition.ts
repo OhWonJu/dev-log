@@ -1,7 +1,9 @@
-export function getElementTopPosition(element: HTMLElement) {
-  // const headerOffset = NAV_HEIGHT + PRODUCT_TAB_HEIGHT;
-  const elementPosition = element.getBoundingClientRect().top;
-  // const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-  const offsetPosition = elementPosition + window.scrollY;
-  return offsetPosition;
+export function getElementOffsetBoundery(element: HTMLElement) {
+  const elementTopPosition = element.getBoundingClientRect().top;
+  const elementBottomPosition = element.getBoundingClientRect().bottom;
+
+  return {
+    topOffset: elementTopPosition + window.scrollY,
+    bottomOffset: elementBottomPosition + window.scrollY,
+  };
 }
