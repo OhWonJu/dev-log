@@ -1,1 +1,13 @@
+export { default as Apollo } from "./Apollo";
+export { default as Github } from "./Github";
+export { default as JavaScript } from "./JavaScript";
+export { default as NestJsIcon } from "./NestJsIcon";
+export { default as NextJsIcon } from "./NextJsIcon";
+export { default as PrismaIcon } from "./PrismaIcon";
+export { default as ReactIcon } from "./ReactIcon";
 export { default as Recipe } from "./Recipe";
+export { default as Redux } from "./Redux";
+export { default as StyledComponents } from "./StyledComponents";
+export { default as TailwindIcon } from "./TailwindIcon";
+export { default as TanstackQueryIcon } from "./TanstackQueryIcon";
+export { default as TypeScript } from "./TypeScript";
