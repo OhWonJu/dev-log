@@ -15,6 +15,7 @@ import {
 } from "@/components/icons";
 
 import {
+  Career,
   Hero,
   MainHeader,
   ProfileCard,
@@ -23,6 +24,61 @@ import {
   SubHeader,
 } from "./_components";
 import GraphQl from "@/components/icons/GraphQl";
+
+const STACK_MAP = [
+  {
+    icon: <JavaScript className="w-4 h-4 rounded-sm" />,
+    stackName: "Javascript",
+  },
+  {
+    icon: <TypeScript className="w-4 h-4 rounded-sm" />,
+    stackName: "TypeScript",
+  },
+  {
+    icon: <ReactIcon className="w-4 h-4 rounded-sm" />,
+    stackName: "React",
+  },
+  {
+    icon: <NextJsIcon className="w-4 h-4 rounded-sm" />,
+    stackName: "Next.js",
+  },
+  {
+    icon: <TanstackQueryIcon className="w-4 h-4 rounded-sm" />,
+    stackName: "TanstackQuery",
+  },
+  {
+    icon: <Redux className="w-4 h-4 rounded-sm" />,
+    stackName: "ReduxToolKit",
+  },
+  {
+    icon: null,
+    stackName: "Zustand",
+  },
+  {
+    icon: <StyledComponents className="w-4 h-4 rounded-sm" />,
+    stackName: "StyledComponents",
+  },
+  {
+    icon: <TailwindIcon className="w-4 h-4 rounded-sm" />,
+    stackName: "Tailwind",
+  },
+  {
+    icon: <NestJsIcon className="w-4 h-4 rounded-sm" />,
+    stackName: "Nest.js",
+  },
+  {
+    icon: <GraphQl className="w-4 h-4 rounded-sm" />,
+    stackName: "GraphQL",
+  },
+  {
+    icon: <PrismaIcon className="w-4 h-4 rounded-sm" />,
+    stackName: "Prisma",
+  },
+  {
+    icon: <Apollo className="w-4 h-4 rounded-sm" />,
+    stackName: "ApolloClient",
+  },
+];
 
 const MainPage = () => {
   return (
@@ -37,10 +93,10 @@ const MainPage = () => {
       <Section
         id={TAB_MAP[1].contant} // about
         index={1}
-        className="h-screen"
+        className=""
       >
         <MainHeader>About</MainHeader>
-        <article>
+        <article className="h-screen">
           <SubHeader>
             Who is the <strong className="text-symbol-500">chef?</strong>
           </SubHeader>
@@ -48,61 +104,22 @@ const MainPage = () => {
             <div className="flex-1 flex justify-center items-center">
               <ProfileCard />
             </div>
-            <div className="flex-1 flex flex-col p-2">
+            <div className="flex-1 flex flex-col p-2 items-center">
               <SubHeader className="text-2xl">Dev Stacks</SubHeader>
               <div className="flex-1 flex flex-wrap gap-2">
-                <StackItem>
-                  <JavaScript className="w-4 h-4 rounded-sm" />
-                  JavaScript
-                </StackItem>
-                <StackItem>
-                  <TypeScript className="w-4 h-4 rounded-sm" />
-                  TypeScript
-                </StackItem>
-                <StackItem>
-                  <ReactIcon className="w-4 h-4 rounded-sm" />
-                  React
-                </StackItem>
-                <StackItem>
-                  <NextJsIcon className="w-4 h-4 rounded-sm" />
-                  Next.js
-                </StackItem>
-                <StackItem>
-                  <TanstackQueryIcon className="w-4 h-4 rounded-sm" />
-                  TanstackQuery
-                </StackItem>
-                <StackItem>
-                  <Redux className="w-4 h-4 rounded-sm" />
-                  ReduxToolKit
-                </StackItem>
-                <StackItem>Zustand</StackItem>
-                <StackItem>
-                  <StyledComponents className="w-4 h-4 rounded-sm" />
-                  StyledComponents
-                </StackItem>
-                <StackItem>
-                  <TailwindIcon className="w-4 h-4 rounded-sm" />
-                  Tailwind
-                </StackItem>
-                <StackItem>
-                  <NestJsIcon className="w-4 h-4 rounded-sm" />
-                  Nest.js
-                </StackItem>
-                <StackItem>
-                  <GraphQl className="w-4 h-4 rounded-sm" />
-                  GraphQL
-                </StackItem>
-                <StackItem>
-                  <PrismaIcon className="w-4 h-4 rounded-sm" />
-                  Prisma
-                </StackItem>
-                <StackItem>
-                  <Apollo className="w-4 h-4 rounded-sm" />
-                  Apollo Client
-                </StackItem>
+                {STACK_MAP.map(({ icon, stackName }, index) => (
+                  <StackItem key={index}>
+                    {icon}
+                    {stackName}
+                  </StackItem>
+                ))}
               </div>
             </div>
           </div>
+        </article>
+        <article className="h-screen">
+          <SubHeader>Career</SubHeader>
+          <Career />
         </article>
       </Section>
       <Section

@@ -9,7 +9,7 @@ const SubHeader = ({
   children: React.ReactNode;
 }) => {
   return (
-    <h2 className={cn("font-semibold text-4xl mb-6 text-center", className)}>
+    <h2 className={cn("font-semibold text-6xl mb-20 text-center", className)}>
       {children}
     </h2>
   );
