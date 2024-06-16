@@ -57,9 +57,9 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        "symbol-100": "#F7DF47",
-        "symbol-300": "#F9D02E",
-        "symbol-500": "#F9B02E",
+        "symbol-100": "var(--symbol-100)",
+        "symbol-300": "var(--symbol-300)",
+        "symbol-500": "var(--symbol-500)",
       },
       borderRadius: {
         lg: "var(--radius)",
