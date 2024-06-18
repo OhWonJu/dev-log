@@ -49,6 +49,9 @@ html {
     --symbol-100: #f7df47;
     --symbol-300: #f9d02e;
     --symbol-500: #f9b02e;
+
+    --white: #fefefd;
+    --black: #1f1f1f;
   }
 
   .dark {
