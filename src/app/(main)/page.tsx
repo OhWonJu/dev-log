@@ -16,6 +16,7 @@ import {
 
 import {
   Career,
+  ContactCard,
   Hero,
   MainHeader,
   ProfileCard,
@@ -212,9 +213,17 @@ const MainPage = () => {
       <Section
         id={TAB_MAP[4].contant} // contact
         index={4}
-        className="h-[120vh] bg-symbol-100 text-secondary text-3xl font-bold"
+        className="h-[110vh]"
       >
         <MainHeader>Contact</MainHeader>
+        <div className="flex w-full">
+          <div className="flex-1 flex justify-center">
+            <ContactCard />
+          </div>
+          <div className="flex-1">
+            <SubHeader className="text-3xl">Chat with me!</SubHeader>
+          </div>
+        </div>
       </Section>
     </div>
   );

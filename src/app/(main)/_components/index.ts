@@ -1,3 +1,4 @@
+export { default as ContactCard } from "./ContactCard";
 export { default as Career } from "./Career/Career";
 export { default as CareerStepView } from "./Career/CareerStepView";
 export { default as CareerTab } from "./Career/CareerTab";
