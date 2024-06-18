@@ -1,0 +1,25 @@
+.receiptWrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.border_top,
+.border_bottom {
+  --size: 8px;
+  width: 100%;
+  height: 16px;
+  background: radial-gradient(var(--size) at 50% 0%, #0000 99%, #fefefd 101%)
+    50% var(--size) / calc(4 * var(--size)) 100% repeat-x;
+}
+
+.border_bottom {
+  rotate: 180deg;
+}
+
+.receipt_content {
+  padding: 3rem 1.5rem;
+  background-color: var(--white);
+  color: var(--black);
+}
