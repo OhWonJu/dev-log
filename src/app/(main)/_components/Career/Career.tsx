@@ -15,10 +15,10 @@ const CAREER_DATA = [
   {
     year: 2022,
     data: [
-      { date: "2022.03", content: "DXDATA 프론트엔드 개발자 입사" },
+      { date: "2022.03", content: "DXDATA 입사 - 프론트엔드 부분" },
       {
         date: "2022.06 - 2022.08",
-        content: "삼성 스마트 팩토리 사업 참여 (Unity 스크립트 유지보수)",
+        content: "삼성 전자 스마트 팩토리 사업 참여 (Unity 스크립트 유지보수)",
       },
       {
         date: "2022.08",
@@ -41,10 +41,6 @@ const CAREER_DATA = [
       {
         date: "2023.06",
         content: "한화오션 3D 자제 관제 시스템 시범 사업 BE 인수인계",
-      },
-      {
-        date: "2023.07",
-        content: "DXDATA 퇴사",
       },
       {
         date: "2023.09",

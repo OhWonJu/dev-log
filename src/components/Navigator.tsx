@@ -46,7 +46,7 @@ const Navigator = () => {
   return (
     <nav
       className={cn(
-        "z-50 bg-transparent fixed top-0 flex items-center w-full px-6 box-border",
+        "z-[99999] bg-transparent fixed top-0 flex items-center w-full px-6 box-border",
         scrolled && "bg-background border-b shadow-sm"
       )}
       style={{ height: NAV_HEIGHT }}
