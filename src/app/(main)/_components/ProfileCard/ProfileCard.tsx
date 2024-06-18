@@ -1,32 +1,24 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import Image from "next/image";
+import { Check, Mail, Undo2 } from "lucide-react";
 
 import style from "./profileCard.style.module.css";
 
+import { EMAIL, GIT_HUB } from "@/constants/contact";
 import { cn } from "@/lib/utils";
-import { FollowerPointerCard } from "@/components/ui/following-pointer";
-import { Check, Mail, Undo2 } from "lucide-react";
-import { Github } from "@/components/icons";
-import Link from "next/link";
 
-const EMAIL = "pio96.dev@gmail.com";
-const GIT_HUB = "https://github.com/OhWonJu";
+import useCopy from "@/hooks/useCopy";
+
+import { FollowerPointerCard } from "@/components/ui/following-pointer";
+import { Github } from "@/components/icons";
 
 const ProfileCard = () => {
   const [isFrontSide, setIsFrontSide] = useState(true);
-  const [copied, setCopied] = useState(false);
 
-  const onCopy = () => {
-    navigator.clipboard.writeText(EMAIL);
-
-    setCopied(true);
-
-    setTimeout(() => {
-      setCopied(false);
-    }, 1000);
-  };
+  const { copied, onCopy } = useCopy();
 
   return (
     <div className={cn(style.card, "w-full max-w-[500px] aspect-[2/1]")}>
@@ -73,7 +65,7 @@ const ProfileCard = () => {
           <div className="flex flex-col h-[80%] p-6 justify-end ">
             <div
               role="button"
-              onClick={onCopy}
+              onClick={() => onCopy(EMAIL)}
               className="flex items-center text-xs font-medium gap-x-4 hover:bg-primary-foreground p-2 rounded-md"
             >
               {copied ? (

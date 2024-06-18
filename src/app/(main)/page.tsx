@@ -143,7 +143,7 @@ const MainPage = () => {
                       14 oz of <strong>Typescript</strong>
                     </li>
                     <li>
-                      1 cups of <strong>Zustand</strong>
+                      1 cup of <strong>Zustand</strong>
                     </li>
                     <li>
                       2 cups of <strong>Shadcn ui</strong>
@@ -152,7 +152,7 @@ const MainPage = () => {
                       2 teaspoons of <strong>Aceternity ui</strong>
                     </li>
                     <li>
-                      1 tablespoons <strong>Framer motion</strong>
+                      1 tablespoon <strong>Framer motion</strong>
                     </li>
                     <li>
                       Whisk together by <strong>Tailwind css</strong>
@@ -161,7 +161,7 @@ const MainPage = () => {
                       Half a gallon of <strong>Prisma</strong>
                     </li>
                     <li>
-                      melting by <strong>Tanstack Query</strong>
+                      Melting by <strong>Tanstack Query</strong>
                     </li>
                   </ul>
                 </div>
@@ -216,12 +216,12 @@ const MainPage = () => {
         className="h-[110vh]"
       >
         <MainHeader>Contact</MainHeader>
-        <div className="flex w-full">
-          <div className="flex-1 flex justify-center">
+        <div className="flex flex-col md:flex-row w-full">
+          <div className="flex-1 flex items-center justify-center">
             <ContactCard />
           </div>
           <div className="flex-1">
-            <SubHeader className="text-3xl">Chat with me!</SubHeader>
+            <SubHeader className="text-3xl"><strong className="text-symbol-500">Chat</strong> with me!</SubHeader>
           </div>
         </div>
       </Section>

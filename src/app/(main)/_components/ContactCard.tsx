@@ -1,13 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
+import Link from "next/link";
+import { Check, Mail } from "lucide-react";
+
+import { EMAIL, GIT_HUB } from "@/constants/contact";
+
+import useCopy from "@/hooks/useCopy";
 
 import { Receipt, ReceiptSeparator } from "@/components";
-import useCopy from "@/hooks/useCopy";
-import { Check, Mail } from "lucide-react";
-import Link from "next/link";
 import { Github } from "@/components/icons";
-import { EMAIL, GIT_HUB } from "@/constants/contact";
 
 const ContactCard = () => {
   const { copied, onCopy } = useCopy();
