@@ -32,8 +32,7 @@ const Section = ({ id = "", index, className, children }: SectionProps) => {
     function updateNavSelected() {
       if (!sectionOffset || typeof index !== "number") return;
 
-      if (window.scrollY >= sectionOffset.topOffset) setSelected(index);
-      // TODO: 해시 갱신
+      if (window.scrollY >= sectionOffset.topOffset - 1) setSelected(index); // -1 : 보정값
     }
 
     window.addEventListener("scroll", updateNavSelected);

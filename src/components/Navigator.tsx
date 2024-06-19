@@ -31,16 +31,21 @@ const Navigator = () => {
 
     setSelected(index);
 
-    router.push(link);
+    // router.push(link);
 
-    // const href = event.currentTarget.href;
+    const href = event.currentTarget.href;
 
-    // const targetId = href.replace(/.*\#/, "");
-    // console.log(targetId);
-    // const element = document.getElementById(targetId);
-    // element?.scrollIntoView({
-    //   behavior: "smooth",
-    // });
+    const targetId = href.replace(/.*\#/, "");
+    const element = document.getElementById(targetId);
+
+    if (!element) {
+      router.push(link);
+      return;
+    }
+
+    element?.scrollIntoView({
+      behavior: "smooth",
+    });
   };
 
   return (

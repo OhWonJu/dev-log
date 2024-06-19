@@ -28,6 +28,7 @@ import GraphQl from "@/components/icons/GraphQl";
 import { PinContainer } from "@/components/ui/3d-pin";
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const STACK_MAP = [
   {
@@ -177,7 +178,7 @@ const MainPage = () => {
                 className="object-cover"
               />
             </PinContainer>
-            <div className="mt-40 text-center text-3xl md:text-4xl">
+            <div className="mt-40 text-center text-2xl sm:text-3xl md:text-4xl">
               <span className="font-extrabold leading-normal">
                 <strong className="text-symbol-500 font-Pacifico pr-3">
                   Recipe
@@ -186,7 +187,7 @@ const MainPage = () => {
                 <br />
                 경험과 지식을 레시피에 빗대어
                 <br />
-                재치있게 표현하는 웹 페이지 입니다.
+                재치있게 표현하고자 하는 웹 페이지 입니다.
               </span>
             </div>
             <Link
@@ -196,7 +197,7 @@ const MainPage = () => {
               target="_blank"
               className="mt-3 mb-60"
             >
-              <span className="text-zinc-400 text-xs font-semibold">
+              <span className="text-zinc-400 dark:text-zinc-600 text-xs font-semibold">
                 motive by Cheeze - recipe!
               </span>
             </Link>
@@ -213,15 +214,43 @@ const MainPage = () => {
       <Section
         id={TAB_MAP[4].contant} // contact
         index={4}
-        className="h-[110vh]"
+        className="h-[100vh]"
       >
         <MainHeader>Contact</MainHeader>
         <div className="flex flex-col md:flex-row w-full">
           <div className="flex-1 flex items-center justify-center">
             <ContactCard />
           </div>
-          <div className="flex-1">
-            <SubHeader className="text-3xl"><strong className="text-symbol-500">Chat</strong> with me!</SubHeader>
+          <div className="flex-1 flex flex-col">
+            <SubHeader className="text-3xl mb-10">
+              <strong className="text-symbol-500">Chat</strong> with me!
+            </SubHeader>
+            <div className="flex flex-col p-4 gap-y-4">
+              <span className="font-semibold text-2xl">커피챗 함께 하기</span>
+              <a className="text-sm">
+                궁금한 점이 있으시다면 가볍게 같이 커피챗을 나누어 보아요.
+                <br />
+                이메일을 통해 커피챗을 희망하는 일자와 시간을 알려주세요! <br />
+              </a>
+              <ul className="list-disc text-xs text-zinc-400 dark:text-zinc-600 p-4">
+                <li>
+                  커피챗을 희망하는 개인 혹은 회사 대해 메일을 통해 간단하게 알려주세요.
+                </li>
+                <li>
+                  24시간 이내에 커피챗 인증 코드와 함께 일정을 답변
+                  드리겠습니다.
+                </li>
+                <li>커피챗이 끝난 이후 인증 코드는 만료됩니다.</li>
+                <li>불분명한 의도의 커피챗 요청은 거부될 수도 있습니다.</li>      
+              </ul>
+              <div className="flex flex-col p-4 rounded-md border-[1px] border-zinc-200 dark:border-zinc-400 shadow-md">
+                <span className="font-semibold mb-4">
+                  커피챗 인증 코드를 받으셨나요 ?
+                </span>
+                {/* TODO:: 모달 -> 코드 입력 -> 챗 페이지로 이동 */}
+                <Button variant={"outline"}>Chat whit me</Button>
+              </div>
+            </div>
           </div>
         </div>
       </Section>
