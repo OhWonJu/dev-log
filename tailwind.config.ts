@@ -1,5 +1,9 @@
 import type { Config } from "tailwindcss";
 
+const {
+  default: flattenColorPalette,
+} = require("tailwindcss/lib/util/flattenColorPalette");
+
 const config = {
   darkMode: ["class"],
   content: [
@@ -22,12 +26,12 @@ const config = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "(var(--background))",
+        background: "var(--background)",
         foreground: "hsl(var(--foreground))",
         backgroundImage: "(var(--background-image))",
         primary: {
           DEFAULT: "var(--primary)",
-          foreground: "hsl(var(--primary-foreground))",
+          foreground: "var(--primary-foreground)",
         },
         secondary: {
           DEFAULT: "var(--secondary)",
@@ -53,9 +57,11 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        "symbol-100": "#F7DF47",
-        "symbol-300": "#F9D02E",
-        "symbol-500": "#F9B02E",
+        white: "var(--white)",
+        black: "var(--black)",
+        "symbol-100": "var(--symbol-100)",
+        "symbol-300": "var(--symbol-300)",
+        "symbol-500": "var(--symbol-500)",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -76,6 +82,9 @@ const config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      boxShadow: {
+        receipt: "0px 0px 1rem 0.5rem rgba(0, 0, 0, 0.1)",
+      },
     },
     fontFamily: {
       Pacifico: ["var(--pacifico)"],
@@ -83,7 +92,18 @@ const config = {
       Kenwave: ["var(--kenwave)"],
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), addVariablesForColors],
 } satisfies Config;
+
+function addVariablesForColors({ addBase, theme }: any) {
+  let allColors = flattenColorPalette(theme("colors"));
+  let newVars = Object.fromEntries(
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+  );
+
+  addBase({
+    ":root": newVars,
+  });
+}
 
 export default config;

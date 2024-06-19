@@ -1,0 +1,21 @@
+.draw {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: draw 3s linear 500ms forwards;
+}
+
+@keyframes draw {
+  0% {
+    fill: transparent;
+  }
+  48% {
+    fill: transparent;
+  }
+  55% {
+    fill: #f8b02e;
+  }
+  100% {
+    fill: #f8b02e;
+    stroke-dashoffset: 0;
+  }
+}
