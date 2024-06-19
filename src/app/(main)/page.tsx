@@ -248,7 +248,7 @@ const MainPage = () => {
                   커피챗 인증 코드를 받으셨나요 ?
                 </span>
                 {/* TODO:: 모달 -> 코드 입력 -> 챗 페이지로 이동 */}
-                <Button variant={"outline"}>Chat whit me</Button>
+                <Button variant={"outline"}>Chat with me</Button>
               </div>
             </div>
           </div>
