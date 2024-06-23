@@ -2,6 +2,7 @@ export { default as ContactCard } from "./ContactCard";
 export { default as Career } from "./Career/Career";
 export { default as CareerStepView } from "./Career/CareerStepView";
 export { default as CareerTab } from "./Career/CareerTab";
+export { default as EnterChatButton } from "./EnterChatButton";
 export { default as Hero } from "./Hero/Hero";
 export { default as ProfileCard } from "./ProfileCard/ProfileCard";
 export { default as Section } from "./Section";
