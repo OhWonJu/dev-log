@@ -6,6 +6,6 @@ type NavTabStore = {
 };
 
 export const useNavTab = create<NavTabStore>((set, get) => ({
-  selected: 0,
+  selected: -1,
   setSelected: (index) => set(() => ({ selected: index })),
 }));
