@@ -17,6 +17,7 @@ import {
 import {
   Career,
   ContactCard,
+  EnterChatButton,
   Hero,
   MainHeader,
   ProfileCard,
@@ -28,7 +29,6 @@ import GraphQl from "@/components/icons/GraphQl";
 import { PinContainer } from "@/components/ui/3d-pin";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 
 const STACK_MAP = [
   {
@@ -234,21 +234,22 @@ const MainPage = () => {
               </a>
               <ul className="list-disc text-xs text-zinc-400 dark:text-zinc-600 p-4">
                 <li>
-                  커피챗을 희망하는 개인 혹은 회사 대해 메일을 통해 간단하게 알려주세요.
+                  커피챗을 희망하는 개인 혹은 회사 대해 메일을 통해 간단하게
+                  알려주세요.
                 </li>
                 <li>
                   24시간 이내에 커피챗 인증 코드와 함께 일정을 답변
                   드리겠습니다.
                 </li>
                 <li>커피챗이 끝난 이후 인증 코드는 만료됩니다.</li>
-                <li>불분명한 의도의 커피챗 요청은 거부될 수도 있습니다.</li>      
+                <li>불분명한 의도의 커피챗 요청은 거부될 수도 있습니다.</li>
               </ul>
               <div className="flex flex-col p-4 rounded-md border-[1px] border-zinc-200 dark:border-zinc-400 shadow-md">
                 <span className="font-semibold mb-4">
                   커피챗 인증 코드를 받으셨나요 ?
                 </span>
                 {/* TODO:: 모달 -> 코드 입력 -> 챗 페이지로 이동 */}
-                <Button variant={"outline"}>Chat with me</Button>
+                <EnterChatButton />
               </div>
             </div>
           </div>
