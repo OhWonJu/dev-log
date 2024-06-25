@@ -47,14 +47,14 @@ model Message {
 }
 
 model Document {
-  id          String   @id @default(uuid())
+  id          String  @id @default(uuid())
   title       String
   subTitle    String?
   isPublished Boolean
-  isPinned    Boolean  @default(false)
-  content     String?  @db.Text
-  coverImage  String?  @db.Text
-  indexMap    String[]
+  isPinned    Boolean @default(false)
+  content     String? @db.Text
+  coverImage  String? @db.Text
+  indexMap    String?  @db.Text
 
   series   Series? @relation(fields: [seriesId], references: [id])
   seriesId String?
