@@ -54,7 +54,7 @@ model Document {
   isPinned    Boolean @default(false)
   content     String? @db.Text
   coverImage  String? @db.Text
-  indexMap    String?  @db.Text
+  indexMap    String? @db.Text
 
   series   Series? @relation(fields: [seriesId], references: [id])
   seriesId String?
@@ -69,16 +69,14 @@ model Document {
 
 model Tag {
   id      String @id @default(uuid())
-  tagName String
-  count   Int    @default(0)
+  tagName String @unique()
 
   documents Document[]
 }
 
 model Series {
-  id    String @id @default(uuid())
-  name  String
-  count Int    @default(0)
+  id   String @id @default(uuid())
+  name String
 
   documents Document[]
 
