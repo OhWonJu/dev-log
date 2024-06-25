@@ -44,7 +44,7 @@ const ChatList = ({}: ChatListProps) => {
               id={chat.id}
               onClick={() => onRedirect(chat.id)}
               label={chat.chatCode}
-              focus={params.chatId === chat.id}
+              focus={params?.chatId === chat.id}
               active={chat.isActive}
             />
           </div>

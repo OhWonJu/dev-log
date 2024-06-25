@@ -1,7 +1,9 @@
+import { NAV_HEIGHT } from "@/constants/style";
+
 const BlogLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="relative h-full md:mx-w-2xl lg:mx-w-4xl mx-auto">
-      <main className="flex-1 h-full w-full">{children}</main>
+    <div className="h-full flex" style={{ paddingTop: NAV_HEIGHT }}>
+      <main className="relative flex-1 h-full">{children}</main>
     </div>
   );
 };

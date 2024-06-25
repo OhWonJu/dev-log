@@ -21,7 +21,7 @@ const Receipt = ({
 
       <div className={cn(style.receiptWrapper, wrapperClassName)}>
         <div className={cn(style.border_top)} />
-        <div className={cn(style.receipt_content, className)}>{children}</div>
+        <div className={cn(style.receipt_content, "px-6 py-12", className)}>{children}</div>
         <div className={cn(style.border_bottom)} />
       </div>
     </div>

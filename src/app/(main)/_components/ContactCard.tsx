@@ -26,7 +26,7 @@ const ContactCard = () => {
       <div
         role="button"
         onClick={() => onCopy(EMAIL)}
-        className="flex w-full items-center hover:bg-primary-foreground rounded-md p-1"
+        className="flex w-full items-center hover:bg-primary-foreground dark:hover:bg-secondary-foreground rounded-md p-1"
       >
         <div className="w-[20%] flex items-center">
           {copied ? (
@@ -47,7 +47,7 @@ const ContactCard = () => {
       <Link
         href={GIT_HUB}
         target="_blank"
-        className="flex w-full items-center hover:bg-primary-foreground rounded-md p-1"
+        className="flex w-full items-center hover:bg-primary-foreground dark:hover:bg-secondary-foreground rounded-md p-1"
       >
         <div className="w-[20%] flex items-center">
           <Github className="w-4 h-4" />

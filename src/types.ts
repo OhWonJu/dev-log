@@ -10,3 +10,9 @@ export type NextApiResponseServerIO = NextApiResponse & {
     };
   };
 };
+
+export type IndexMap = {
+  id: string;
+  content: string;
+  level: 2 | 3 | 1;
+}
