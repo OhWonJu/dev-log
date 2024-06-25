@@ -51,7 +51,7 @@ const Editor = ({
           data-theming-css
         />
       </div>
-      <div className="hidden lg:block">
+      <div className="hidden lg:block mr-[56px]">
         <DocumentIndexCard postId={postId} initialData={initialIndexMap} />
       </div>
     </div>

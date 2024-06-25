@@ -183,9 +183,9 @@ const MainPage = () => {
                 <strong className="text-symbol-500 font-Pacifico pr-3">
                   Recipe
                 </strong>
-                는 웹 개발에 대한 아이덴티티,
+                는 웹 개발에 대한 경험과 지식
                 <br />
-                경험과 지식을 레시피에 빗대어
+                그리고 아이덴티티를 레시피에 빗대어
                 <br />
                 재치있게 표현하고자 하는 웹 페이지 입니다.
               </span>
