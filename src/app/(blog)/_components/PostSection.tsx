@@ -76,12 +76,12 @@ const PostSection = ({ initialData }: PostSectionProps) => {
           <div className="md:max-w-4xl lg:max-w-6xl xl:max-w-7xl mx-auto">
             <div className="space-y-4 pl-[56px] pt-[78px]">
               <Skeleton className="h-16 w-[30%]" />
-              <Skeleton className="h-6 w-[80%]" />
+              <Skeleton className="h-6 w-[50%]" />
               <Skeleton className="h-6 w-[40%]" />
+              <Skeleton className="h-6 w-[50%]" />
               <Skeleton className="h-6 w-[60%]" />
-              <Skeleton className="h-6 w-[80%]" />
               <Skeleton className="h-6 w-[40%]" />
-              <Skeleton className="h-6 w-[60%]" />
+              <Skeleton className="h-6 w-[20%]" />
             </div>
           </div>
         ),

@@ -44,7 +44,7 @@ const STACK_MAP = [
     stackName: "React",
   },
   {
-    icon: <NextJsIcon className="w-4 h-4 rounded-sm" />,
+    icon: <NextJsIcon className="w-4 h-4 rounded-sm fill-primary" />,
     stackName: "Next.js",
   },
   {
