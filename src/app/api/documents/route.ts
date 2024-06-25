@@ -45,7 +45,7 @@ export async function GET(req: Request) {
           isPublished: true,
         },
         take: DOCUMENTS_BATCH,
-        skip: 1,
+        skip: 0,
         include: {
           series: true,
           tags: true,
@@ -65,7 +65,7 @@ export async function GET(req: Request) {
           isPinned: true,
         },
         take: DOCUMENTS_BATCH,
-        skip: 1,
+        skip: 0,
         include: {
           series: true,
           tags: true,
@@ -91,11 +91,11 @@ export async function GET(req: Request) {
     }
 
     const documents = await db.document.findMany({
-      where: {
-        isPublished: !isAdmin && true,
-      },
+      // where: {
+      //   isPublished: !isAdmin && true,
+      // },
       take: DOCUMENTS_BATCH,
-      skip: 1,
+      skip: 0,
       include: {
         series: true,
         tags: true,

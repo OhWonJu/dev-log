@@ -38,3 +38,12 @@ export const generateDocumentIndexMap = (indexData?: string | null) => {
 
   return indexMap;
 };
+
+export const processTags = (newTags: string) => {
+  const tags = newTags.match(/#[^\s#]+/g) || [];
+
+  return tags.map((tag) => ({
+    where: { tagName: tag.replace(/#/g, "") },
+    create: { tagName: tag.replace(/#/g, "") },
+  }));
+};

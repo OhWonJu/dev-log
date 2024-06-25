@@ -2,11 +2,12 @@
 
 import React, { useMemo, useRef } from "react";
 import dynamic from "next/dynamic";
-import { Document } from "prisma/prisma-client";
+import { Tag } from "prisma/prisma-client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
-import { generateDocumentIndexMap } from "@/lib/utils";
+import { DocumentWithTags } from "@/types";
+import { generateDocumentIndexMap, processTags } from "@/lib/utils";
 import useAuthStore from "@/store/useAuthsStore";
 
 import { Skeleton } from "@/components/ui/skeleton";
@@ -14,13 +15,23 @@ import { Skeleton } from "@/components/ui/skeleton";
 import Toolbar from "./Toolbar";
 
 interface PostSectionProps {
-  initialData: Document;
+  initialData: DocumentWithTags;
 }
 
 const PostSection = ({ initialData }: PostSectionProps) => {
   const { auth } = useAuthStore();
 
-  const title = useRef<string>(initialData ? initialData.title : "Untitled");
+  const infoData = useRef<{
+    title: string;
+    oldTags: Tag[];
+    newTags: string | null;
+    seriesId: string | null;
+  }>({
+    title: initialData.title ?? "Untitled",
+    seriesId: initialData.seriesId ?? null,
+    oldTags: initialData.tags ?? [],
+    newTags: null,
+  });
   const content = useRef<string | null>(
     initialData.content ? initialData.content : ""
   );
@@ -29,9 +40,10 @@ const PostSection = ({ initialData }: PostSectionProps) => {
     const indexStructure = generateDocumentIndexMap(content.current);
 
     updatePost({
-      title: title.current,
+      title: infoData.current.title,
       content: content.current,
       indexMap: JSON.stringify(indexStructure),
+      newTags: infoData.current.newTags,
     });
   };
 
@@ -41,15 +53,18 @@ const PostSection = ({ initialData }: PostSectionProps) => {
       content,
       title,
       indexMap,
+      newTags,
     }: {
       title?: string | null;
       content?: string | null;
       indexMap?: string | null;
+      newTags?: string | null;
     }) =>
       await axios.patch(`/api/documents/${initialData.id}`, {
         title,
         content,
         indexMap,
+        newTags,
       }),
   });
 
@@ -80,7 +95,9 @@ const PostSection = ({ initialData }: PostSectionProps) => {
         <Toolbar
           initialData={initialData}
           preview={!auth}
-          onChange={(value) => (title.current = value)}
+          onChange={(target: "title" | "seriesId" | "newTags", value: any) =>
+            (infoData.current[target] = value)
+          }
         />
         <Editor
           initialContent={initialData.content}
@@ -92,6 +109,9 @@ const PostSection = ({ initialData }: PostSectionProps) => {
             content.current = value;
           }}
         />
+      </div>
+      <div className="absolute top-0 left-0" role="button" onClick={onSubmit}>
+        Submit
       </div>
     </div>
   );

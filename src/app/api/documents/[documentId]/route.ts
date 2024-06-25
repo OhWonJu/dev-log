@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
 import { checkAdmin } from "@/lib/checkAdmin";
+import { processTags } from "@/lib/utils";
 
 export async function GET(
   req: Request,
@@ -52,9 +53,10 @@ export async function PATCH(
       content,
       coverImage,
       indexMap,
+      newTags,
     } = await req.json();
 
-    console.log(title, content);
+    console.log(typeof newTags);
 
     const documentId = params.documentId;
 
@@ -62,6 +64,20 @@ export async function PATCH(
     if (!isAdmin) return new NextResponse("Unauthorized", { status: 401 });
     if (!documentId)
       return new NextResponse("Document ID missing", { status: 400 });
+
+    let oldTagIds = null;
+    if (typeof newTags === "string") {
+      const documentExist = await db.document.findFirst({
+        where: { id: documentId },
+        select: {
+          tags: true,
+        },
+      });
+
+      oldTagIds = documentExist?.tags.map((tag) => ({
+        id: tag.id,
+      }));
+    }
 
     const document = await db.document.update({
       where: {
@@ -75,8 +91,42 @@ export async function PATCH(
         content,
         coverImage,
         indexMap,
+        ...(oldTagIds && {
+          tags: {
+            disconnect: oldTagIds,
+            connectOrCreate: processTags(newTags),
+          },
+        }),
       },
     });
+
+    if (document.id) {
+      if (oldTagIds && oldTagIds.length !== 0) {
+        const tags = await Promise.all(
+          oldTagIds.map(
+            async (tag) =>
+              await db.tag.findFirst({
+                where: { id: tag.id },
+                select: {
+                  id: true,
+                  documents: { select: { id: true } },
+                },
+              })
+          )
+        );
+        // filter callback안에서 await을 사용하면, callback은 항상 promise를 반환합니다. promise는 항상 'truthy'
+        // promise를 밖에서 해결..
+        const noDocuments = oldTagIds.filter((tagId, index) => {
+          const tag = tags[index];
+          if (tag?.documents.length === 0) {
+            return tagId.id;
+          } else {
+            return null;
+          }
+        });
+        await db.tag.deleteMany({ where: { OR: noDocuments } });
+      }
+    }
 
     return NextResponse.json(document);
   } catch (error) {

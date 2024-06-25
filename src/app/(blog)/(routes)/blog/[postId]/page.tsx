@@ -1,7 +1,8 @@
 import React from "react";
-import { Document } from "prisma/prisma-client";
 
-import {  PostSection } from "@/app/(blog)/_components";
+import { DocumentWithTags } from "@/types";
+
+import { PostSection } from "@/app/(blog)/_components";
 
 interface PostIdPageProps {
   params: {
@@ -23,7 +24,7 @@ const getPostData = async (postId: string) => {
 };
 
 const PostIdPage = async ({ params }: PostIdPageProps) => {
-  const postData = (await getPostData(params.postId)) as Document;
+  const postData = (await getPostData(params.postId)) as DocumentWithTags;
 
   if (!postData) return <div>Post Not Found.</div>;
 
