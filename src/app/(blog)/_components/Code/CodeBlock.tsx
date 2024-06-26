@@ -66,6 +66,7 @@ const CodeBlock = createReactBlockSpec(
               lineNumbers: false,
               foldGutter: false,
               tabSize: 4,
+              highlightActiveLine: false,
             }}
             onChange={onInputChange}
           />
