@@ -57,7 +57,7 @@ const TitleInput = ({ initialTitle, onChange, preview }: TitleInputProps) => {
         <div
           role={!preview ? "button" : "article"}
           onClick={enableInput}
-          className="mb-6 text-6xl text-center font-bold break-words outline-none"
+          className="text-6xl text-center mb-6 font-bold break-words outline-none"
         >
           {value}
         </div>

@@ -2,12 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body,
-:root {
-  height: 100%;
-}
-
 @layer base {
   :root {
     --background: #fefefd;
@@ -97,16 +91,36 @@ body,
   --bn-colors-editor-background: 0 0% 0%;
 }
 
+.bn-block-content {
+  span {
+    padding: 2px 7px;
+    border-radius: 8px;
+    font-weight: 500;
+  }
+}
+
 .bn-block-content[data-content-type="heading"][data-level="1"] {
   margin-top: 56px;
   padding-top: 10px;
+
+  h1 {
+    font-size: 2.8rem;
+  }
 }
 
 .bn-block-content[data-content-type="heading"][data-level="2"] {
   margin-top: 56px;
   padding-top: 5px;
+
+  h2 {
+    font-size: 2rem;
+  }
 }
 
 .bn-block-content[data-content-type="heading"][data-level="3"] {
   margin-top: 56px;
+
+  h3 {
+    font-size: 1.3rem;
+  }
 }

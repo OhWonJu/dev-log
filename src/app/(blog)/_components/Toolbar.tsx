@@ -24,7 +24,7 @@ const Toolbar = ({ initialData, onChange, preview }: ToolbarProps) => {
         preview={preview}
         onChange={onChange}
       />
-      <div className="flex w-full py-3 mb-3 justify-center items-center text-xs text-zinc-400 dark:text-zinc-600">
+      <div className="flex w-full py-3 mb-3 justify-center items-center text-xs font-semibold text-zinc-400 dark:text-zinc-600">
         <Calendar className="w-3 h-3 mr-1" />
         {format(initialData.createdAt, DATE_FORMAT)}
       </div>

@@ -61,7 +61,7 @@ const TagInput = ({ initialTags, onChange, preview }: TagInputProps) => {
           className="text-sm w-full text-center p-2 bg-transparent font-semibold break-words outline-none resize-none"
         />
       ) : (
-        <div className="flex w-full items-center justify-center text-sm font-semibold break-words outline-none">
+        <div className="group/tag flex w-full items-center justify-center text-sm font-semibold break-words outline-none">
           <div className="flex flex-wrap gap-1">
             {value &&
               value
@@ -70,7 +70,7 @@ const TagInput = ({ initialTags, onChange, preview }: TagInputProps) => {
                 .map((tag: string, index: number) => (
                   <div
                     key={index}
-                    className="px-3 py-2 rounded-full border border-zinc-400 dark:border-zinc-600"
+                    className="px-3 py-2 rounded-full border bg-background shadow-sm border-zinc-400 dark:border-zinc-600"
                   >
                     {tag.replace(/#/g, "")}
                   </div>
@@ -82,7 +82,7 @@ const TagInput = ({ initialTags, onChange, preview }: TagInputProps) => {
               onClick={enableInput}
               className="p-2 ml-4"
             >
-              <EditIcon className="w-5 h-5 text-zinc-400 dark:text-zinc-600" />
+              <EditIcon className="hidden group-hover/tag:block w-5 h-5 text-zinc-400 dark:text-zinc-600" />
             </div>
           )}
         </div>

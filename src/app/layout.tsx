@@ -51,7 +51,7 @@ export default async function RootLayout({
             <SocketProvider>
               <QueryProvider>
                 <div
-                  className="bg-background text-primary h-full"
+                  className="bg-background text-primary min-h-screen"
                   style={{ backgroundImage: "var(--background-image)" }}
                 >
                   <ModalProvider />
