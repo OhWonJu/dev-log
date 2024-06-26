@@ -92,7 +92,7 @@
 }
 
 .bn-block-content {
-  span {
+  span[data-background-color] {
     padding: 2px 7px;
     border-radius: 8px;
     font-weight: 500;
