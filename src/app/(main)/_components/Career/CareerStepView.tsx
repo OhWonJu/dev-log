@@ -1,4 +1,3 @@
-import { StepWrapper } from "@/components";
 import React from "react";
 
 interface CareerStepView {

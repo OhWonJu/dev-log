@@ -1,9 +1,11 @@
 "use client";
 
 import { useRef, useState } from "react";
+
+import { StepWrapper } from "@/components";
+
 import CareerStepView from "./CareerStepView";
 import CareerTab from "./CareerTab";
-import { StepWrapper } from "@/components";
 
 const CAREER_DATA = [
   {
