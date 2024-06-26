@@ -11,15 +11,14 @@ import {
   PartialBlock,
   defaultBlockSpecs,
   filterSuggestionItems,
-  insertOrUpdateBlock,
 } from "@blocknote/core";
 import { BlockNoteView } from "@blocknote/mantine";
-import { MdAutoAwesome } from "react-icons/md";
 
 import "@blocknote/mantine/style.css";
 
 import DocumentIndexCard from "./DocumentIndexCard";
 import { CalloutBlock, insertCallout } from "./CalloutBlock/CalloutBlock";
+import { CodeBlock, insertCode } from "./Code/CodeBlock";
 
 interface EditorProps {
   initialContent?: string | null;
@@ -36,6 +35,7 @@ const schema = BlockNoteSchema.create({
     ...defaultBlockSpecs,
     // Adds the Alert block.
     callout: CalloutBlock,
+    procode: CodeBlock,
   },
 });
 
@@ -78,7 +78,11 @@ const Editor = ({
             triggerCharacter={"/"}
             getItems={async (query) =>
               filterSuggestionItems(
-                [...getDefaultReactSlashMenuItems(editor), insertCallout()],
+                [
+                  ...getDefaultReactSlashMenuItems(editor),
+                  insertCallout(),
+                  insertCode(),
+                ],
                 query
               )
             }

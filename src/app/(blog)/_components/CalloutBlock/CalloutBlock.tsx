@@ -89,12 +89,17 @@ const CalloutBlock = createReactBlockSpec(
         (a) => a.value === props.block.props.type
       )!;
       const Icon = calloutType.icon;
+
       return (
         <div
           className={style.callout}
           data-callout-type={props.block.props.type}
         >
-          <Menu withinPortal={false} zIndex={999999}>
+          <Menu
+            withinPortal={false}
+            disabled={!props.editor.isEditable}
+            zIndex={999999}
+          >
             <Menu.Target>
               <div
                 className={style.callout_icon_wrapper}
