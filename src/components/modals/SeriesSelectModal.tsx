@@ -55,7 +55,13 @@ const SeriesSelectModal = () => {
   const { mutate: selectSeries } = useMutation({
     mutationFn: async (id: string) =>
       await axios.patch(`/api/series/${id}`, { documentId: data.documentId }),
-    onSuccess: () => handleClose(),
+    onSuccess: (data) => {
+      console.log(data);
+      queryClient.invalidateQueries({
+        queryKey: ["serise-list", data.data.id],
+      });
+      handleClose();
+    },
   });
 
   const form = useForm({

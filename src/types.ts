@@ -22,3 +22,7 @@ export type DocumentWithTagsWithSeries = Document & {
 } & {
   series: Series;
 };
+
+export type SeriesWithDocuments = Series & {
+  documents: Document[];
+};

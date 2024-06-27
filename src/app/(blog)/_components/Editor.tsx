@@ -24,6 +24,7 @@ interface EditorProps {
   editable?: boolean;
   postId: string;
   initialIndexMap?: string | null;
+  seriesName?: string | null;
   onSubmit: () => void;
   onChange: (value: string) => void;
 }
@@ -45,6 +46,7 @@ const Editor = ({
   onChange,
   postId,
   initialIndexMap,
+  seriesName,
 }: EditorProps) => {
   const { resolvedTheme } = useTheme();
 
@@ -89,7 +91,11 @@ const Editor = ({
         </BlockNoteView>
       </div>
       <div className="hidden lg:block mr-[56px]">
-        <DocumentIndexCard postId={postId} initialData={initialIndexMap} />
+        <DocumentIndexCard
+          postId={postId}
+          initialData={initialIndexMap}
+          seriesName={seriesName}
+        />
       </div>
     </div>
   );

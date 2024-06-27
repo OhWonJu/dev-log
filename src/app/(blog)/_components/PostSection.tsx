@@ -14,6 +14,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 import Toolbar from "./Toolbar";
 import { Button } from "@/components/ui/button";
+import Course from "./Course/Course";
 
 interface PostSectionProps {
   initialData: DocumentWithTagsWithSeries;
@@ -150,11 +151,13 @@ const PostSection = ({ initialData }: PostSectionProps) => {
           editable={auth}
           postId={initialData.id}
           initialIndexMap={initialData.indexMap}
+          seriesName={initialData.series?.name}
           onSubmit={() => {}}
           onChange={(value) => {
             content.current = value;
           }}
         />
+        <Course documentId={initialData.id} seriesId={initialData.seriesId} />
       </div>
       {auth && (
         <Button

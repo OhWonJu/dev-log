@@ -9,9 +9,14 @@ import { Receipt, ReceiptSeparator } from "@/components";
 interface DocumentIndexCardProps {
   postId: string;
   initialData?: string | null;
+  seriesName?: string | null;
 }
 
-const DocumentIndexCard = ({ postId, initialData }: DocumentIndexCardProps) => {
+const DocumentIndexCard = ({
+  postId,
+  initialData,
+  seriesName,
+}: DocumentIndexCardProps) => {
   const { copied, onCopy } = useCopy();
   const originUrl = useOrigin();
 
@@ -26,6 +31,16 @@ const DocumentIndexCard = ({ postId, initialData }: DocumentIndexCardProps) => {
     event.preventDefault();
 
     const element = document.querySelector(`[data-id="${id}"]`);
+
+    element?.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
+
+  const goToCourse = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    event.preventDefault();
+
+    const element = document.getElementById("course");
 
     element?.scrollIntoView({
       behavior: "smooth",
@@ -59,6 +74,19 @@ const DocumentIndexCard = ({ postId, initialData }: DocumentIndexCardProps) => {
             ))}
         </ul>
         <ReceiptSeparator />
+        {seriesName && (
+          <>
+            <div
+              role="button"
+              onClick={(event) => goToCourse(event)}
+              className="flex w-full text-xs hover:bg-primary-foreground dark:hover:bg-secondary-foreground py-1"
+            >
+              <span className="truncate">COURSE : {seriesName}</span>
+            </div>
+            <ReceiptSeparator />
+          </>
+        )}
+
         <div
           role="button"
           onClick={() => onCopy(postUrl)}

@@ -69,3 +69,37 @@ export async function PATCH(
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
+
+export async function GET(
+  req: Request,
+  { params }: { params: { seriesId: string } }
+) {
+  try {
+    const isAdmin = await checkAdmin();
+
+    const seriesId = params.seriesId;
+
+    if (!seriesId)
+      return new NextResponse("Series ID missing", { status: 400 });
+
+    const series = await db.series.findFirst({
+      where: { id: seriesId },
+      include: {
+        documents: {
+          ...(!isAdmin && {
+            where: {
+              isPublished: true,
+            },
+          }),
+          select: { id: true, title: true, createdAt: true },
+          orderBy: { createdAt: "asc" },
+        },
+      },
+    });
+
+    return NextResponse.json(series);
+  } catch (error) {
+    console.log("SERIES_ID_GET ->", error);
+    return new NextResponse("Internal Error", { status: 500 });
+  }
+}
