@@ -5,7 +5,8 @@ export type ModalType =
   | "createChat"
   | "enterChat"
   | "deleteMessage"
-  | "seriesSelect";
+  | "seriesSelect"
+  | "deletePost";
 
 interface ModalData {
   apiUrl?: string;
