@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useRef } from "react";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import dynamic from "next/dynamic";
 import { Tag } from "prisma/prisma-client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -13,6 +13,7 @@ import useAuthStore from "@/store/useAuthsStore";
 import { Skeleton } from "@/components/ui/skeleton";
 
 import Toolbar from "./Toolbar";
+import { Button } from "@/components/ui/button";
 
 interface PostSectionProps {
   initialData: DocumentWithTags;
@@ -36,7 +37,7 @@ const PostSection = ({ initialData }: PostSectionProps) => {
     initialData.content ? initialData.content : ""
   );
 
-  const onSubmit = async () => {
+  const onSubmit = () => {
     const indexStructure = generateDocumentIndexMap(content.current);
 
     updatePost({
@@ -48,7 +49,7 @@ const PostSection = ({ initialData }: PostSectionProps) => {
   };
 
   const queryClient = useQueryClient();
-  const { mutate: updatePost } = useMutation({
+  const { mutate: updatePost, isPending } = useMutation({
     mutationFn: async ({
       content,
       title,
@@ -67,6 +68,30 @@ const PostSection = ({ initialData }: PostSectionProps) => {
         newTags,
       }),
   });
+
+  // short cut submit event handle
+  useEffect(() => {
+    const down = async (e: KeyboardEvent) => {
+      if (!auth) return;
+
+      if (e.key === "s" && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+
+        const indexStructure = generateDocumentIndexMap(content.current);
+
+        updatePost({
+          title: infoData.current.title,
+          content: content.current,
+          indexMap: JSON.stringify(indexStructure),
+          newTags: infoData.current.newTags,
+        });
+      }
+    };
+
+    document.addEventListener("keydown", down);
+
+    return () => document.removeEventListener("keydown", down);
+  }, [auth, updatePost]);
 
   const Editor = useMemo(
     () =>
@@ -110,9 +135,16 @@ const PostSection = ({ initialData }: PostSectionProps) => {
           }}
         />
       </div>
-      <div className="absolute top-0 left-0" role="button" onClick={onSubmit}>
-        Submit
-      </div>
+      {auth && (
+        <Button
+          className="fixed bottom-10 right-[10%] bg-symbol-500 text-white text-lg"
+          role="button"
+          onClick={onSubmit}
+          disabled={isPending}
+        >
+          저장하기
+        </Button>
+      )}
     </div>
   );
 };
