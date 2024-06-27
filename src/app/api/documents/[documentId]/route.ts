@@ -57,6 +57,8 @@ export async function PATCH(
       seriesId,
     } = await req.json();
 
+    console.log(coverImage);
+
     const documentId = params.documentId;
 
     // guard

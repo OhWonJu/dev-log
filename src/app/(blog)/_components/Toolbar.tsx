@@ -3,13 +3,16 @@
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { DocumentWithTagsWithSeries } from "@/types";
-import { Calendar, Globe } from "lucide-react";
+import { Calendar, Globe, ImageIcon, Trash } from "lucide-react";
+
+import { useModal } from "@/store/useModalStore";
 
 import { Button } from "@/components/ui/button";
 
 import TitleInput from "./TitleInput";
 import TagInput from "./TagInput";
-import { useModal } from "@/store/useModalStore";
+import { useCoverImage } from "@/hooks/UseCoverImage";
+import Cover from "./Cover";
 
 interface ToolbarProps {
   initialData: DocumentWithTagsWithSeries;
@@ -24,6 +27,7 @@ const DATE_FORMAT = "yyyy.MM.dd";
 
 const Toolbar = ({ initialData, onChange, preview }: ToolbarProps) => {
   const { onOpen, data } = useModal();
+  const coverImage = useCoverImage();
 
   data.documentId = initialData.id;
 
@@ -58,7 +62,7 @@ const Toolbar = ({ initialData, onChange, preview }: ToolbarProps) => {
   }, [data.seriesName]);
 
   return (
-    <div className="py-8 mb-8 px-[54px] group relative gap-y-4 md:max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto border-b ">
+    <div className="py-8 mb-8 px-[54px] group relative md:max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto border-b ">
       {/* Title */}
       <TitleInput
         initialTitle={initialData.title}
@@ -69,15 +73,32 @@ const Toolbar = ({ initialData, onChange, preview }: ToolbarProps) => {
         <Calendar className="w-3 h-3 mr-1" />
         {format(initialData.createdAt, DATE_FORMAT)}
       </div>
+      {/* CoverImage */}
+      {!initialData.coverImage && !preview && (
+        <div className="flex justify-center my-6">
+          <Button
+            onClick={coverImage.onOpen}
+            variant={"outline"}
+            size={"sm"}
+            className="text-muted-foreground text-xs"
+          >
+            <ImageIcon className="h-4 w-4 mr-2" />
+            Add cover
+          </Button>
+        </div>
+      )}
+      {initialData.coverImage && !preview && (
+        <Cover url={initialData.coverImage} preview={preview} />
+      )}
       {/* Tags */}
       <TagInput
         initialTags={initialData.tags}
         preview={preview}
         onChange={onChange}
       />
-      {/* Pin & Publish */}
+      {/* Utils*/}
       {!preview && (
-        <div className="flex w-full justify-end gap-x-2">
+        <div className="flex w-full justify-end gap-x-2 mt-6">
           <Button
             variant={"outline"}
             onClick={() => onOpen("seriesSelect")}
@@ -94,7 +115,11 @@ const Toolbar = ({ initialData, onChange, preview }: ToolbarProps) => {
             </span>
             {isPinned ? <>Pinned</> : <>Unpinned</>}
           </Button>
-          <Button variant={"outline"} onClick={handlePublish} className="relative">
+          <Button
+            variant={"outline"}
+            onClick={handlePublish}
+            className="relative"
+          >
             <span className="absolute text-[8px] text-zinc-400 -top-1 left-[0.7rem] px-1 ">
               Publish
             </span>
@@ -106,6 +131,17 @@ const Toolbar = ({ initialData, onChange, preview }: ToolbarProps) => {
             ) : (
               <>Unpublished</>
             )}
+          </Button>
+          <Button
+            variant={"outline"}
+            onClick={() => {
+              data.documentId = initialData.id;
+              onOpen("deletePost");
+            }}
+            className="relative"
+          >
+            <Trash className="w-4 h-4 mr-2" />
+            Delete
           </Button>
         </div>
       )}
