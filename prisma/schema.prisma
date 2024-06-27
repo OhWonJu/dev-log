@@ -76,7 +76,7 @@ model Tag {
 
 model Series {
   id   String @id @default(uuid())
-  name String
+  name String @unique()
 
   documents Document[]
 
