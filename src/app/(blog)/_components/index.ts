@@ -1,4 +1,5 @@
 export { CalloutBlock, insertCallout } from "./CalloutBlock/CalloutBlock";
+export { CodeBlock, insertCode } from "./CodeBlock/CodeBlock";
 export { default as DocumentIndexCard } from "./DocumentIndexCard";
 export { default as Editor } from "./Editor";
 export { default as PostSection } from "./PostSection";

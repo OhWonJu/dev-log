@@ -95,51 +95,54 @@ const CalloutBlock = createReactBlockSpec(
           className={style.callout}
           data-callout-type={props.block.props.type}
         >
-          <Menu
-            withinPortal={false}
-            disabled={!props.editor.isEditable}
-            zIndex={999999}
-          >
-            <Menu.Target>
-              <div
-                className={style.callout_icon_wrapper}
-                contentEditable={false}
-              >
-                <Icon
-                  className={style.callout_icon}
-                  data-callout-icon-type={props.block.props.type}
-                  size={32}
-                />
-              </div>
-            </Menu.Target>
-            <Menu.Dropdown>
-              <Menu.Label>Callout Type</Menu.Label>
-              <Menu.Divider />
-              {calloutBlockTypes.map((type) => {
-                const ItemIcon = type.icon;
+          <div className="flex h-full items-start pt-1">
+            <Menu
+              withinPortal={false}
+              disabled={!props.editor.isEditable}
+              zIndex={999999}
+            >
+              <Menu.Target>
+                <div
+                  className={style.callout_icon_wrapper}
+                  contentEditable={false}
+                >
+                  <Icon
+                    className={style.callout_icon}
+                    data-callout-icon-type={props.block.props.type}
+                    size={32}
+                  />
+                </div>
+              </Menu.Target>
+              <Menu.Dropdown>
+                <Menu.Label>Callout Type</Menu.Label>
+                <Menu.Divider />
+                {calloutBlockTypes.map((type) => {
+                  const ItemIcon = type.icon;
 
-                return (
-                  <Menu.Item
-                    key={type.value}
-                    leftSection={
-                      <ItemIcon
-                        className={style.callout_icon}
-                        data-callout-icon-type={type.value}
-                      />
-                    }
-                    onClick={() =>
-                      props.editor.updateBlock(props.block, {
-                        type: "callout",
-                        props: { type: type.value },
-                      })
-                    }
-                  >
-                    {type.title}
-                  </Menu.Item>
-                );
-              })}
-            </Menu.Dropdown>
-          </Menu>
+                  return (
+                    <Menu.Item
+                      key={type.value}
+                      leftSection={
+                        <ItemIcon
+                          className={style.callout_icon}
+                          data-callout-icon-type={type.value}
+                        />
+                      }
+                      onClick={() =>
+                        props.editor.updateBlock(props.block, {
+                          type: "callout",
+                          props: { type: type.value },
+                        })
+                      }
+                    >
+                      {type.title}
+                    </Menu.Item>
+                  );
+                })}
+              </Menu.Dropdown>
+            </Menu>
+          </div>
+
           <div className={style.inline_content} ref={props.contentRef} />
         </div>
       );

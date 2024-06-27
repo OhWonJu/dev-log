@@ -17,8 +17,7 @@ import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
 
 import DocumentIndexCard from "./DocumentIndexCard";
-import { CalloutBlock, insertCallout } from "./CalloutBlock/CalloutBlock";
-import { CodeBlock, insertCode } from "./Code/CodeBlock";
+import { CalloutBlock, insertCallout, CodeBlock, insertCode } from "./index";
 
 interface EditorProps {
   initialContent?: string | null;
