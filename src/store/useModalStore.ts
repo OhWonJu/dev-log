@@ -1,11 +1,17 @@
 import { create } from "zustand";
 import { Conversation } from "@prisma/client";
 
-export type ModalType = "createChat" | "enterChat" | "deleteMessage";
+export type ModalType =
+  | "createChat"
+  | "enterChat"
+  | "deleteMessage"
+  | "seriesSelect";
 
 interface ModalData {
   apiUrl?: string;
   query?: Record<string, any>;
+  seriesName?: string;
+  documentId?: string;
 }
 
 interface ModalStore {

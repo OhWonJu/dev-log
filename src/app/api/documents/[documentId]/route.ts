@@ -54,6 +54,7 @@ export async function PATCH(
       coverImage,
       indexMap,
       newTags,
+      seriesId,
     } = await req.json();
 
     const documentId = params.documentId;
@@ -95,6 +96,7 @@ export async function PATCH(
             connectOrCreate: processTags(newTags),
           },
         }),
+        seriesId,
       },
     });
 

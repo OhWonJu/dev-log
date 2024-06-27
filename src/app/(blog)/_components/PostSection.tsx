@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useCallback, useEffect, useMemo, useRef } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import dynamic from "next/dynamic";
 import { Tag } from "prisma/prisma-client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
-import { DocumentWithTags } from "@/types";
-import { generateDocumentIndexMap, processTags } from "@/lib/utils";
+import { DocumentWithTagsWithSeries } from "@/types";
+import { generateDocumentIndexMap } from "@/lib/utils";
 import useAuthStore from "@/store/useAuthsStore";
 
 import { Skeleton } from "@/components/ui/skeleton";
@@ -16,7 +16,7 @@ import Toolbar from "./Toolbar";
 import { Button } from "@/components/ui/button";
 
 interface PostSectionProps {
-  initialData: DocumentWithTags;
+  initialData: DocumentWithTagsWithSeries;
 }
 
 const PostSection = ({ initialData }: PostSectionProps) => {

@@ -91,9 +91,11 @@ export async function GET(req: Request) {
     }
 
     const documents = await db.document.findMany({
-      // where: {
-      //   isPublished: !isAdmin && true,
-      // },
+      ...(!isAdmin && {
+        where: {
+          isPublished: true,
+        },
+      }),
       take: DOCUMENTS_BATCH,
       skip: 0,
       include: {

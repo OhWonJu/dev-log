@@ -1,17 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { format } from "date-fns";
-import { DocumentWithTags } from "@/types";
+import { DocumentWithTagsWithSeries } from "@/types";
 import { Calendar, Globe } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
 import TitleInput from "./TitleInput";
 import TagInput from "./TagInput";
+import { useModal } from "@/store/useModalStore";
 
 interface ToolbarProps {
-  initialData: DocumentWithTags;
+  initialData: DocumentWithTagsWithSeries;
   onChange: (
     target: "title" | "seriesId" | "newTags" | "isPublished" | "isPinned",
     value: any
@@ -22,8 +23,15 @@ interface ToolbarProps {
 const DATE_FORMAT = "yyyy.MM.dd";
 
 const Toolbar = ({ initialData, onChange, preview }: ToolbarProps) => {
+  const { onOpen, data } = useModal();
+
+  data.documentId = initialData.id;
+
   const [isPublished, setIsPublished] = useState(initialData.isPublished);
   const [isPinned, setIsPinned] = useState(initialData.isPinned);
+  const [seriesName, setSeriesName] = useState(
+    initialData.series ? initialData.series.name : "시리즈 선택"
+  );
 
   const handlePublish = () => {
     const newState = !isPublished;
@@ -36,6 +44,18 @@ const Toolbar = ({ initialData, onChange, preview }: ToolbarProps) => {
     onChange("isPinned", newState);
     setIsPinned(newState);
   };
+
+  useEffect(() => {
+    let newName = seriesName;
+
+    if (!data.seriesName) return;
+
+    if (data.seriesName === seriesName) newName = "시리즈 선택";
+    else newName = data.seriesName;
+
+    setSeriesName(newName);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data.seriesName]);
 
   return (
     <div className="py-8 mb-8 px-[54px] group relative gap-y-4 md:max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto border-b ">
@@ -58,10 +78,26 @@ const Toolbar = ({ initialData, onChange, preview }: ToolbarProps) => {
       {/* Pin & Publish */}
       {!preview && (
         <div className="flex w-full justify-end gap-x-2">
-          <Button variant={"outline"} onClick={handlePin}>
+          <Button
+            variant={"outline"}
+            onClick={() => onOpen("seriesSelect")}
+            className="relative"
+          >
+            <span className="absolute text-[8px] text-zinc-400 -top-1 left-[0.7rem] px-1 ">
+              Series
+            </span>
+            {seriesName}
+          </Button>
+          <Button variant={"outline"} onClick={handlePin} className="relative">
+            <span className="absolute text-[8px] text-zinc-400 -top-1 left-[0.7rem] px-1 ">
+              Pin
+            </span>
             {isPinned ? <>Pinned</> : <>Unpinned</>}
           </Button>
-          <Button variant={"outline"} onClick={handlePublish}>
+          <Button variant={"outline"} onClick={handlePublish} className="relative">
+            <span className="absolute text-[8px] text-zinc-400 -top-1 left-[0.7rem] px-1 ">
+              Publish
+            </span>
             {isPublished ? (
               <>
                 Published

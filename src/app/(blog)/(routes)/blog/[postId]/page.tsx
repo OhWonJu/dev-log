@@ -1,6 +1,6 @@
 import React from "react";
 
-import { DocumentWithTags } from "@/types";
+import { DocumentWithTagsWithSeries } from "@/types";
 
 import { PostSection } from "@/app/(blog)/_components";
 
@@ -24,7 +24,9 @@ const getPostData = async (postId: string) => {
 };
 
 const PostIdPage = async ({ params }: PostIdPageProps) => {
-  const postData = (await getPostData(params.postId)) as DocumentWithTags;
+  const postData = (await getPostData(
+    params.postId
+  )) as DocumentWithTagsWithSeries;
 
   if (!postData) return <div>Post Not Found.</div>;
 

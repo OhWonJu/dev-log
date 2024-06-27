@@ -2,7 +2,12 @@
 
 import React, { useEffect, useState } from "react";
 
-import { CreateChatMdal, DeleteMessageModal, EnterChatModal } from "../modals";
+import {
+  CreateChatMdal,
+  DeleteMessageModal,
+  EnterChatModal,
+  SeriesSelectModal,
+} from "../modals";
 
 const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -23,6 +28,7 @@ const ModalProvider = () => {
       <CreateChatMdal />
       <DeleteMessageModal />
       <EnterChatModal />
+      <SeriesSelectModal />
     </>
   );
 };
