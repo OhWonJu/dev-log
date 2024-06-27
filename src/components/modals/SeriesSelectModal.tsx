@@ -32,7 +32,7 @@ const SeriesSelectModal = () => {
 
   const { data: seriesData } = useQuery({
     queryKey: ["series-simple-list"],
-    queryFn: async () => axios.get("/api/series"),
+    queryFn: async () => axios.get("/api/series?simple=true"),
   });
   const seriesList = seriesData?.data as Series[];
 

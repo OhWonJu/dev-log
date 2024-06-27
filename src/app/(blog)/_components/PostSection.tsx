@@ -131,34 +131,27 @@ const PostSection = ({ initialData }: PostSectionProps) => {
 
   return (
     <div className="pb-40">
-      <div className="w-screen md:max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto">
-        <Toolbar
-          initialData={initialData}
-          preview={!auth}
-          onChange={(
-            target:
-              | "title"
-              | "seriesId"
-              | "newTags"
-              | "isPublished"
-              | "isPinned",
-            value: any
-            //@ts-ignore
-          ) => (infoData.current[target] = value)}
-        />
-        <Editor
-          initialContent={initialData.content}
-          editable={auth}
-          postId={initialData.id}
-          initialIndexMap={initialData.indexMap}
-          seriesName={initialData.series?.name}
-          onSubmit={() => {}}
-          onChange={(value) => {
-            content.current = value;
-          }}
-        />
-        <Course documentId={initialData.id} seriesId={initialData.seriesId} />
-      </div>
+      <Toolbar
+        initialData={initialData}
+        preview={!auth}
+        onChange={(
+          target: "title" | "seriesId" | "newTags" | "isPublished" | "isPinned",
+          value: any
+          //@ts-ignore
+        ) => (infoData.current[target] = value)}
+      />
+      <Editor
+        initialContent={initialData.content}
+        editable={auth}
+        postId={initialData.id}
+        initialIndexMap={initialData.indexMap}
+        seriesName={initialData.series?.name}
+        onSubmit={() => {}}
+        onChange={(value) => {
+          content.current = value;
+        }}
+      />
+      <Course documentId={initialData.id} seriesId={initialData.seriesId} />
       {auth && (
         <Button
           className="fixed bottom-10 right-[10%] bg-symbol-500 text-white text-lg"
