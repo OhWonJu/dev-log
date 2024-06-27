@@ -44,7 +44,7 @@ const STACK_MAP = [
     stackName: "React",
   },
   {
-    icon: <NextJsIcon className="w-4 h-4 rounded-sm" />,
+    icon: <NextJsIcon className="w-4 h-4 rounded-sm fill-primary" />,
     stackName: "Next.js",
   },
   {
@@ -183,9 +183,9 @@ const MainPage = () => {
                 <strong className="text-symbol-500 font-Pacifico pr-3">
                   Recipe
                 </strong>
-                는 웹 개발에 대한 아이덴티티,
+                는 웹 개발에 대한 경험과 지식
                 <br />
-                경험과 지식을 레시피에 빗대어
+                그리고 아이덴티티를 레시피에 빗대어
                 <br />
                 재치있게 표현하고자 하는 웹 페이지 입니다.
               </span>
@@ -207,9 +207,15 @@ const MainPage = () => {
       <Section
         id={TAB_MAP[2].contant} // project
         index={2}
-        className="h-screen bg-symbol-300 text-secondary text-3xl font-bold"
+        className="h-screen font-bold text-center"
       >
         <MainHeader>Project</MainHeader>
+        <div className="flex text-3xl flex-col">
+          🚧 뚝딱뚝딱 작업중! 🚧
+          <span className="text-xs text-zinc-400">
+            위이이잉 그르륵캌 깡깡
+          </span>
+        </div>
       </Section>
       <Section
         id={TAB_MAP[4].contant} // contact
@@ -242,13 +248,12 @@ const MainPage = () => {
                   드리겠습니다.
                 </li>
                 <li>커피챗이 끝난 이후 인증 코드는 만료됩니다.</li>
-                <li>불분명한 의도의 커피챗 요청은 거부될 수도 있습니다.</li>
+                <li>불분명한 의도의 커피챗 요청은 정중히 거절드립니다.</li>
               </ul>
-              <div className="flex flex-col p-4 rounded-md border-[1px] border-zinc-200 dark:border-zinc-400 shadow-md">
+              <div className="flex flex-col p-4 rounded-md border-[1px] bg-background border-zinc-200 dark:border-zinc-400 shadow-md">
                 <span className="font-semibold mb-4">
                   커피챗 인증 코드를 받으셨나요 ?
                 </span>
-                {/* TODO:: 모달 -> 코드 입력 -> 챗 페이지로 이동 */}
                 <EnterChatButton />
               </div>
             </div>

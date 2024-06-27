@@ -1,9 +1,11 @@
 "use client";
 
 import { useRef, useState } from "react";
+
+import { StepWrapper } from "@/components";
+
 import CareerStepView from "./CareerStepView";
 import CareerTab from "./CareerTab";
-import { StepWrapper } from "@/components";
 
 const CAREER_DATA = [
   {
@@ -18,7 +20,7 @@ const CAREER_DATA = [
       { date: "2022.03", content: "DXDATA 입사 - 프론트엔드 부분" },
       {
         date: "2022.06 - 2022.08",
-        content: "삼성 전자 스마트 팩토리 사업 참여 (Unity 스크립트 유지보수)",
+        content: "삼성전자 스마트 팩토리 사업 참여 (Unity 스크립트 유지보수)",
       },
       {
         date: "2022.08",

@@ -1,6 +1,6 @@
 import React, { Dispatch, MutableRefObject, SetStateAction } from "react";
 
-import style from "./career.styel.module.css";
+import style from "./career.style.module.css";
 import { cn } from "@/lib/utils";
 
 interface CareerTabProps {

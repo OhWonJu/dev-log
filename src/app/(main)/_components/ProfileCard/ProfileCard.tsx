@@ -85,7 +85,7 @@ const ProfileCard = () => {
               target="_blank"
               className="flex items-center text-xs font-medium gap-x-4 hover:bg-primary-foreground p-2 rounded-md"
             >
-              <Github className="w-5 h-5" />
+              <Github className="w-5 h-5 fill-primary" />
               {GIT_HUB}
             </Link>
           </div>

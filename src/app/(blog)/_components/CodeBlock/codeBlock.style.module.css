@@ -1,0 +1,27 @@
+.codeBlock {
+  position: relative;
+  flex-grow: 1;
+  min-height: 48px;
+}
+
+.codeBlock_menu_button_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 12px;
+  margin-right: 12px;
+  padding: 0.8rem 0.5rem;
+  height: 18px;
+  user-select: none;
+  cursor: pointer;
+}
+
+.codeBlock_content {
+  & span {
+    padding: 0;
+    border-radius: 0;
+  }
+
+  border-width: 1px;
+  border-radius: 8px;
+}
