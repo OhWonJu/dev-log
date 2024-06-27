@@ -27,11 +27,15 @@ const PostSection = ({ initialData }: PostSectionProps) => {
     oldTags: Tag[];
     newTags: string | null;
     seriesId: string | null;
+    isPublished: boolean | null;
+    isPinned: boolean | null;
   }>({
     title: initialData.title ?? "Untitled",
     seriesId: initialData.seriesId ?? null,
     oldTags: initialData.tags ?? [],
     newTags: null,
+    isPublished: initialData.isPublished ?? null,
+    isPinned: initialData.isPinned ?? null,
   });
   const content = useRef<string | null>(
     initialData.content ? initialData.content : ""
@@ -45,6 +49,8 @@ const PostSection = ({ initialData }: PostSectionProps) => {
       content: content.current,
       indexMap: JSON.stringify(indexStructure),
       newTags: infoData.current.newTags,
+      isPublished: infoData.current.isPublished,
+      isPinned: infoData.current.isPinned,
     });
   };
 
@@ -55,17 +61,23 @@ const PostSection = ({ initialData }: PostSectionProps) => {
       title,
       indexMap,
       newTags,
+      isPublished,
+      isPinned,
     }: {
       title?: string | null;
       content?: string | null;
       indexMap?: string | null;
       newTags?: string | null;
+      isPublished?: boolean | null;
+      isPinned?: boolean | null;
     }) =>
       await axios.patch(`/api/documents/${initialData.id}`, {
         title,
         content,
         indexMap,
         newTags,
+        isPublished,
+        isPinned,
       }),
   });
 
@@ -84,6 +96,8 @@ const PostSection = ({ initialData }: PostSectionProps) => {
           content: content.current,
           indexMap: JSON.stringify(indexStructure),
           newTags: infoData.current.newTags,
+          isPublished: infoData.current.isPublished,
+          isPinned: infoData.current.isPinned,
         });
       }
     };
@@ -120,9 +134,16 @@ const PostSection = ({ initialData }: PostSectionProps) => {
         <Toolbar
           initialData={initialData}
           preview={!auth}
-          onChange={(target: "title" | "seriesId" | "newTags", value: any) =>
-            (infoData.current[target] = value)
-          }
+          onChange={(
+            target:
+              | "title"
+              | "seriesId"
+              | "newTags"
+              | "isPublished"
+              | "isPinned",
+            value: any
+            //@ts-ignore
+          ) => (infoData.current[target] = value)}
         />
         <Editor
           initialContent={initialData.content}

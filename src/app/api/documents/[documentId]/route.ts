@@ -56,8 +56,6 @@ export async function PATCH(
       newTags,
     } = await req.json();
 
-    console.log(typeof newTags);
-
     const documentId = params.documentId;
 
     // guard
