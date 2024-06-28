@@ -19,6 +19,15 @@ const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIO) => {
     const io = new ServerIO(httpServer, {
       path: path,
       addTrailingSlash: false,
+      transports: ["websocket"],
+      cors: {
+        origin: [
+          "http://localhost:3000",
+          process.env.NEXT_PUBLIC_SITE_URL!,
+          process.env.NEXT_PUBLIC_SERVER_URL!,
+        ],
+        methods: ["GET", "POST", "PATCH", "DELETE"],
+      },
     });
     res.socket.server.io = io;
   }

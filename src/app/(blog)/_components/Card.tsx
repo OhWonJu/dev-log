@@ -18,7 +18,7 @@ const Card = ({ cardType, id, title, coverImage, createdAt }: CardProps) => {
     return (
       <Link
         href={`/blog/${id}`}
-        className="flex flex-col rounded-lg w-full aspect-[3/2] md:aspect-[3/4] bg-background shadow-lg border overflow-hidden hover:scale-[1.02] transition"
+        className="flex flex-col rounded-lg w-full aspect-[4/3] md:aspect-[3/4] bg-background shadow-lg border overflow-hidden hover:scale-[1.02] transition"
       >
         <div className="relative w-full h-[65%]">
           {coverImage && (
@@ -26,7 +26,7 @@ const Card = ({ cardType, id, title, coverImage, createdAt }: CardProps) => {
           )}
         </div>
         <div className="flex flex-col justify-between w-full h-[36%] p-4">
-          <h3 className="font-bold text-xl md:text-lg line-clamp-2 tracking-tight">
+          <h3 className="font-bold text-lg sm:text-xl md:text-lg line-clamp-1 sm:line-clamp-2 tracking-tight">
             {title}
           </h3>
           <div className="flex justify-end items-center text-xs font-semibold text-zinc-400 dark:text-zinc-600">

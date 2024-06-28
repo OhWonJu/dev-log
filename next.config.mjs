@@ -1,8 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["www.notion.so"]
-  }
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "www.notion.so",
+        pathname: "**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;
