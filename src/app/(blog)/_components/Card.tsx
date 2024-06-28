@@ -22,7 +22,15 @@ const Card = ({ cardType, id, title, coverImage, createdAt }: CardProps) => {
       >
         <div className="relative w-full h-[65%]">
           {coverImage && (
-            <Image src={coverImage} alt={title} fill className="object-cover" />
+            <Image
+              src={coverImage}
+              alt={title}
+              fill
+              sizes="(max-width: 768px) 80vw, (max-width: 1200px) 30vw, 33vw"
+              placeholder="empty"
+              priority
+              className="object-cover"
+            />
           )}
         </div>
         <div className="flex flex-col justify-between w-full h-[36%] p-4">

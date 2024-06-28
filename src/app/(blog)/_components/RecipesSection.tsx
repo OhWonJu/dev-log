@@ -66,26 +66,27 @@ const RecipesSection = () => {
         {isLoading &&
           Array(8)
             .fill(0)
-            .map((i) => (
+            .map((_, i) => (
               <Skeleton
                 key={i}
                 className="rounded-lg w-full aspect-[3/2] md:aspect-[3/4]"
               />
             ))}
-        {data?.pages?.map((group, i) => (
-          <Fragment key={i}>
-            {group.items.map((post: Document) => (
-              <Card
-                key={post.id}
-                id={post.id}
-                cardType="post"
-                title={post.title}
-                coverImage={post.coverImage}
-                createdAt={post.createdAt}
-              />
-            ))}
-          </Fragment>
-        ))}
+        {!isLoading &&
+          data?.pages?.map((group, i) => (
+            <Fragment key={i}>
+              {group.items.map((post: Document) => (
+                <Card
+                  key={post.id}
+                  id={post.id}
+                  cardType="post"
+                  title={post.title}
+                  coverImage={post.coverImage}
+                  createdAt={post.createdAt}
+                />
+              ))}
+            </Fragment>
+          ))}
       </div>
       <div ref={bottomRef} />
     </section>

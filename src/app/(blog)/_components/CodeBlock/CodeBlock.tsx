@@ -60,7 +60,6 @@ const CodeBlock = createReactBlockSpec(
             extensions={[langs[type ? type : "tsx"]()]}
             value={data}
             theme={vscodeDark}
-            editable={editor.isEditable}
             width="100%"
             basicSetup={{
               lineNumbers: false,
@@ -68,6 +67,7 @@ const CodeBlock = createReactBlockSpec(
               tabSize: 4,
               highlightActiveLine: false,
             }}
+            editable={editor.isEditable}
             onChange={onInputChange}
           />
           <div className="absolute top-0 left-0 p-2 text-sm text-zinc-400">

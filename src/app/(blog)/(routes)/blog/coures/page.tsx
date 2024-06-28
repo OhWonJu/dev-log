@@ -27,20 +27,21 @@ const CoursePage = () => {
         {isLoading &&
           Array(8)
             .fill(0)
-            .map((i) => (
+            .map((_, i) => (
               <Skeleton
                 key={i}
                 className="rounded-lg w-full aspect-[3/2] md:aspect-[3/4]"
               />
             ))}
-        {seriesList?.map((series: Series) => (
-          <Card
-            key={series.id}
-            id={series.id}
-            cardType="series"
-            title={series.name}
-          />
-        ))}
+        {!isLoading &&
+          seriesList?.map((series: Series) => (
+            <Card
+              key={series.id}
+              id={series.id}
+              cardType="series"
+              title={series.name}
+            />
+          ))}
       </div>
     </section>
   );
