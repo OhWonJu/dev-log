@@ -29,12 +29,10 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const socketInstance = new (ClientIO as any)(
-      // default (localhost) 로 env 에 지정됨. 단 배포시 배포된 주소로 지정해주어야 함.
       process.env.NEXT_PUBLIC_SERVER_URL!,
       {
         path: "/api/socket/io",
         addTrailingSlash: false,
-        transports: ["websocket"],
       }
     );
 

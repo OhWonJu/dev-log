@@ -13,7 +13,6 @@ import { cn } from "@/lib/utils";
 import { Navigator } from "@/components";
 import ModalProvider from "@/components/providers/ModalProvider";
 import AuthProvider from "@/components/providers/AuthProvider";
-import { SocketProvider } from "@/components/providers/SocketProvider";
 import NavProvider from "@/components/providers/NavProvider";
 
 const font = Open_Sans({ subsets: ["latin"] });
@@ -47,7 +46,6 @@ export default async function RootLayout({
           disableTransitionOnChange
           storageKey="recipe-theme"
         >
-          <SocketProvider>
             <AuthProvider isAdmin={isAdmin}>
               <QueryProvider>
                 <div
@@ -62,7 +60,6 @@ export default async function RootLayout({
                 </div>
               </QueryProvider>
             </AuthProvider>
-          </SocketProvider>
         </ThemeProvider>
       </body>
     </html>
