@@ -1,5 +1,6 @@
 import { NextApiRequest } from "next";
 import { isDynamicServerError } from "next/dist/client/components/hooks-server-context";
+import axios from "axios";
 
 import { NextApiResponseServerIO } from "@/types";
 import { db } from "@/lib/db";
@@ -12,12 +13,24 @@ export default async function handler(
   if (req.method !== "POST")
     return res.status(405).json({ error: "Method not allowed" });
 
+  const isAdmin = await checkAdmin();
+
+  const { content } = req.body;
+  const { chatId, chatCode } = req.query;
+
+  // 로컬에서 메시지 emit 편법 ㅠㅠ
+  if (process.env.NODE_ENV === "development" && isAdmin) {
+    const data = await axios.post(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/socket/messages?chatId=${chatId}&chatCode=---`,
+      {
+        content,
+      }
+    );
+
+    return res.status(200).json(data.data);
+  }
+
   try {
-    const isAdmin = await checkAdmin();
-
-    const { content } = req.body;
-    const { chatId, chatCode } = req.query;
-
     if (!isAdmin && !chatCode)
       return res.status(401).json({ error: "Unauthorized" });
     if (!chatId)
@@ -42,9 +55,9 @@ export default async function handler(
     });
 
     // unique socket key
-    const channelKey = `chat:${chatId}:messages`;
+    const chatKey = `chat:${chatId}:messages`;
 
-    res?.socket?.server?.io?.emit(channelKey, message);
+    res?.socket?.server?.io?.emit(chatKey, message);
 
     return res.status(200).json(message);
   } catch (error) {

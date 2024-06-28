@@ -46,20 +46,20 @@ export default async function RootLayout({
           disableTransitionOnChange
           storageKey="recipe-theme"
         >
-            <AuthProvider isAdmin={isAdmin}>
-              <QueryProvider>
-                <div
-                  className="bg-background text-primary min-h-screen"
-                  style={{ backgroundImage: "var(--background-image)" }}
-                >
-                  <ModalProvider />
-                  <NavProvider>
-                    <Navigator />
-                    {children}
-                  </NavProvider>
-                </div>
-              </QueryProvider>
-            </AuthProvider>
+          <AuthProvider isAdmin={isAdmin}>
+            <QueryProvider>
+              <div
+                className="bg-background text-primary min-h-screen"
+                style={{ backgroundImage: "var(--background-image)" }}
+              >
+                <ModalProvider />
+                <NavProvider>
+                  <Navigator />
+                  {children}
+                </NavProvider>
+              </div>
+            </QueryProvider>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

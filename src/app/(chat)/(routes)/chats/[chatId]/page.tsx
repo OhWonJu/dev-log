@@ -1,5 +1,6 @@
-import { ChatInput, ChatMessages } from "@/components/chat";
 import { db } from "@/lib/db";
+
+import { ChatInput, ChatMessages } from "@/components/chat";
 
 interface ChatIdPageProps {
   params: {

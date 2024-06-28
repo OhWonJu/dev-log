@@ -1,10 +1,10 @@
 // route -> /api/socket/io
 
-import { NextApiResponseServerIO } from "@/types";
 import { Server as NetServer } from "http";
 import { NextApiRequest } from "next";
-
 import { Server as ServerIO } from "socket.io";
+
+import { NextApiResponseServerIO } from "@/types";
 
 export const config = {
   api: {

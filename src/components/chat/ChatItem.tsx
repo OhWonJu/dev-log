@@ -44,15 +44,13 @@ const ChatItem = ({
   socketUrl,
   socketQuery,
 }: ChatItemProps) => {
-  const router = useRouter();
-  const params = useParams();
-
   const { onOpen } = useModal();
 
   const { auth } = useAuthStore();
   const [value] = useSessionStorage("chat-code", "");
 
-  const isOwner = chatCode ? chatCode === value : auth; // chat code -> gest, if not admin
+  // const isOwner = chatCode ? chatCode === value : auth; // chat code -> gest, if not admin
+  const isOwner = auth ? !chatCode || chatCode === "---" : chatCode === value;
 
   const [isEditing, setIsEditing] = useState(false);
 

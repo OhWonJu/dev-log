@@ -1,5 +1,6 @@
 import { NextApiRequest } from "next";
 import { isDynamicServerError } from "next/dist/client/components/hooks-server-context";
+import axios from "axios";
 
 import { db } from "@/lib/db";
 import { NextApiResponseServerIO } from "@/types";
@@ -13,12 +14,34 @@ export default async function handler(
     return res.status(405).json({ error: "Method not aloowd" });
   }
 
+  const isAdmin = await checkAdmin();
+
+  const { messageId, chatId, chatCode } = req.query;
+  const { content } = req.body;
+
+  // 로컬에서 메시지 emit 편법 ㅠㅠ
+  if (process.env.NODE_ENV === "development" && isAdmin) {
+    if (req.method === "DELETE") {
+      const data = await axios.delete(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/socket/messages/${messageId}?chatId=${chatId}&chatCode=---`
+      );
+      return res.status(200).json(data.data);
+    }
+
+    if (req.method === "PATCH") {
+      const data = await axios.patch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/socket/messages/${messageId}?chatId=${chatId}&chatCode=---`,
+        {
+          content,
+        }
+      );
+      return res.status(200).json(data.data);
+    }
+
+    return;
+  }
+
   try {
-    const isAdmin = await checkAdmin();
-
-    const { messageId, chatId, chatCode } = req.query;
-    const { content } = req.body;
-
     if (!isAdmin && !chatCode)
       return res.status(401).json({ error: "Unauthorized" });
     if (!chatId)
@@ -76,6 +99,7 @@ export default async function handler(
     }
 
     const updateKey = `chat:${chatId}:messages:update`;
+
     res?.socket.server?.io?.emit(updateKey, message);
 
     return res.status(200).json(message);
