@@ -2,6 +2,8 @@ import React from "react";
 
 import { DocumentWithTagsWithSeries } from "@/types";
 
+import { env } from "@/lib/env";
+
 import { PostSection } from "@/app/(blog)/_components";
 
 interface PostIdPageProps {
@@ -11,7 +13,7 @@ interface PostIdPageProps {
 }
 
 const getPostData = async (postId: string) => {
-  const res = await fetch(`http://localhost:3000/api/documents/${postId}`, {
+  const res = await fetch(`${env.SITE_URL}/api/documents/${postId}`, {
     cache: "no-cache",
   });
 

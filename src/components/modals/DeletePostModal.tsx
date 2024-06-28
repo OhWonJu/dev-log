@@ -15,7 +15,7 @@ import {
 } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const DeletePostModal = () => {
   const router = useRouter();
@@ -24,12 +24,16 @@ const DeletePostModal = () => {
 
   const isModalOpen = isOpen && type === "deletePost";
 
+  const queryClient = useQueryClient();
   const { mutate: deletePost, isPending } = useMutation({
     mutationFn: async () =>
       await axios.delete(`/api/documents/${data.documentId}`),
     onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["posts"],
+      });
       onClose();
-      router.push("/blog");
+      router.back();
     },
   });
 

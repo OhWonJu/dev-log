@@ -10,19 +10,21 @@ import { SeriesWithDocuments } from "@/types";
 import { cn } from "@/lib/utils";
 
 interface CourseProps {
-  documentId: string;
+  documentId?: string;
   seriesId?: string | null;
+  initialData?: SeriesWithDocuments;
 }
 
-const Course = ({ documentId, seriesId }: CourseProps) => {
+const Course = ({ documentId, seriesId, initialData }: CourseProps) => {
   const router = useRouter();
 
   const { data } = useQuery({
     queryKey: ["serise-list", seriesId],
     queryFn: async () => await axios.get(`/api/series/${seriesId}`),
-    enabled: !!seriesId,
+    enabled: !!seriesId || !initialData,
   });
-  const seriesData = data?.data as SeriesWithDocuments;
+  const seriesData = (data?.data as SeriesWithDocuments) ?? initialData;
+
 
   const handleItemClick = (id: string) => {
     router.push(`/blog/${id}`);
@@ -30,7 +32,10 @@ const Course = ({ documentId, seriesId }: CourseProps) => {
 
   if (!seriesData) return null;
 
-  if (!seriesData.documents.find((document) => document.id === documentId))
+  if (
+    documentId &&
+    !seriesData.documents.find((document) => document.id === documentId)
+  )
     return null;
 
   return (
@@ -49,19 +54,23 @@ const Course = ({ documentId, seriesId }: CourseProps) => {
           </a>
         </div>
         <ul className="">
-          {seriesData.documents.map((document, index) => (
-            <li
-              key={document.id}
-              role="button"
-              onClick={() => handleItemClick(document.id)}
-              className={cn(
-                "px-2 py-1 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-300 truncate",
-                document.id === documentId && "font-bold"
-              )}
-            >
-              {index + 1}. {document.title}
-            </li>
-          ))}
+          {seriesData && (
+            <>
+              {seriesData.documents.map((document, index) => (
+                <li
+                  key={document.id}
+                  role="button"
+                  onClick={() => handleItemClick(document.id)}
+                  className={cn(
+                    "px-2 py-1 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-700 truncate",
+                    document.id === documentId && "font-bold"
+                  )}
+                >
+                  {index + 1}. {document.title}
+                </li>
+              ))}
+            </>
+          )}
         </ul>
       </div>
     </aside>

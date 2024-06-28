@@ -37,6 +37,9 @@ export async function GET(req: Request) {
           id: true,
           name: true,
         },
+        orderBy: {
+          name: "asc",
+        },
       });
 
       return NextResponse.json(serieses);
@@ -46,8 +49,8 @@ export async function GET(req: Request) {
       include: {
         documents: true,
       },
-    }); 
-    
+    });
+
     return NextResponse.json(serieses);
   } catch (error) {
     console.log("SERIESES_GET ->", error);

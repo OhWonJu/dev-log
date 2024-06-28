@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { checkAdmin } from "@/lib/checkAdmin";
 
-const DOCUMENTS_BATCH = 5;
+const DOCUMENTS_BATCH = 12;
 
 export async function POST(req: Request) {
   try {
@@ -33,19 +33,73 @@ export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
 
-    const recent = searchParams.get("recent"); // boolean
-    const pinned = searchParams.get("pinned"); // boolean
-    const series = searchParams.get("series"); // seriesId
+    const cursor = searchParams.get("cursor");
+    const type = searchParams.get("type") as "recent" | "pinned";
 
     const isAdmin = await checkAdmin();
 
-    if (recent) {
-      const documents = await db.document.findMany({
+    let documents = null;
+
+    if (type === "recent") {
+      documents = await db.document.findMany({
+        ...(!isAdmin && {
+          where: {
+            isPublished: true,
+          },
+        }),
+        take: DOCUMENTS_BATCH,
+        ...(cursor && {
+          skip: 1,
+          cursor: {
+            id: cursor,
+          },
+        }),
+        select: {
+          id: true,
+          title: true,
+          coverImage: true,
+          createdAt: true,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+    } else if (type === "pinned") {
+      documents = await db.document.findMany({
         where: {
-          isPublished: true,
+          ...(!isAdmin && {
+            isPublished: true,
+          }),
+          isPinned: true,
         },
         take: DOCUMENTS_BATCH,
-        skip: 0,
+        ...(cursor && {
+          skip: 1,
+          cursor: {
+            id: cursor,
+          },
+        }),
+        select: {
+          id: true,
+          title: true,
+          coverImage: true,
+          createdAt: true,
+        },
+      });
+    } else {
+      documents = await db.document.findMany({
+        ...(!isAdmin && {
+          where: {
+            isPublished: true,
+          },
+        }),
+        take: DOCUMENTS_BATCH,
+        ...(cursor && {
+          skip: 1,
+          cursor: {
+            id: cursor,
+          },
+        }),
         include: {
           series: true,
           tags: true,
@@ -54,60 +108,15 @@ export async function GET(req: Request) {
           createdAt: "desc",
         },
       });
-
-      return NextResponse.json(documents);
     }
 
-    if (pinned) {
-      const documents = await db.document.findMany({
-        where: {
-          isPublished: true,
-          isPinned: true,
-        },
-        take: DOCUMENTS_BATCH,
-        skip: 0,
-        include: {
-          series: true,
-          tags: true,
-        },
-      });
+    let nextCursor = null;
 
-      return NextResponse.json(documents);
+    if (documents.length === DOCUMENTS_BATCH) {
+      nextCursor = documents[DOCUMENTS_BATCH - 1].id;
     }
 
-    if (series) {
-      const documents = await db.document.findMany({
-        where: {
-          seriesId: series,
-          isPublished: true,
-        },
-        include: {
-          series: true,
-          tags: true,
-        },
-      });
-
-      return NextResponse.json(documents);
-    }
-
-    const documents = await db.document.findMany({
-      ...(!isAdmin && {
-        where: {
-          isPublished: true,
-        },
-      }),
-      take: DOCUMENTS_BATCH,
-      skip: 0,
-      include: {
-        series: true,
-        tags: true,
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
-
-    return NextResponse.json(documents);
+    return NextResponse.json({ items: documents, nextCursor });
   } catch (error) {
     console.log("DOCUMENTS_GET ->", error);
     return new NextResponse("Internal Error", { status: 500 });

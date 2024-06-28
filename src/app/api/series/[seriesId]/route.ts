@@ -48,6 +48,7 @@ export async function PATCH(
           documents: {
             disconnect: { id: existDocument.id },
           },
+          updatedAt: new Date(Date.now()),
         },
       });
     } else {
@@ -59,6 +60,7 @@ export async function PATCH(
           documents: {
             connect: { id: documentId },
           },
+          updatedAt: new Date(Date.now()),
         },
       });
     }
@@ -91,7 +93,7 @@ export async function GET(
               isPublished: true,
             },
           }),
-          select: { id: true, title: true, createdAt: true },
+          select: { id: true, title: true, createdAt: true, coverImage: true },
           orderBy: { createdAt: "asc" },
         },
       },
