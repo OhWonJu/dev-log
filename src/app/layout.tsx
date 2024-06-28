@@ -47,8 +47,8 @@ export default async function RootLayout({
           disableTransitionOnChange
           storageKey="recipe-theme"
         >
-          <AuthProvider isAdmin={isAdmin}>
-            <SocketProvider>
+          <SocketProvider>
+            <AuthProvider isAdmin={isAdmin}>
               <QueryProvider>
                 <div
                   className="bg-background text-primary min-h-screen"
@@ -61,8 +61,8 @@ export default async function RootLayout({
                   </NavProvider>
                 </div>
               </QueryProvider>
-            </SocketProvider>
-          </AuthProvider>
+            </AuthProvider>
+          </SocketProvider>
         </ThemeProvider>
       </body>
     </html>

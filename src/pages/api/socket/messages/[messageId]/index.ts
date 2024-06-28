@@ -1,4 +1,6 @@
 import { NextApiRequest } from "next";
+import { isDynamicServerError } from "next/dist/client/components/hooks-server-context";
+
 
 import { db } from "@/lib/db";
 import { NextApiResponseServerIO } from "@/types";
@@ -79,6 +81,9 @@ export default async function handler(
 
     return res.status(200).json(message);
   } catch (error) {
+    if (isDynamicServerError(error)) {
+      throw error;
+    }
     console.log("MESSAGE_ID ->", error);
     return res.status(500).json({ error: "Internal Error" });
   }

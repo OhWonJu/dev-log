@@ -8,7 +8,7 @@ const AuthProvider = ({
   children,
   isAdmin,
 }: PropsWithChildren<{ isAdmin: boolean }>) => {
-  const { auth, setAuth } = useAuthStore();
+  const { setAuth } = useAuthStore();
 
   useEffect(() => {
     setAuth(isAdmin);

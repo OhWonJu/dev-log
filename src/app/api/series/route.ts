@@ -1,6 +1,7 @@
+import { NextResponse } from "next/server";
+
 import { checkAdmin } from "@/lib/checkAdmin";
 import { db } from "@/lib/db";
-import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
@@ -26,9 +27,9 @@ export async function POST(req: Request) {
 }
 
 export async function GET(req: Request) {
-  try {
-    const { searchParams } = new URL(req.url);
+  const { searchParams } = new URL(req.url);
 
+  try {
     const simple = searchParams.get("simple");
 
     if (simple) {

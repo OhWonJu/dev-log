@@ -6,9 +6,9 @@ import { db } from "@/lib/db";
 const MESSAGES_BATCH = 10;
 
 export async function GET(req: Request) {
-  try {
-    const { searchParams } = new URL(req.url);
+  const { searchParams } = new URL(req.url);
 
+  try {
     const cursor = searchParams.get("cursor");
     const conversationId = searchParams.get("chatId");
 

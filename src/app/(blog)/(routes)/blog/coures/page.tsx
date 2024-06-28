@@ -1,24 +1,14 @@
 "use client";
 
-import React, { Fragment } from "react";
-import { useSearchParams } from "next/navigation";
+import React from "react";
+import { Series } from "prisma/prisma-client";
 
-import usePostQuery from "@/hooks/usePostQuery";
-import { Document, Series } from "prisma/prisma-client";
 import { Card } from "@/app/(blog)/_components";
-import { ServerCrash } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-const HEADER_MAP = {
-  pinned: "Pinned Recipes",
-  recent: "Recent Recipes",
-};
-
 const CoursePage = () => {
-  const searchParams = useSearchParams();
-
   const { data, isLoading } = useQuery({
     queryKey: ["all-serieses"],
     queryFn: async () => await axios.get("/api/series?simple"),

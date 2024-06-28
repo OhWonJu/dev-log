@@ -30,9 +30,9 @@ export async function POST(req: Request) {
 }
 
 export async function GET(req: Request) {
-  try {
-    const { searchParams } = new URL(req.url);
+  const { searchParams } = new URL(req.url);
 
+  try {
     const cursor = searchParams.get("cursor");
     const type = searchParams.get("type") as "recent" | "pinned";
 

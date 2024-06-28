@@ -1,4 +1,5 @@
 import { NextApiRequest } from "next";
+import { isDynamicServerError } from "next/dist/client/components/hooks-server-context";
 
 import { NextApiResponseServerIO } from "@/types";
 import { db } from "@/lib/db";
@@ -16,8 +17,6 @@ export default async function handler(
 
     const { content } = req.body;
     const { chatId, chatCode } = req.query;
-
-    console.log(chatCode, isAdmin);
 
     if (!isAdmin || !chatCode)
       return res.status(401).json({ error: "Unauthorized" });
@@ -49,6 +48,9 @@ export default async function handler(
 
     return res.status(200).json(message);
   } catch (error) {
+    if (isDynamicServerError(error)) {
+      throw error;
+    }
     console.log("DIRECT_MESSAGES_POST ->", error);
     return res.status(500).json({ message: "Internal Error" });
   }

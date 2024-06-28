@@ -1,6 +1,7 @@
-import { Card } from "@/app/(blog)/_components";
-import { env } from "@/lib/env";
 import { SeriesWithDocuments } from "@/types";
+import { env } from "@/lib/env";
+
+import { Card } from "@/app/(blog)/_components";
 
 import { Document } from "prisma/prisma-client";
 
@@ -16,7 +17,6 @@ const getSeriesData = async (seriesId: string) => {
   });
 
   if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch data");
   }
 

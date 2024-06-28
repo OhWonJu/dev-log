@@ -5,6 +5,8 @@ import { env } from "@/lib/env";
 
 import { Card, PostCreateButton, TagItem } from "../../_components";
 
+export const dynamic = "force-dynamic";
+
 type BlogData = {
   pinnedDocuments: Document[];
   recentDocuments: Document[];
