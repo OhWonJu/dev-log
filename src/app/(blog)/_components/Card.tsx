@@ -44,7 +44,7 @@ const Card = ({ cardType, id, title, coverImage, createdAt }: CardProps) => {
   if (cardType === "series")
     return (
       <Link
-        href={`/blog/series/${id}`}
+        href={`/blog/coures/${id}`}
         className="flex flex-col justify-center items-center rounded-lg w-full aspect-[3/2] md:aspect-[3/4] bg-background shadow-lg border overflow-hidden hover:scale-[1.02] transition"
       >
         <strong className="font-Pacifico text-4xl md:text-2xl text-zinc-600 dark:text-zinc-300 mb-4">

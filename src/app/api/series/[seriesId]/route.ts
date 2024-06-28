@@ -93,7 +93,7 @@ export async function GET(
               isPublished: true,
             },
           }),
-          select: { id: true, title: true, createdAt: true },
+          select: { id: true, title: true, createdAt: true, coverImage: true },
           orderBy: { createdAt: "asc" },
         },
       },
