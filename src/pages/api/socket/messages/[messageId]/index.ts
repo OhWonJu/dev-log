@@ -1,7 +1,6 @@
 import { NextApiRequest } from "next";
 import { isDynamicServerError } from "next/dist/client/components/hooks-server-context";
 
-
 import { db } from "@/lib/db";
 import { NextApiResponseServerIO } from "@/types";
 import { checkAdmin } from "@/lib/checkAdmin";
@@ -20,7 +19,7 @@ export default async function handler(
     const { messageId, chatId, chatCode } = req.query;
     const { content } = req.body;
 
-    if (!isAdmin || !chatCode)
+    if (!isAdmin && !chatCode)
       return res.status(401).json({ error: "Unauthorized" });
     if (!chatId)
       return res.status(400).json({ error: "Conversation Id missing" });

@@ -18,7 +18,7 @@ export default async function handler(
     const { content } = req.body;
     const { chatId, chatCode } = req.query;
 
-    if (!isAdmin || !chatCode)
+    if (!isAdmin && !chatCode)
       return res.status(401).json({ error: "Unauthorized" });
     if (!chatId)
       return res.status(400).json({ error: "Conversation ID missing" });
