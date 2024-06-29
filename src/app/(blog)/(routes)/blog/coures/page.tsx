@@ -3,7 +3,7 @@
 import React from "react";
 import { Series } from "prisma/prisma-client";
 
-import { Card } from "@/app/(blog)/_components";
+import { Card, Header } from "@/app/(blog)/_components";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -17,12 +17,7 @@ const CoursePage = () => {
 
   return (
     <section className="flex flex-col p-8 lg:p-0 mb-24">
-      <h1
-        role="banner"
-        className="text-5xl font-bold text-zinc-600 dark:text-zinc-300 mr-4 mb-12"
-      >
-        Coures
-      </h1>
+      <Header title="Course" titleClassName="text-5xl" wrapperClassName="mb-16" />
       <div className="flex-1 grid md:grid-cols-3 lg:grid-cols-4 gap-3 h-full">
         {isLoading &&
           Array(8)

@@ -54,13 +54,13 @@ const TitleInput = ({ initialTitle, onChange, preview }: TitleInputProps) => {
           className="text-6xl text-center w-full mb-6 bg-transparent font-bold break-words outline-none resize-none"
         />
       ) : (
-        <div
+        <h1
           role={!preview ? "button" : "article"}
           onClick={enableInput}
           className="text-6xl text-center mb-6 font-bold break-words outline-none"
         >
           {value}
-        </div>
+        </h1>
       )}
     </>
   );

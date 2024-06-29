@@ -3,7 +3,7 @@ import { Document, Series, Tag } from "prisma/prisma-client";
 
 import { env } from "@/lib/env";
 
-import { Card, PostCreateButton, TagItem } from "../../_components";
+import { Card, Header, PostCreateButton, TagItem } from "../../_components";
 
 export const dynamic = "force-dynamic";
 
@@ -32,11 +32,7 @@ const BlogPage = async () => {
 
   return (
     <div className="p-8 lg:p-0">
-      <header className="mb-20">
-        <h1 role="banner" className="font-Pacifico text-symbol-500 text-7xl">
-          Recipe
-        </h1>
-      </header>
+      <Header title="Recipe" />
       <div className="flex flex-col-reverse gap-y-12 lg:gap-y-0 lg:flex-row">
         <div className="lg:flex-[3.3] lg:mr-12">
           {/* Pinned Posts */}
