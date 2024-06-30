@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata, ResolvingMetadata } from "next";
 
 import { DocumentWithTagsWithSeries } from "@/types";
 import { env } from "@/lib/env";
@@ -23,6 +24,32 @@ const getPostData = async (postId: string) => {
 
   return res.json();
 };
+
+export async function generateMetadata(
+  { params }: PostIdPageProps,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const id = params.postId;
+
+  const post = (await getPostData(id)) as DocumentWithTagsWithSeries;
+
+  // optionally access and extend (rather than replace) parent metadata
+  const previousImages = (await parent).openGraph?.images || [];
+
+  return {
+    title: `${post.title} | Recipe`,
+    description: post.subTitle ?? "",
+    keywords: post.tags.map((tag) => tag.tagName),
+    creator: "Pio",
+    openGraph: {
+      title: `${post.title} | Recipe`,
+      description: post.subTitle ?? "",
+      locale: "ko-KR",
+      type: "website",
+      images: [post.coverImage ?? "/recipe.svg", ...previousImages],
+    },
+  };
+}
 
 const PostIdPage = async ({ params }: PostIdPageProps) => {
   const postData = (await getPostData(
