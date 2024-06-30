@@ -101,7 +101,7 @@ const MainPage = () => {
         className=""
       >
         <MainHeader>About</MainHeader>
-        <article className="h-screen">
+        <article className="min-h-screen">
           <SubHeader>
             Who is the <strong className="text-symbol-500">chef?</strong>
           </SubHeader>
@@ -122,11 +122,11 @@ const MainPage = () => {
             </div>
           </div>
         </article>
-        <article className="h-screen">
+        <article className="min-h-screen">
           <SubHeader>Career</SubHeader>
           <Career />
         </article>
-        <article className="">
+        <article>
           <SubHeader>
             About this <strong className="text-symbol-500">web page</strong>
           </SubHeader>
@@ -218,7 +218,7 @@ const MainPage = () => {
       <Section
         id={TAB_MAP[4].contant} // contact
         index={4}
-        className="h-[100vh]"
+        className="min-h-screen"
       >
         <MainHeader>Contact</MainHeader>
         <div className="flex flex-col md:flex-row w-full gap-20 md:gap-0">
