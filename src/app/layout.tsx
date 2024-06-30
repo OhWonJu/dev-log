@@ -20,6 +20,16 @@ const font = Open_Sans({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Recipe",
   description: "Portfolio & Dev recipe",
+  icons: {
+    icon: { url: "/favicon.svg", href: "/favicon.svg" },
+  },
+  openGraph: {
+    title: "Recipe",
+    description: "Portfolio & Dev recipe",
+    locale: "ko-KR",
+    type: "website",
+    images: ["/recipe.svg"],
+  },
 };
 
 export default async function RootLayout({
