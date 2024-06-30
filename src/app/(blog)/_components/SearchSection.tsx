@@ -1,23 +1,26 @@
 "use client";
 
-import React, { Fragment } from "react";
-
-import { Document } from "prisma/prisma-client";
-import { Card, Header } from "@/app/(blog)/_components";
-import { ServerCrash } from "lucide-react";
-import { Skeleton } from "@/components/ui/skeleton";
+import React from "react";
 import { useSearchParams } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { Document } from "prisma/prisma-client";
+import { ServerCrash } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+
+import { Skeleton } from "@/components/ui/skeleton";
+
+import { Card, Header } from "@/app/(blog)/_components";
 
 const RecipesSection = () => {
   const searchParams = useSearchParams();
 
   const keyword = searchParams?.get("keyword");
+  const tags = searchParams?.get("tags");
 
   const { data, status, isLoading } = useQuery({
-    queryKey: ["search", keyword ?? ""],
-    queryFn: async () => await axios.get(`/api/search?keyword=${keyword}`),
+    queryKey: ["search", keyword, tags],
+    queryFn: async () =>
+      await axios.get(`/api/search?keyword=${keyword}&tags=${tags}`),
   });
   const documents = data?.data as Document[];
 
@@ -31,15 +34,19 @@ const RecipesSection = () => {
       </div>
     );
   }
+
   return (
     <section className="flex flex-col p-8 lg:p-0 mb-24">
       <Header
         title={"Search"}
         titleClassName="text-5xl"
-        wrapperClassName="mb-16"
+        wrapperClassName="mb-4"
         searchable={false}
       />
-      <div className="flex-1 grid md:grid-cols-3 lg:grid-cols-4 gap-3 h-full">
+      <span className="text-sm font-semibold text-zinc-400 dark:text-zinc-600 mb-16">
+        Result of Searching with {keyword || tags?.split("-").join(", ")}
+      </span>
+      <div className="flex-1 grid md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-3 h-full">
         {isLoading &&
           Array(8)
             .fill(0)
@@ -49,6 +56,11 @@ const RecipesSection = () => {
                 className="rounded-lg w-full aspect-[3/2] md:aspect-[3/4]"
               />
             ))}
+        {documents?.length === 0 && (
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">
+            검색 결과가 없습니다.
+          </p>
+        )}
         {!isLoading &&
           documents?.map((post: Document) => (
             <Card

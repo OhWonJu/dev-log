@@ -61,7 +61,7 @@ const RecipesSection = () => {
         titleClassName="text-5xl"
         wrapperClassName="mb-16"
       />
-      <div className="flex-1 grid md:grid-cols-3 lg:grid-cols-4 gap-3 h-full">
+      <div className="flex-1 grid md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-3 h-full">
         {isLoading &&
           Array(8)
             .fill(0)

@@ -3,7 +3,13 @@ import { Document, Series, Tag } from "prisma/prisma-client";
 
 import { env } from "@/lib/env";
 
-import { Card, Header, PostCreateButton, TagItem } from "../../_components";
+import {
+  Card,
+  Header,
+  PostCreateButton,
+  TagItem,
+  Tags,
+} from "../../_components";
 
 export const dynamic = "force-dynamic";
 
@@ -104,16 +110,7 @@ const BlogPage = async () => {
           </section>
         </div>
         {/* Tags */}
-        <aside className="flex flex-col lg:flex-1 lg:items-center text-white">
-          <h2 className="text-4xl font-bold text-zinc-600 dark:text-zinc-300 mb-6">
-            Ingredient
-          </h2>
-          <div className="flex flex-wrap lg:w-full border bg-background rounded-md shadow-md px-4 py-6 gap-x-1 gap-y-2">
-            {tags.map((tag) => (
-              <TagItem key={tag.id} id={tag.id} tagName={tag.tagName} />
-            ))}
-          </div>
-        </aside>
+        <Tags tags={tags} />
       </div>
       <PostCreateButton />
     </div>
