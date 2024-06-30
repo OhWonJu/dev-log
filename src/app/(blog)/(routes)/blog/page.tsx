@@ -3,13 +3,7 @@ import { Document, Series, Tag } from "prisma/prisma-client";
 
 import { env } from "@/lib/env";
 
-import {
-  Card,
-  Header,
-  PostCreateButton,
-  TagItem,
-  Tags,
-} from "../../_components";
+import { Card, Header, PostCreateButton, Tags } from "../../_components";
 
 export const dynamic = "force-dynamic";
 
@@ -31,6 +25,7 @@ const getBlogInitData = async () => {
 
   return res.json();
 };
+
 
 const BlogPage = async () => {
   const { pinnedDocuments, recentDocuments, serieses, tags } =

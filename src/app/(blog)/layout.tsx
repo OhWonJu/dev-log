@@ -1,5 +1,12 @@
+import { Metadata } from "next";
+
 import { SearchCommand } from "@/components";
 import { NAV_HEIGHT } from "@/constants/style";
+
+export const metadata: Metadata = {
+  title: "Blog | Recipe",
+  description: "Dev Recipes",
+};
 
 const BlogLayout = ({ children }: { children: React.ReactNode }) => {
   return (
