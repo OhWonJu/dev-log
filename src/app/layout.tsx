@@ -18,7 +18,7 @@ import NavProvider from "@/components/providers/NavProvider";
 const font = Open_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(`${process.env.NEXT_PUBLIC_SITE_URL}`),
+  metadataBase: new URL(`${process.env.NEXT_PUBLIC_SITE_URL!}`),
   title: "Recipe",
   description: "Portfolio & Dev recipe",
   icons: {
@@ -26,9 +26,10 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Recipe",
+    url: `${process.env.NEXT_PUBLIC_SITE_URL!}`,
     description: "Portfolio & Dev recipe",
     locale: "ko-KR",
-    type: "website",
+    type: "profile",
     images: ["/recipe.svg"],
   },
 };
