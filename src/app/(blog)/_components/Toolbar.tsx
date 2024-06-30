@@ -13,6 +13,7 @@ import TitleInput from "./TitleInput";
 import TagInput from "./TagInput";
 import { useCoverImage } from "@/hooks/UseCoverImage";
 import Cover from "./Cover";
+import { cn } from "@/lib/utils";
 
 interface ToolbarProps {
   initialData: DocumentWithTagsWithSeries;
@@ -62,7 +63,13 @@ const Toolbar = ({ initialData, onChange, preview }: ToolbarProps) => {
   }, [data.seriesName]);
 
   return (
-    <div className="py-8 mb-8 px-[54px] group relative md:max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto border-b ">
+    <div
+      className={cn(
+        "py-8 mb-8 roup relative md:max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto border-b",
+        !preview && "px-[54px]",
+        preview && "px-6 md:px-[54px]"
+      )}
+    >
       {/* Title */}
       <TitleInput
         initialTitle={initialData.title}

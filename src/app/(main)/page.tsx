@@ -87,7 +87,7 @@ const STACK_MAP = [
 
 const MainPage = () => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col px-6 md:px-0">
       <Section
         id={TAB_MAP[0].contant} // home
         index={0}
@@ -105,12 +105,12 @@ const MainPage = () => {
           <SubHeader>
             Who is the <strong className="text-symbol-500">chef?</strong>
           </SubHeader>
-          <div className="w-full flex flex-col md:flex-row gap-x-2">
+          <div className="w-full flex flex-col lg:flex-row gap-20 lg:gap-2">
             <div className="flex-1 flex justify-center items-center">
               <ProfileCard />
             </div>
             <div className="flex-1 flex flex-col p-2 items-center">
-              <SubHeader className="text-2xl">Dev Stacks</SubHeader>
+              <SubHeader className="text-2xl mb-10">Dev Stacks</SubHeader>
               <div className="flex-1 flex flex-wrap gap-2">
                 {STACK_MAP.map(({ icon, stackName }, index) => (
                   <StackItem key={index}>
@@ -132,7 +132,7 @@ const MainPage = () => {
           </SubHeader>
           <div className="flex flex-col justify-center items-center">
             <PinContainer
-              containerClassName="w-[80%] aspect-[3/2]"
+              containerClassName="w-[100%] md:w-[90%] aspect-[3/2]"
               title={
                 <div className="">
                   <h4 className="text-xl font-bold mb-3">Ingregient!</h4>
@@ -187,7 +187,7 @@ const MainPage = () => {
                 <br />
                 그리고 아이덴티티를 레시피에 빗대어
                 <br />
-                재치있게 표현하고자 하는 웹 페이지 입니다.
+                재치있게 표현하고자 하는 웹 페이지입니다.
               </span>
             </div>
             <Link
@@ -212,9 +212,7 @@ const MainPage = () => {
         <MainHeader>Project</MainHeader>
         <div className="flex text-3xl flex-col">
           🚧 뚝딱뚝딱 작업중! 🚧
-          <span className="text-xs text-zinc-400">
-            위이이잉 그르륵캌 깡깡
-          </span>
+          <span className="text-xs text-zinc-400">위이이잉 그르륵캌 깡깡</span>
         </div>
       </Section>
       <Section
@@ -223,7 +221,7 @@ const MainPage = () => {
         className="h-[100vh]"
       >
         <MainHeader>Contact</MainHeader>
-        <div className="flex flex-col md:flex-row w-full">
+        <div className="flex flex-col md:flex-row w-full gap-20 md:gap-0">
           <div className="flex-1 flex items-center justify-center">
             <ContactCard />
           </div>

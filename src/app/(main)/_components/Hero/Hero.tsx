@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 
 const Hero = ({ className }: { className?: string }) => {
   return (
-    <div className={cn(className, "flex flex-col items-center")}>
+    <div className={cn(className, "flex flex-col items-center w-full max-w-[600px]")}>
       <Symbol />
       <p
         className={cn(

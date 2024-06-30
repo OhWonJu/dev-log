@@ -56,7 +56,11 @@ const Navigator = () => {
       )}
       style={{ height: NAV_HEIGHT }}
     >
-      {scrolled && <Recipe scale={0.18} fill={true} />}
+      {scrolled && (
+        <div className="min-w-[80px] w-[80px]">
+          <Recipe fill={true} />
+        </div>
+      )}
       <div className="md:ml-auto md:justify-end w-full h-full flex items-center gap-x-6">
         {TAB_MAP.map((item, index) => (
           <Link
