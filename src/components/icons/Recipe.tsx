@@ -1,21 +1,18 @@
 const Recipe = ({
-  scale = 1,
   color = "#F8B02E",
   className,
   fill = false,
 }: {
-  scale?: number;
   color?: string;
   className?: string;
   fill?: boolean;
 }) => {
   return (
     <svg
-      width={361 * scale}
-      height={164 * scale}
       viewBox="0 0 361 164"
       fill={fill ? color : "none"}
       stroke={color}
+      preserveAspectRatio={"xMidYMid slice"}
       xmlns="http://www.w3.org/2000/svg"
     >
       <g id="Recipe">

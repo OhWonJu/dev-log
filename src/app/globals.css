@@ -86,6 +86,13 @@
   }
 }
 
+/* screen-md */
+@media screen and (max-width: 768px) {
+  .bn-editor[contenteditable="false"] {
+    padding-inline: 1.5rem !important;
+  }
+}
+
 .bn-container[data-theming-css][data-color-scheme] {
   --bn-colors-editor-text: var(--primary);
   --bn-colors-editor-background: 0 0% 0%;

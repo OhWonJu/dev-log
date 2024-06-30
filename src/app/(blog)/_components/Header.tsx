@@ -20,7 +20,7 @@ const Header = ({
   return (
     <header
       className={cn(
-        "flex w-full justify-between items-center mt-10 mb-20",
+        "flex flex-col sm:flex-row w-full justify-between sm:items-center gap-y-16 sm:gap-y-0 mt-10 mb-20",
         wrapperClassName
       )}
     >
