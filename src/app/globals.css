@@ -86,6 +86,13 @@
   }
 }
 
+/* screen-md */
+@media screen and (max-width: 768px) {
+  .bn-editor[contenteditable="false"] {
+    padding-inline: 1.5rem !important;
+  }
+}
+
 .bn-container[data-theming-css][data-color-scheme] {
   --bn-colors-editor-text: var(--primary);
   --bn-colors-editor-background: 0 0% 0%;
@@ -125,10 +132,14 @@
   }
 }
 
+.ProseMirror [contenteditable="false"] {
+  white-space: pre-wrap !important;
+}
+
 .cm-editor {
   border-radius: 8px;
 }
 
 .ͼ1 .cm-content {
-  padding: 2.5rem 1.5rem; 
+  padding: 2.5rem 1.5rem;
 }

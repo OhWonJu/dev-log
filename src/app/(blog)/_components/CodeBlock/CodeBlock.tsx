@@ -42,6 +42,8 @@ const CodeBlock = createReactBlockSpec(
       )!;
 
       const onInputChange = (val: string) => {
+        if (!editor.isEditable) return;
+
         editor.updateBlock(block, {
           //@ts-ignore
           props: { ...block.props, data: val },
@@ -55,7 +57,11 @@ const CodeBlock = createReactBlockSpec(
             className={style.codeBlock_content}
             autoFocus
             placeholder={"Write your code here..."}
-            style={{ width: "100%", resize: "vertical" }}
+            style={{
+              width: "100%",
+              resize: "vertical",
+              whiteSpace: "pre-wrap",
+            }}
             //@ts-ignore
             extensions={[langs[type ? type : "tsx"]()]}
             value={data}

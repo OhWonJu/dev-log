@@ -25,7 +25,6 @@ const Course = ({ documentId, seriesId, initialData }: CourseProps) => {
   });
   const seriesData = (data?.data as SeriesWithDocuments) ?? initialData;
 
-
   const handleItemClick = (id: string) => {
     router.push(`/blog/${id}`);
   };
@@ -39,7 +38,7 @@ const Course = ({ documentId, seriesId, initialData }: CourseProps) => {
     return null;
 
   return (
-    <aside id="course" className="px-[56px] mt-20">
+    <aside id="course" className="px-6 md:px-[56px] mt-20">
       <div className="flex flex-col flex-grow border shadow-md bg-secondary rounded-md p-4">
         <div className="flex items-center mb-4 ">
           <h4 className="font-semibold text-2xl mr-4 truncate">

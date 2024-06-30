@@ -5,7 +5,7 @@ import { useIntersectionObserver } from "usehooks-ts";
 
 import usePostQuery from "@/hooks/usePostQuery";
 import { Document } from "prisma/prisma-client";
-import { Card } from "@/app/(blog)/_components";
+import { Card, Header } from "@/app/(blog)/_components";
 import { ServerCrash } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSearchParams } from "next/navigation";
@@ -56,13 +56,12 @@ const RecipesSection = () => {
   }
   return (
     <section className="flex flex-col p-8 lg:p-0 mb-24">
-      <h1
-        role="banner"
-        className="text-5xl font-bold text-zinc-600 dark:text-zinc-300 mr-4 mb-12"
-      >
-        {HEADER_MAP[type]}
-      </h1>
-      <div className="flex-1 grid md:grid-cols-3 lg:grid-cols-4 gap-3 h-full">
+      <Header
+        title={HEADER_MAP[type]}
+        titleClassName="text-5xl"
+        wrapperClassName="mb-16"
+      />
+      <div className="flex-1 grid md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-3 h-full">
         {isLoading &&
           Array(8)
             .fill(0)

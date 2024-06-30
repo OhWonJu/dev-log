@@ -49,7 +49,7 @@ export default async function RootLayout({
           <AuthProvider isAdmin={isAdmin}>
             <QueryProvider>
               <div
-                className="bg-background text-primary min-h-screen"
+                className="relative bg-background text-primary min-h-screen max-w-screen"
                 style={{ backgroundImage: "var(--background-image)" }}
               >
                 <ModalProvider />

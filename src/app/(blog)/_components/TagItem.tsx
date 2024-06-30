@@ -1,16 +1,26 @@
 import React from "react";
 
+import { cn } from "@/lib/utils";
+
 interface TagItemProps {
   id: string;
   tagName: string;
+  isSelected: boolean;
+  onTagClick: (tagName: string) => void;
 }
 
-const TagItem = ({ id, tagName }: TagItemProps) => {
+const TagItem = ({ id, tagName, isSelected, onTagClick }: TagItemProps) => {
   return (
-    <div role="button" className="grid items-center px-[10px] py-1 rounded-full border bg-background shadow-sm hover:bg-primary-foreground">
-      <span className="text-sm text-primary font-semibold" >
-        {tagName}
-        </span>
+    <div
+      role="button"
+      onClick={() => onTagClick(tagName)}
+      className={cn(
+        "grid items-center px-[10px] py-1 rounded-full border shadow-sm font-semibold",
+        isSelected && "bg-symbol-500 text-white border-transparent",
+        !isSelected && "bg-background hover:bg-primary-foreground text-primary"
+      )}
+    >
+      <span className="text-sm">{tagName}</span>
     </div>
   );
 };
