@@ -53,12 +53,14 @@ const Card = ({ cardType, id, title, coverImage, createdAt }: CardProps) => {
     return (
       <Link
         href={`/blog/coures/${id}`}
-        className="flex flex-col justify-center items-center rounded-lg w-full aspect-[3/2] md:aspect-[3/4] bg-background shadow-lg border overflow-hidden hover:scale-[1.02] transition"
+        className="flex flex-col justify-center items-center rounded-lg w-full p-4 aspect-[3/2] md:aspect-[3/4] bg-background shadow-lg border overflow-hidden hover:scale-[1.02] transition"
       >
         <strong className="font-Pacifico text-4xl md:text-2xl text-zinc-600 dark:text-zinc-300 mb-4">
           Course
         </strong>
-        <h4 className="font-bold text-5xl md:text-4xl">{title}</h4>
+        <h3 className="font-bold text-4xl md:text-2xl line-clamp-1 sm:line-clamp-2 tracking-tight">
+          {title}
+        </h3>
       </Link>
     );
 };
