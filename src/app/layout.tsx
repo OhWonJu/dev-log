@@ -18,6 +18,7 @@ import NavProvider from "@/components/providers/NavProvider";
 const font = Open_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(`${process.env.NEXT_PUBLIC_SITE_URL}`),
   title: "Recipe",
   description: "Portfolio & Dev recipe",
   icons: {
