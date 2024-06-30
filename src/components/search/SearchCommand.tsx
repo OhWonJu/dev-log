@@ -32,7 +32,6 @@ const SearchCommand = () => {
     queryKey: ["search", keyword.current],
     queryFn: async () =>
       await axios.get(`/api/search?keyword=${keyword.current}`),
-    enabled: false,
   });
 
   const toggle = useSearch((store) => store.toggle);
@@ -42,6 +41,7 @@ const SearchCommand = () => {
   const debouncedOnChange = debounce(
     async (event: React.ChangeEvent<HTMLInputElement>) => {
       keyword.current = event.target.value;
+
       await refetch();
     },
     300

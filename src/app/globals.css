@@ -125,10 +125,14 @@
   }
 }
 
+.ProseMirror [contenteditable="false"] {
+  white-space: pre-wrap !important;
+}
+
 .cm-editor {
   border-radius: 8px;
 }
 
 .ͼ1 .cm-content {
-  padding: 2.5rem 1.5rem; 
+  padding: 2.5rem 1.5rem;
 }
