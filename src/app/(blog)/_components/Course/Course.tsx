@@ -44,13 +44,13 @@ const Course = ({ documentId, seriesId, initialData }: CourseProps) => {
           <h4 className="font-semibold text-2xl mr-4 truncate">
             Course - {seriesData.name}
           </h4>
-          <a className="flex items-center text-xs font-medium text-zinc-400 dark:text-zinc-600">
+          <span className="flex items-center text-xs font-medium text-zinc-400 dark:text-zinc-600">
             <ListMinus className="w-3 h-3 mr-1" />
             {seriesData.documents.findIndex(
               (document) => document.id === documentId
             ) + 1}{" "}
             / {seriesData.documents.length}
-          </a>
+          </span>
         </div>
         <ul className="">
           {seriesData && (

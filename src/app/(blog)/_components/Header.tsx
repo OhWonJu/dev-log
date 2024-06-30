@@ -25,7 +25,7 @@ const Header = ({
       )}
     >
       <h1
-        role="banner"
+        role="heading"
         className={cn("font-Pacifico text-symbol-500 text-7xl", titleClassName)}
       >
         {title}

@@ -38,13 +38,13 @@ export async function generateMetadata(
 
   return {
     title: `${post.title} | Recipe`,
-    description: post.subTitle ?? "",
+    description: post.subTitle ?? post.title,
     keywords: post.tags.map((tag) => tag.tagName),
     creator: "Pio",
     openGraph: {
       title: `${post.title} | Recipe`,
       url: `${process.env.NEXT_PUBLIC_SITE_URL!}/blog/${id}`,
-      description: post.subTitle ?? "",
+      description: post.subTitle ?? post.title,
       locale: "ko-KR",
       type: "article",
       images: [post.coverImage ?? "/recipe.svg", ...previousImages],

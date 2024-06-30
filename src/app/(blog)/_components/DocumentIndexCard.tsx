@@ -53,7 +53,7 @@ const DocumentIndexCard = ({
         className="flex flex-col items-center text-xs py-6"
         wrapperClassName="max-w-[250px]"
       >
-        <h4 className="font-bold text-2xl">INDEX</h4>
+        <span className="font-bold text-2xl">INDEX</span>
         <ReceiptSeparator className="mt-6" />
         <div className="flex w-full text-xs">
           <span className="w-[20%]">IDX</span>
@@ -69,7 +69,7 @@ const DocumentIndexCard = ({
                 className="py-1 hover:bg-primary-foreground dark:hover:bg-secondary-foreground truncate"
                 style={{ paddingLeft: (data.level - 1) * 12 }}
               >
-                {data.content}
+                <span>{data.content}</span>
               </li>
             ))}
         </ul>
