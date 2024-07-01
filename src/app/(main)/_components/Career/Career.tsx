@@ -66,6 +66,10 @@ const CAREER_DATA = [
         date: "2024.03",
         content: "프로그래머스 데브코스 프론트엔드 5기 수료",
       },
+      {
+        date: "2024.06",
+        content: "Portfolio & Dev blog Web 'Recipe' v1.1.1 Release",
+      },
     ],
   },
 ];

@@ -141,13 +141,13 @@ const MainPage = () => {
                       500 grams of fresh <strong>Next.js</strong>
                     </li>
                     <li>
-                      14 oz of <strong>Typescript</strong>
+                      97 oz of <strong>Typescript</strong>
                     </li>
                     <li>
-                      1 cup of <strong>Zustand</strong>
+                      4 cups of <strong>Zustand</strong>
                     </li>
                     <li>
-                      2 cups of <strong>Shadcn ui</strong>
+                      10 cups of <strong>Shadcn ui</strong>
                     </li>
                     <li>
                       2 teaspoons of <strong>Aceternity ui</strong>

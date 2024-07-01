@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React from "react";
+import React, { Fragment } from "react";
 import { useRouter } from "next/navigation";
 import { ListMinus } from "lucide-react";
 
@@ -41,9 +41,9 @@ const Course = ({ documentId, seriesId, initialData }: CourseProps) => {
     <aside id="course" className="px-6 md:px-[56px] mt-20">
       <div className="flex flex-col flex-grow border shadow-md bg-secondary rounded-md p-4">
         <div className="flex items-center mb-4 ">
-          <h4 className="font-semibold text-2xl mr-4 truncate">
+          <span className="font-semibold text-2xl mr-4 truncate">
             Course - {seriesData.name}
-          </h4>
+          </span>
           <span className="flex items-center text-xs font-medium text-zinc-400 dark:text-zinc-600">
             <ListMinus className="w-3 h-3 mr-1" />
             {seriesData.documents.findIndex(
@@ -52,24 +52,21 @@ const Course = ({ documentId, seriesId, initialData }: CourseProps) => {
             / {seriesData.documents.length}
           </span>
         </div>
-        <ul className="">
-          {seriesData && (
-            <>
-              {seriesData.documents.map((document, index) => (
-                <li
-                  key={document.id}
-                  role="button"
-                  onClick={() => handleItemClick(document.id)}
-                  className={cn(
-                    "px-2 py-1 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-700 truncate",
-                    document.id === documentId && "font-bold"
-                  )}
-                >
-                  {index + 1}. {document.title}
-                </li>
-              ))}
-            </>
-          )}
+        <ul>
+          {seriesData &&
+            seriesData.documents?.map((document, index) => (
+              <li
+                key={document.id}
+                role="button"
+                onClick={() => handleItemClick(document.id)}
+                className={cn(
+                  "px-2 py-1 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-700 truncate",
+                  document.id === documentId && "font-bold"
+                )}
+              >
+                {index + 1}. {document.title}
+              </li>
+            ))}
         </ul>
       </div>
     </aside>

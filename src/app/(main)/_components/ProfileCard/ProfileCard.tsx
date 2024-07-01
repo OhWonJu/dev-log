@@ -21,7 +21,7 @@ const ProfileCard = () => {
   const { copied, onCopy } = useCopy();
 
   return (
-    <div className={cn(style.card, "w-full max-w-[500px] aspect-[2/1]")}>
+    <div className={cn(style.card, "w-full max-w-[500px] min-h-[220px] aspect-[2/1]")}>
       <div
         className={cn(
           style.card_inner,
@@ -48,7 +48,7 @@ const ProfileCard = () => {
           </div>
           <div className="flex flex-col w-[70%] pr-3 py-10 justify-around">
             <h4 className="font-bold text-xl">Front End Developer</h4>
-            <p className="font-medium text-primary/5 text-xs sm:text-sm line-clamp-5">
+            <p className="font-medium text-primary/5 text-xs sm:text-sm">
               재사용성이 좋고 견고한 코드를 작성하기 위해 늘 고민합니다. <br />
               기술을 선택함에 있어 이유와 원리를 중요하게 생각합니다. <br />
               지식과 경험을 공유하는 것을 중요하게 생각합니다.

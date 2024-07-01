@@ -55,7 +55,7 @@ const TitleInput = ({ initialTitle, onChange, preview }: TitleInputProps) => {
         />
       ) : (
         <h1
-          role={!preview ? "button" : "article"}
+          role="heading"
           onClick={enableInput}
           className="text-6xl text-center mb-6 font-bold break-words outline-none"
         >
