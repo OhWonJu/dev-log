@@ -15,9 +15,12 @@ type BlogData = {
 };
 
 const getBlogInitData = async () => {
-  const res = await fetch(`${env.SITE_URL}/api/blog`, {
-    cache: "no-cache",
-  });
+  const res = await fetch(
+    `${env.SITE_URL}/api/blog/${new Date().toISOString()}`,
+    {
+      cache: "no-cache",
+    }
+  );
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
@@ -25,7 +28,6 @@ const getBlogInitData = async () => {
 
   return res.json();
 };
-
 
 const BlogPage = async () => {
   const { pinnedDocuments, recentDocuments, serieses, tags } =
