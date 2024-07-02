@@ -1,12 +1,12 @@
 import { create } from "zustand";
 
 interface UseAuthStoreProps {
-  auth: boolean;
+  auth: boolean | undefined;
   setAuth: (isAdmin: boolean) => void;
 }
 
 const useAuthStore = create<UseAuthStoreProps>((set) => ({
-  auth: false,
+  auth: undefined,
 
   setAuth: (isAdmin: boolean) => {
     set(() => ({

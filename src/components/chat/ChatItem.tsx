@@ -103,7 +103,7 @@ const ChatItem = ({
     <div
       className={cn(
         isOwner && "flex-row-reverse",
-        "relative flex transition w-full"
+        "relative flex transition w-full group"
       )}
     >
       <div
@@ -114,12 +114,12 @@ const ChatItem = ({
           "relative group flex items-center hover:bg-black/5 p-4 rounded-md"
         )}
       >
-        <div className="group flex gap-x-2 items-start w-full">
+        <div className=" flex gap-x-2 items-start w-full">
           <div className="flex flex-col w-full">
             <div className="flex items-center gap-x-2">
-              <span className="text-xs">{timestamp}</span>
+              <span className="text-[10px]">{timestamp}</span>
             </div>
-            <p className={cn("text-sm", deleted && "italic text-xs mt-1")}>
+            <p className={cn("text-[15px]", deleted && "italic text-xs mt-1")}>
               {content}
               {isUpdated && !deleted && (
                 <span className="text-[10px] mx-2">(edited)</span>
@@ -161,7 +161,13 @@ const ChatItem = ({
           </div>
         </div>
         {canDeleteMessage && (
-          <div className="hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-800 border rounded-sm">
+          <div
+            className={cn(
+              "hidden group-hover:flex items-center gap-x-2 absolute top-1/2 -translate-y-1/2 p-1 bg-white dark:bg-zinc-800 border rounded-sm",
+              isOwner && "-left-14",
+              !isOwner && "-right-8"
+            )}
+          >
             {canEditMessage && (
               <ActionTooltip label="Edit">
                 <Edit

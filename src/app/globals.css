@@ -96,6 +96,7 @@
 .bn-container[data-theming-css][data-color-scheme] {
   --bn-colors-editor-text: var(--primary);
   --bn-colors-editor-background: 0 0% 0%;
+  --bn-colors-highlights-gray-background: var(--primary-foreground);
 }
 
 .bn-block-content {
