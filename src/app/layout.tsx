@@ -14,6 +14,7 @@ import { Navigator } from "@/components";
 import ModalProvider from "@/components/providers/ModalProvider";
 import AuthProvider from "@/components/providers/AuthProvider";
 import NavProvider from "@/components/providers/NavProvider";
+import ChatListButton from "@/components/ChatListButton";
 
 const font = Open_Sans({ subsets: ["latin"] });
 
@@ -61,13 +62,14 @@ export default async function RootLayout({
           <AuthProvider isAdmin={isAdmin}>
             <QueryProvider>
               <div
-                className="relative bg-background text-primary min-h-screen max-w-screen"
+                className="relative bg-background text-primary min-h-screen max-w-screen transition-colors"
                 style={{ backgroundImage: "var(--background-image)" }}
               >
                 <ModalProvider />
                 <NavProvider>
                   <Navigator />
                   {children}
+                  <ChatListButton />
                 </NavProvider>
               </div>
             </QueryProvider>
