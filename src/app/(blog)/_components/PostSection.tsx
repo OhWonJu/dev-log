@@ -15,6 +15,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import Toolbar from "./Toolbar";
 import { Button } from "@/components/ui/button";
 import Course from "./Course/Course";
+import Giscus from "./Giscus";
 
 interface PostSectionProps {
   initialData: DocumentWithTagsWithSeries;
@@ -152,6 +153,9 @@ const PostSection = ({ initialData }: PostSectionProps) => {
         }}
       />
       <Course documentId={initialData.id} seriesId={initialData.seriesId} />
+      <footer className="px-6 md:px-[56px] mt-20">
+        <Giscus />
+      </footer>
       {auth && (
         <Button
           className="fixed bottom-10 right-[10%] bg-symbol-500 text-white text-lg"

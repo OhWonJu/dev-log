@@ -50,7 +50,16 @@ const Cover = ({ url, preview }: CoverProps) => {
         url && "bg-muted"
       )}
     >
-      {!!url && <Image src={url} fill alt="cover" className="object-cover" />}
+      {!!url && (
+        <Image
+          src={url}
+          fill
+          alt="cover"
+          priority
+          sizes="(max-width: 768px) 80vw, (max-width: 1200px) 80vw, 80vw"
+          className="object-cover"
+        />
+      )}
       {url && !preview && (
         <div className="opacity-0 group-hover:opacity-100 absolute bottom-5 right-5 flex items-center gap-x-2">
           <Button
