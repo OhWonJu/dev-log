@@ -1,6 +1,7 @@
 "use client";
 
 import useAuthStore from "@/store/useAuthsStore";
+import { MessageCircle } from "lucide-react";
 import Link from "next/link";
 
 const ChatListButton = () => {
@@ -9,12 +10,12 @@ const ChatListButton = () => {
   if (!auth) return null;
 
   return (
-    <div className="fixed bottom-10 left-10">
+    <div className="fixed bottom-5 left-5">
       <Link
         href={"/chats"}
         className="flex w-[55px] h-[55px] bg-symbol-500 rounded-full items-center justify-center"
       >
-        <span className="font-semibold text-lg">Chat</span>
+        <MessageCircle className="text-white fill-white" />
       </Link>
     </div>
   );

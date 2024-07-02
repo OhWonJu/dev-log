@@ -5,6 +5,7 @@ export { default as Card } from "./Card";
 export { default as Cover } from "./Cover";
 export { default as DocumentIndexCard } from "./DocumentIndexCard";
 export { default as Editor } from "./Editor";
+export { default as Giscus } from "./Giscus";
 export { default as Header } from "./Header";
 export { default as PostSection } from "./PostSection";
 export { default as PostCreateButton } from "./PostCreateButton";
