@@ -13,6 +13,7 @@ const ChatListButton = () => {
     <div className="fixed bottom-5 left-5">
       <Link
         href={"/chats"}
+        aria-label="Go to Chats page"
         className="flex w-[55px] h-[55px] bg-symbol-500 rounded-full items-center justify-center"
       >
         <MessageCircle className="text-white fill-white" />

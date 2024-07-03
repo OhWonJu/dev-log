@@ -134,7 +134,7 @@ const insertCode = () => ({
     });
   },
   aliases: ["code"],
-  group: "Basic blocks",
+  group: "Custom blocks",
   icon: <MdCode />,
   subtext: "Insert a code block.",
 });
