@@ -18,6 +18,10 @@ import "@blocknote/mantine/style.css";
 
 import DocumentIndexCard from "./DocumentIndexCard";
 import { CalloutBlock, insertCallout, CodeBlock, insertCode } from "./index";
+import {
+  NextImageBlock,
+  insertNextImage,
+} from "./NextImageBlock/NextImageBlock";
 
 interface EditorProps {
   initialContent?: string | null;
@@ -36,6 +40,7 @@ const schema = BlockNoteSchema.create({
     // Adds the Alert block.
     callout: CalloutBlock,
     procode: CodeBlock,
+    nextImage: NextImageBlock,
   },
 });
 
@@ -83,6 +88,7 @@ const Editor = ({
                   ...getDefaultReactSlashMenuItems(editor),
                   insertCallout(),
                   insertCode(),
+                  insertNextImage(),
                 ],
                 query
               )

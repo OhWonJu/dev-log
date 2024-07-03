@@ -167,7 +167,7 @@ const insertCallout = () => ({
     "info",
     "success",
   ],
-  group: "Basic blocks",
+  group: "Custom blocks",
   icon: <MdAutoAwesome />,
 });
 
