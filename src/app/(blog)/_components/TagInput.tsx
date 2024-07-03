@@ -79,6 +79,7 @@ const TagInput = ({ initialTags, onChange, preview }: TagInputProps) => {
           {!preview && (
             <div
               role={!preview ? "button" : "article"}
+              aria-label="TagEdit"
               onClick={enableInput}
               className="p-2 ml-4"
             >
