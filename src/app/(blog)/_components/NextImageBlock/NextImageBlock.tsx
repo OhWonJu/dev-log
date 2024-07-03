@@ -108,6 +108,7 @@ export const ImagePreview = (
         src={resolved.downloadUrl!}
         alt={props.block.props.caption || "BlockNote Next Image"}
         priority
+        placeholder="blur"
         contentEditable={false}
         draggable={false}
         width={0}
@@ -139,6 +140,7 @@ export const ImageToExternalHTML = (
         "BlockNote Next Image"
       }
       priority
+      placeholder="blur"
       contentEditable={false}
       draggable={false}
       width={0}
