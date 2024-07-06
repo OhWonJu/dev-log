@@ -14,11 +14,18 @@ import TagInput from "./TagInput";
 import { useCoverImage } from "@/hooks/UseCoverImage";
 import Cover from "./Cover";
 import { cn } from "@/lib/utils";
+import SubTitleInput from "./SubTitleInput";
 
 interface ToolbarProps {
   initialData: DocumentWithTagsWithSeries;
   onChange: (
-    target: "title" | "seriesId" | "newTags" | "isPublished" | "isPinned",
+    target:
+      | "title"
+      | "subTitle"
+      | "seriesId"
+      | "newTags"
+      | "isPublished"
+      | "isPinned",
     value: any
   ) => void;
   preview?: boolean;
@@ -73,6 +80,12 @@ const Toolbar = ({ initialData, onChange, preview }: ToolbarProps) => {
       {/* Title */}
       <TitleInput
         initialTitle={initialData.title}
+        preview={preview}
+        onChange={onChange}
+      />
+      {/* SubTitle */}
+      <SubTitleInput
+        initialSubTitle={initialData.subTitle}
         preview={preview}
         onChange={onChange}
       />

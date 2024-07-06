@@ -26,6 +26,7 @@ const PostSection = ({ initialData }: PostSectionProps) => {
 
   const infoData = useRef<{
     title: string;
+    subTitle: string | null;
     oldTags: Tag[];
     newTags: string | null;
     seriesId: string | null;
@@ -33,6 +34,7 @@ const PostSection = ({ initialData }: PostSectionProps) => {
     isPinned: boolean | null;
   }>({
     title: initialData.title ?? "Untitled",
+    subTitle: initialData.subTitle ?? null,
     seriesId: initialData.seriesId ?? null,
     oldTags: initialData.tags ?? [],
     newTags: null,
@@ -48,6 +50,7 @@ const PostSection = ({ initialData }: PostSectionProps) => {
 
     updatePost({
       title: infoData.current.title,
+      subTitle: infoData.current.subTitle,
       content: content.current,
       indexMap: JSON.stringify(indexStructure),
       newTags: infoData.current.newTags,
@@ -61,12 +64,14 @@ const PostSection = ({ initialData }: PostSectionProps) => {
     mutationFn: async ({
       content,
       title,
+      subTitle,
       indexMap,
       newTags,
       isPublished,
       isPinned,
     }: {
       title?: string | null;
+      subTitle?: string | null;
       content?: string | null;
       indexMap?: string | null;
       newTags?: string | null;
@@ -75,6 +80,7 @@ const PostSection = ({ initialData }: PostSectionProps) => {
     }) =>
       await axios.patch(`/api/documents/${initialData.id}`, {
         title,
+        subTitle,
         content,
         indexMap,
         newTags,
@@ -95,6 +101,7 @@ const PostSection = ({ initialData }: PostSectionProps) => {
 
         updatePost({
           title: infoData.current.title,
+          subTitle: infoData.current.subTitle,
           content: content.current,
           indexMap: JSON.stringify(indexStructure),
           newTags: infoData.current.newTags,
@@ -136,7 +143,13 @@ const PostSection = ({ initialData }: PostSectionProps) => {
         initialData={initialData}
         preview={!auth}
         onChange={(
-          target: "title" | "seriesId" | "newTags" | "isPublished" | "isPinned",
+          target:
+            | "title"
+            | "subTitle"
+            | "seriesId"
+            | "newTags"
+            | "isPublished"
+            | "isPinned",
           value: any
           //@ts-ignore
         ) => (infoData.current[target] = value)}
