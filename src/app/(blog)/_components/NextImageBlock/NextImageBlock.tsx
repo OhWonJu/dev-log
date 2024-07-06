@@ -109,12 +109,13 @@ export const ImagePreview = (
         alt={props.block.props.caption || "BlockNote Next Image"}
         priority
         placeholder="blur"
+        blurDataURL="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
         contentEditable={false}
         draggable={false}
-        width={0}
+        width={width}
         height={0}
-        sizes="100vw"
-        style={{ width, height: "auto" }}
+        sizes="33vw"
+        style={{ height: "auto" }}
       />
     </ResizeHandlesWrapper>
   );
@@ -141,12 +142,13 @@ export const ImageToExternalHTML = (
       }
       priority
       placeholder="blur"
+      blurDataURL="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
       contentEditable={false}
       draggable={false}
-      width={0}
+      width={props.block.props.previewWidth}
       height={0}
-      sizes="100vw"
-      style={{ width: props.block.props.previewWidth, height: "auto" }}
+      sizes="33vw"
+      style={{ height: "auto" }}
     />
   ) : (
     <a href={props.block.props.url}>
