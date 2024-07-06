@@ -4,17 +4,17 @@ import "./globals.css";
 
 import { kenwave, libre_barcode_39, pacifico } from "@/styles/font";
 
+import { cn } from "@/lib/utils";
 import { checkAdmin } from "@/lib/checkAdmin";
 
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { QueryProvider } from "@/components/providers/QueryProvider";
-
-import { cn } from "@/lib/utils";
-import { Navigator } from "@/components";
 import ModalProvider from "@/components/providers/ModalProvider";
 import AuthProvider from "@/components/providers/AuthProvider";
 import NavProvider from "@/components/providers/NavProvider";
+import { Navigator } from "@/components";
 import ChatListButton from "@/components/ChatListButton";
+import GTM from "@/components/GTM";
 
 const font = Open_Sans({ subsets: ["latin"] });
 
@@ -52,6 +52,7 @@ export default async function RootLayout({
           kenwave.variable
         )}
       >
+        <GTM />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
