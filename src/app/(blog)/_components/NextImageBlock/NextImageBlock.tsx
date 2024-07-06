@@ -18,10 +18,8 @@ import {
 } from "@blocknote/react";
 import { ImageIcon } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import { RiImage2Fill } from "react-icons/ri";
-
-import { getImageSize } from "@/lib/utils";
 
 export declare const imageBlockConfig: {
   type: "nextImage";
@@ -97,45 +95,28 @@ export const ImagePreview = (
         )
   );
 
-  const [imageSize, setImageSize] = useState<{
-    width: number;
-    height: number;
-  } | null>(null);
-
   const resolved = useResolveUrl(props.block.props.url!);
-
-  useEffect(() => {
-    const fetchAspectRatio = async () => {
-      try {
-        const size = await getImageSize(props.block.props.url!);
-        setImageSize(size);
-      } catch (error) {
-        console.error("Error loading image:", error);
-      }
-    };
-
-    fetchAspectRatio();
-  }, [props.block.props.url]);
 
   if (resolved.loadingState === "loading") {
     return null;
   }
 
-  const ratio = parseFloat((imageSize?.height! / imageSize?.width!).toFixed(2));
-
   return (
     <ResizeHandlesWrapper {...props} width={width} setWidth={setWidth}>
-      {imageSize && (
-        <Image
-          className="bn-visual-media"
-          src={resolved.downloadUrl!}
-          alt={props.block.props.caption || "BlockNote Next Image"}
-          contentEditable={false}
-          draggable={false}
-          width={width}
-          height={width * ratio}
-        />
-      )}
+      <Image
+        className="bn-visual-media"
+        src={resolved.downloadUrl!}
+        alt={props.block.props.caption || "BlockNote Next Image"}
+        priority
+        placeholder="blur"
+        blurDataURL="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+        contentEditable={false}
+        draggable={false}
+        width={width}
+        height={0}
+        sizes="33vw"
+        style={{ height: "auto" }}
+      />
     </ResizeHandlesWrapper>
   );
 };
@@ -146,48 +127,29 @@ export const ImageToExternalHTML = (
     "contentRef"
   >
 ) => {
-  const [imageSize, setImageSize] = useState<{
-    width: number;
-    height: number;
-  } | null>(null);
-
-  useEffect(() => {
-    const fetchAspectRatio = async () => {
-      try {
-        const size = await getImageSize(props.block.props.url!);
-        setImageSize(size);
-      } catch (error) {
-        console.error("Error loading image:", error);
-      }
-    };
-
-    fetchAspectRatio();
-  }, [props.block.props.url]);
-
   if (!props.block.props.url) {
     return <p>Add image</p>;
   }
 
-  const ratio = parseFloat((imageSize?.height! / imageSize?.width!).toFixed(2));
-
   const image = props.block.props.showPreview ? (
-    <>
-      {imageSize && (
-        <Image
-          className="bn-visual-media"
-          src={props.block.props.url}
-          alt={
-            props.block.props.name ||
-            props.block.props.caption ||
-            "BlockNote Next Image"
-          }
-          contentEditable={false}
-          draggable={false}
-          width={props.block.props.previewWidth}
-          height={props.block.props.previewWidth * ratio}
-        />
-      )}
-    </>
+    <Image
+      className="bn-visual-media"
+      src={props.block.props.url}
+      alt={
+        props.block.props.name ||
+        props.block.props.caption ||
+        "BlockNote Next Image"
+      }
+      priority
+      placeholder="blur"
+      blurDataURL="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+      contentEditable={false}
+      draggable={false}
+      width={props.block.props.previewWidth}
+      height={0}
+      sizes="33vw"
+      style={{ height: "auto" }}
+    />
   ) : (
     <a href={props.block.props.url}>
       {props.block.props.name || props.block.props.url}

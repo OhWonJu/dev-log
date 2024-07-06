@@ -1,7 +1,8 @@
-import { IndexMap } from "@/types";
 import { Block } from "@blocknote/core";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+
+import { IndexMap } from "@/types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

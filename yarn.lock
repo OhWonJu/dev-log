@@ -1214,6 +1214,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@next/third-parties@npm:^14.2.4":
+  version: 14.2.4
+  resolution: "@next/third-parties@npm:14.2.4"
+  dependencies:
+    third-party-capital: "npm:1.0.20"
+  peerDependencies:
+    next: ^13.0.0 || ^14.0.0
+    react: ^18.2.0
+  checksum: 10c0/92dc2f1d507d0f5a8c208d0ede355a5084cbc242e46348da0f042522968811b62bb360d78fbbfc53f603c1f875dd4610bc492cd0024ee4a1402541d94287a73f
+  languageName: node
+  linkType: hard
+
 "@nextjournal/lang-clojure@npm:^1.0.0":
   version: 1.0.0
   resolution: "@nextjournal/lang-clojure@npm:1.0.0"
@@ -4126,6 +4138,7 @@ __metadata:
     "@emoji-mart/data": "npm:^1.2.1"
     "@emoji-mart/react": "npm:^1.1.1"
     "@hookform/resolvers": "npm:^3.6.0"
+    "@next/third-parties": "npm:^14.2.4"
     "@prisma/client": "npm:^5.15.1"
     "@radix-ui/react-dialog": "npm:^1.1.0"
     "@radix-ui/react-dropdown-menu": "npm:^2.0.6"
@@ -8934,6 +8947,13 @@ __metadata:
   dependencies:
     any-promise: "npm:^1.0.0"
   checksum: 10c0/f375aeb2b05c100a456a30bc3ed07ef03a39cbdefe02e0403fb714b8c7e57eeaad1a2f5c4ecfb9ce554ce3db9c2b024eba144843cd9e344566d9fcee73b04767
+  languageName: node
+  linkType: hard
+
+"third-party-capital@npm:1.0.20":
+  version: 1.0.20
+  resolution: "third-party-capital@npm:1.0.20"
+  checksum: 10c0/7f45ff156ec9d7e2957a5b39061be22b780ffbd2d93c127252d908e2bff6cdd09f827a95909d457c8096e036f155006a38e355a06ee11cb6d63c7f4b150bbfb0
   languageName: node
   linkType: hard
 

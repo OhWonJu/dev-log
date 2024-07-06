@@ -45,8 +45,8 @@ const Cover = ({ url, preview }: CoverProps) => {
   return (
     <div
       className={cn(
-        "relative w-full h-[35vh] group my-4",
-        !url && "h-[12vh]",
+        "relative w-full h-[300px] group my-4",
+        !url && "h-[150px]",
         url && "bg-muted"
       )}
     >
@@ -56,8 +56,8 @@ const Cover = ({ url, preview }: CoverProps) => {
           fill
           alt="cover"
           priority
-          sizes="(max-width: 768px) 80vw, (max-width: 1200px) 80vw, 80vw"
-          className="object-cover"
+          sizes="80vw"
+          className="object-contain"
         />
       )}
       {url && !preview && (
