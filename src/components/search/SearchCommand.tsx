@@ -19,20 +19,25 @@ import { useSearch } from "@/store/useSearchStore";
 import { Input } from "../ui/input";
 import { SearchIcon } from "lucide-react";
 import { DialogTitle } from "../ui/dialog";
+import Spinner from "../Spinner";
 
 const SearchCommand = () => {
   const router = useRouter();
 
   const [isMounted, setIsMounted] = useState(false);
-  const [documents, setDocuments] = useState<Document[]>([]);
 
   const keyword = useRef("");
 
-  const { data, refetch } = useQuery({
+  const { data, refetch, isLoading } = useQuery({
     queryKey: ["search", keyword.current],
     queryFn: async () =>
       await axios.get(`/api/search?keyword=${keyword.current}`),
+    enabled: !!keyword.current,
+    staleTime: 1000 * 60,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
   });
+  const documents = data?.data as Document[];
 
   const toggle = useSearch((store) => store.toggle);
   const isOpen = useSearch((store) => store.isOpen);
@@ -40,7 +45,11 @@ const SearchCommand = () => {
 
   const debouncedOnChange = debounce(
     async (event: React.ChangeEvent<HTMLInputElement>) => {
-      keyword.current = event.target.value;
+      const newKeyword = event.target.value;
+
+      keyword.current = newKeyword;
+
+      if (!newKeyword.trim()) return;
 
       await refetch();
     },
@@ -61,13 +70,6 @@ const SearchCommand = () => {
   useEffect(() => {
     setIsMounted(true);
   }, []);
-
-  // on Success
-  useEffect(() => {
-    if (!data) return;
-
-    setDocuments(data.data);
-  }, [data]);
 
   useEffect(() => {
     const shortcut = (e: KeyboardEvent) => {
@@ -98,24 +100,36 @@ const SearchCommand = () => {
         />
       </div>
       <CommandList>
-        <CommandEmpty>No results found.</CommandEmpty>
-        {documents && documents.length !== 0 && (
-          <CommandItem key="default" title="default" onSelect={goToSearchPage}>
-            검색 결과 페이지에서 보기
-          </CommandItem>
+        {isLoading ? (
+          <div className="flex items-center justify-center my-8">
+            <Spinner size="lg" />
+          </div>
+        ) : (
+          <>
+            <CommandEmpty>No results found.</CommandEmpty>
+            {documents && documents.length !== 0 && (
+              <CommandItem
+                key="default"
+                title="default"
+                onSelect={goToSearchPage}
+              >
+                검색 결과 페이지에서 보기
+              </CommandItem>
+            )}
+            <CommandGroup>
+              {documents?.map((document) => (
+                <CommandItem
+                  key={document.id}
+                  value={`${document.id}`}
+                  title={document.title}
+                  onSelect={onSelect}
+                >
+                  <span>{document.title}</span>
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </>
         )}
-        <CommandGroup>
-          {documents?.map((document) => (
-            <CommandItem
-              key={document.id}
-              value={`${document.id}`}
-              title={document.title}
-              onSelect={onSelect}
-            >
-              <span>{document.title}</span>
-            </CommandItem>
-          ))}
-        </CommandGroup>
       </CommandList>
     </CommandDialog>
   );
