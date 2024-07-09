@@ -1,5 +1,9 @@
+import Image from "next/image";
+import Link from "next/link";
+
 import { TAB_MAP } from "@/constants/navigator";
 
+import { PinContainer } from "@/components/ui/3d-pin";
 import {
   Apollo,
   JavaScript,
@@ -12,6 +16,7 @@ import {
   TailwindIcon,
   TanstackQueryIcon,
   TypeScript,
+  GraphQl,
 } from "@/components/icons";
 
 import {
@@ -25,10 +30,6 @@ import {
   StackItem,
   SubHeader,
 } from "./_components";
-import GraphQl from "@/components/icons/GraphQl";
-import { PinContainer } from "@/components/ui/3d-pin";
-import Image from "next/image";
-import Link from "next/link";
 
 const STACK_MAP = [
   {
