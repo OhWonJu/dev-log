@@ -16,19 +16,15 @@ import { BlockNoteView } from "@blocknote/mantine";
 
 import "@blocknote/mantine/style.css";
 
-import DocumentIndexCard from "./DocumentIndexCard";
-import { CalloutBlock, insertCallout, CodeBlock, insertCode } from "./index";
+import { CalloutBlock, insertCallout, CodeBlock, insertCode } from "../app/(blog)/_components/index";
 import {
   NextImageBlock,
   insertNextImage,
-} from "./NextImageBlock/NextImageBlock";
+} from "../app/(blog)/_components/NextImageBlock/NextImageBlock";
 
 interface EditorProps {
   initialContent?: string | null;
   editable?: boolean;
-  postId: string;
-  initialIndexMap?: string | null;
-  seriesName?: string | null;
   onSubmit: () => void;
   onChange: (value: string) => void;
 }
@@ -47,11 +43,7 @@ const schema = BlockNoteSchema.create({
 const Editor = ({
   initialContent,
   editable = false,
-  onSubmit,
   onChange,
-  postId,
-  initialIndexMap,
-  seriesName,
 }: EditorProps) => {
   const { resolvedTheme } = useTheme();
 
@@ -70,39 +62,30 @@ const Editor = ({
   });
 
   return (
-    <div className="flex w-full">
-      <div className="flex-1 overflow-x-hidden">
-        <BlockNoteView
-          editor={editor}
-          editable={editable}
-          onChange={() => onChange(JSON.stringify(editor.document, null, 2))}
-          theme={resolvedTheme === "dark" ? "dark" : "light"}
-          data-theming-css
-        >
-          {/* @ts-ignore */}
-          <SuggestionMenuController
-            triggerCharacter={"/"}
-            getItems={async (query) =>
-              filterSuggestionItems(
-                [
-                  ...getDefaultReactSlashMenuItems(editor),
-                  insertCallout(),
-                  insertCode(),
-                  insertNextImage(),
-                ],
-                query
-              )
-            }
-          />
-        </BlockNoteView>
-      </div>
-      <div className="hidden lg:block mr-[56px]">
-        <DocumentIndexCard
-          postId={postId}
-          initialData={initialIndexMap}
-          seriesName={seriesName}
+    <div className="flex-1 overflow-x-hidden">
+      <BlockNoteView
+        editor={editor}
+        editable={editable}
+        onChange={() => onChange(JSON.stringify(editor.document, null, 2))}
+        theme={resolvedTheme === "dark" ? "dark" : "light"}
+        data-theming-css
+      >
+        {/* @ts-ignore */}
+        <SuggestionMenuController
+          triggerCharacter={"/"}
+          getItems={async (query) =>
+            filterSuggestionItems(
+              [
+                ...getDefaultReactSlashMenuItems(editor),
+                insertCallout(),
+                insertCode(),
+                insertNextImage(),
+              ],
+              query
+            )
+          }
         />
-      </div>
+      </BlockNoteView>
     </div>
   );
 };

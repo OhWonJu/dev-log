@@ -16,6 +16,7 @@ import Toolbar from "./Toolbar";
 import { Button } from "@/components/ui/button";
 import Course from "./Course/Course";
 import Giscus from "./Giscus";
+import DocumentIndexCard from "./DocumentIndexCard";
 
 interface PostSectionProps {
   initialData: DocumentWithTagsWithSeries;
@@ -118,7 +119,7 @@ const PostSection = ({ initialData }: PostSectionProps) => {
 
   const Editor = useMemo(
     () =>
-      dynamic(() => import("./Editor"), {
+      dynamic(() => import("@/components/Editor"), {
         ssr: false,
         loading: () => (
           <div className="md:max-w-4xl lg:max-w-6xl xl:max-w-7xl mx-auto">
@@ -154,17 +155,23 @@ const PostSection = ({ initialData }: PostSectionProps) => {
           //@ts-ignore
         ) => (infoData.current[target] = value)}
       />
-      <Editor
-        initialContent={initialData.content}
-        editable={auth}
-        postId={initialData.id}
-        initialIndexMap={initialData.indexMap}
-        seriesName={initialData.series?.name}
-        onSubmit={() => {}}
-        onChange={(value) => {
-          content.current = value;
-        }}
-      />
+      <div className="flex w-full">
+        <Editor
+          initialContent={initialData.content}
+          editable={auth}
+          onSubmit={() => {}}
+          onChange={(value) => {
+            content.current = value;
+          }}
+        />
+        <div className="hidden lg:block mr-[56px]">
+          <DocumentIndexCard
+            postId={initialData.id}
+            initialData={initialData.indexMap}
+            seriesName={initialData.series?.name}
+          />
+        </div>
+      </div>
       <Course documentId={initialData.id} seriesId={initialData.seriesId} />
       {initialData.isPublished && (
         <footer className="px-6 md:px-[56px] mt-20">
