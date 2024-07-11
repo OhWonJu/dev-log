@@ -90,7 +90,7 @@ model Project {
   description String?  @db.Text
   images      String[]
   period      String?
-  headCount   Int?
+  headCount   String?
   stacks      String[]
   content     String?  @db.Text
 
