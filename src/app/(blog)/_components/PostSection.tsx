@@ -13,10 +13,10 @@ import useAuthStore from "@/store/useAuthsStore";
 import { Skeleton } from "@/components/ui/skeleton";
 
 import Toolbar from "./Toolbar";
-import { Button } from "@/components/ui/button";
 import Course from "./Course/Course";
 import Giscus from "./Giscus";
 import DocumentIndexCard from "./DocumentIndexCard";
+import { SaveButton } from "@/components";
 
 interface PostSectionProps {
   initialData: DocumentWithTagsWithSeries;
@@ -119,7 +119,7 @@ const PostSection = ({ initialData }: PostSectionProps) => {
 
   const Editor = useMemo(
     () =>
-      dynamic(() => import("@/components/Editor"), {
+      dynamic(() => import("@/components/editor/Editor"), {
         ssr: false,
         loading: () => (
           <div className="md:max-w-4xl lg:max-w-6xl xl:max-w-7xl mx-auto">
@@ -159,7 +159,6 @@ const PostSection = ({ initialData }: PostSectionProps) => {
         <Editor
           initialContent={initialData.content}
           editable={auth}
-          onSubmit={() => {}}
           onChange={(value) => {
             content.current = value;
           }}
@@ -179,14 +178,15 @@ const PostSection = ({ initialData }: PostSectionProps) => {
         </footer>
       )}
       {auth && (
-        <Button
-          className="fixed bottom-10 right-[10%] bg-symbol-500 text-white text-lg"
-          role="button"
-          onClick={onSubmit}
-          disabled={isPending}
-        >
-          저장하기
-        </Button>
+        <SaveButton clickHandler={onSubmit} disabled={isPending} />
+        // <Button
+        //   className="fixed bottom-10 right-[10%] bg-symbol-500 text-white text-lg"
+        //   role="button"
+        //   onClick={onSubmit}
+        //   disabled={isPending}
+        // >
+        //   저장하기
+        // </Button>
       )}
     </div>
   );

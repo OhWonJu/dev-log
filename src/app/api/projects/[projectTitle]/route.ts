@@ -61,7 +61,6 @@ export async function PATCH(
       },
     });
 
-  
     return NextResponse.json(project);
   } catch (error) {
     console.log("PROJECT_ID_PATCH ->", error);
@@ -80,7 +79,8 @@ export async function DELETE(
 
     // guard
     if (!isAdmin) return new NextResponse("Unauthorized", { status: 401 });
-    if (!projectTitle) return new NextResponse("Project Title missing", { status: 400 });
+    if (!projectTitle)
+      return new NextResponse("Project Title missing", { status: 400 });
 
     const existingProject = await db.project.findFirst({
       where: {

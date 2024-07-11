@@ -1,0 +1,18 @@
+.active {
+  background-color: var(--primary);
+}
+.small {
+  width: 3.5px;
+  height: 3.5px;
+  margin: 3px;
+}
+.micro {
+  width: 2px;
+  height: 2px;
+  margin: 4px;
+}
+.hidden {
+  width: 0;
+  height: 0;
+  margin: 4px 0;
+}
