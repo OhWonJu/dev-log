@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import React, { ElementRef, useRef, useState } from "react";
 import TextAreaAutoSize from "react-textarea-autosize";
 
@@ -7,9 +8,15 @@ interface TitleInputProps {
   initialTitle: string;
   onChange?: (target: "title", value: string) => void;
   preview?: boolean;
+  textClassName?: string;
 }
 
-const TitleInput = ({ initialTitle, onChange, preview }: TitleInputProps) => {
+const TitleInput = ({
+  initialTitle,
+  onChange,
+  preview,
+  textClassName,
+}: TitleInputProps) => {
   const inputRef = useRef<ElementRef<"textarea">>(null);
 
   const [isEditing, setIsEditing] = useState(false);
@@ -51,13 +58,19 @@ const TitleInput = ({ initialTitle, onChange, preview }: TitleInputProps) => {
           onKeyDown={onKeydown}
           value={value}
           onChange={(e) => onInput(e.target.value)}
-          className="text-6xl text-center w-full mb-6 bg-transparent font-bold break-words outline-none resize-none"
+          className={cn(
+            "text-6xl text-center w-full mb-6 bg-transparent font-bold break-words outline-none resize-none",
+            textClassName
+          )}
         />
       ) : (
         <h1
           role="heading"
           onClick={enableInput}
-          className="text-6xl text-center mb-6 font-bold break-words outline-none"
+          className={cn(
+            "text-6xl text-center mb-6 font-bold break-words outline-none",
+            textClassName
+          )}
         >
           {value}
         </h1>

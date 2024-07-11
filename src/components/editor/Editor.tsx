@@ -16,16 +16,20 @@ import { BlockNoteView } from "@blocknote/mantine";
 
 import "@blocknote/mantine/style.css";
 
-import { CalloutBlock, insertCallout, CodeBlock, insertCode } from "../app/(blog)/_components/index";
+import {
+  CalloutBlock,
+  insertCallout,
+  CodeBlock,
+  insertCode,
+} from "../../app/(blog)/_components/index";
 import {
   NextImageBlock,
   insertNextImage,
-} from "../app/(blog)/_components/NextImageBlock/NextImageBlock";
+} from "../../app/(blog)/_components/NextImageBlock/NextImageBlock";
 
 interface EditorProps {
   initialContent?: string | null;
   editable?: boolean;
-  onSubmit: () => void;
   onChange: (value: string) => void;
 }
 
