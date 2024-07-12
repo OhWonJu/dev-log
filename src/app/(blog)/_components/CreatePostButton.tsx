@@ -9,7 +9,7 @@ import useAuthStore from "@/store/useAuthsStore";
 
 import { Button } from "@/components/ui/button";
 
-const PostCreateButton = () => {
+const CreatePostButton = () => {
   const router = useRouter();
   const { auth } = useAuthStore();
 
@@ -21,20 +21,20 @@ const PostCreateButton = () => {
     },
   });
 
+  if (!auth) return null;
+
   return (
     <React.Fragment>
-      {auth && (
-        <Button
-          className="fixed bottom-10 right-[10%] bg-symbol-500 text-white text-lg"
-          role="button"
-          onClick={() => createNewPost()}
-          disabled={isPending}
-        >
-          새 포스트 작성
-        </Button>
-      )}
+      <Button
+        className="fixed bottom-10 right-[10%] bg-symbol-500 text-white text-lg"
+        role="button"
+        onClick={() => createNewPost()}
+        disabled={isPending}
+      >
+        새 포스트 작성
+      </Button>
     </React.Fragment>
   );
 };
 
-export default PostCreateButton;
+export default CreatePostButton;

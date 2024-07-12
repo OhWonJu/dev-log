@@ -146,7 +146,7 @@ export async function DELETE(
 
     // guard
     if (!isAdmin) return new NextResponse("Unauthorized", { status: 401 });
-    if (!documentId) return new NextResponse("Pot ID missing", { status: 400 });
+    if (!documentId) return new NextResponse("Document ID missing", { status: 400 });
 
     const existingPost = await db.document.findFirst({
       where: {

@@ -3,13 +3,14 @@
 import React, { useEffect, useState } from "react";
 
 import {
-  CreateChatMdal,
+  CoverImageModal,
+  CreateChatModal,
+  CreateProjectModal,
   DeleteMessageModal,
   DeletePostModal,
   EnterChatModal,
   SeriesSelectModal,
 } from "../modals";
-import CoverImageModal from "../modals/CoverImageModal";
 
 const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -27,12 +28,13 @@ const ModalProvider = () => {
 
   return (
     <>
-      <CreateChatMdal />
+      <CoverImageModal />
+      <CreateChatModal />
+      <CreateProjectModal />
       <DeleteMessageModal />
       <EnterChatModal />
       <SeriesSelectModal />
       <DeletePostModal />
-      <CoverImageModal />
     </>
   );
 };

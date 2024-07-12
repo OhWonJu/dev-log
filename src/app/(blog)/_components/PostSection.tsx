@@ -13,9 +13,10 @@ import useAuthStore from "@/store/useAuthsStore";
 import { Skeleton } from "@/components/ui/skeleton";
 
 import Toolbar from "./Toolbar";
-import { Button } from "@/components/ui/button";
 import Course from "./Course/Course";
 import Giscus from "./Giscus";
+import DocumentIndexCard from "./DocumentIndexCard";
+import { SaveButton } from "@/components";
 
 interface PostSectionProps {
   initialData: DocumentWithTagsWithSeries;
@@ -118,7 +119,7 @@ const PostSection = ({ initialData }: PostSectionProps) => {
 
   const Editor = useMemo(
     () =>
-      dynamic(() => import("./Editor"), {
+      dynamic(() => import("@/components/editor/Editor"), {
         ssr: false,
         loading: () => (
           <div className="md:max-w-4xl lg:max-w-6xl xl:max-w-7xl mx-auto">
@@ -154,17 +155,22 @@ const PostSection = ({ initialData }: PostSectionProps) => {
           //@ts-ignore
         ) => (infoData.current[target] = value)}
       />
-      <Editor
-        initialContent={initialData.content}
-        editable={auth}
-        postId={initialData.id}
-        initialIndexMap={initialData.indexMap}
-        seriesName={initialData.series?.name}
-        onSubmit={() => {}}
-        onChange={(value) => {
-          content.current = value;
-        }}
-      />
+      <div className="flex w-full">
+        <Editor
+          initialContent={initialData.content}
+          editable={auth}
+          onChange={(value) => {
+            content.current = value;
+          }}
+        />
+        <div className="hidden lg:block mr-[56px]">
+          <DocumentIndexCard
+            postId={initialData.id}
+            initialData={initialData.indexMap}
+            seriesName={initialData.series?.name}
+          />
+        </div>
+      </div>
       <Course documentId={initialData.id} seriesId={initialData.seriesId} />
       {initialData.isPublished && (
         <footer className="px-6 md:px-[56px] mt-20">
@@ -172,14 +178,15 @@ const PostSection = ({ initialData }: PostSectionProps) => {
         </footer>
       )}
       {auth && (
-        <Button
-          className="fixed bottom-10 right-[10%] bg-symbol-500 text-white text-lg"
-          role="button"
-          onClick={onSubmit}
-          disabled={isPending}
-        >
-          저장하기
-        </Button>
+        <SaveButton clickHandler={onSubmit} disabled={isPending} />
+        // <Button
+        //   className="fixed bottom-10 right-[10%] bg-symbol-500 text-white text-lg"
+        //   role="button"
+        //   onClick={onSubmit}
+        //   disabled={isPending}
+        // >
+        //   저장하기
+        // </Button>
       )}
     </div>
   );
