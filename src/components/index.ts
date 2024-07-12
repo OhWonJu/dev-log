@@ -10,3 +10,4 @@ export { SearchCommand } from "./search/index";
 export { SingleImageDropzone } from "./SingleImageDropzone";
 export { default as StepWrapper } from "./StepWrapper";
 export { default as Spinner } from "./Spinner";
+export { default as Tag } from "./Tag";

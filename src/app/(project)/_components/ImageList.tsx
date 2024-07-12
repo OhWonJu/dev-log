@@ -75,8 +75,10 @@ const ImageList = ({
           {value?.map((url) => (
             <div
               key={url}
-              className="relative h-full aspect-square overflow-hidden bg-black dark:bg-white"
+              className="relative h-full aspect-square overflow-hidden "
+              style={{ backgroundImage: `url(${url})` }}
             >
+              <div className="absolute w-full h-full bg-primary-foreground backdrop-blur-xl" />
               <Image
                 priority
                 src={url}
@@ -97,7 +99,7 @@ const ImageList = ({
 
       {/* IMAGE LIST */}
       <div
-        className="relative hidden xmd:block xmd:w-[50%] aspect-square overflow-y-scroll scrollbar-hide overscroll-y-contain "
+        className="relative hidden xmd:block xmd:w-[50%] aspect-square overflow-y-scroll scrollbar-hide overscroll-y-contain"
         onScroll={handleScroll}
       >
         <div className="grid grid-cols-3">

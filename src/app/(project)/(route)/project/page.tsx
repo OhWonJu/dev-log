@@ -1,10 +1,10 @@
-import React from "react";
 import { CreateProjectButton } from "../../_components";
+import ProjectList from "../../_components/ProjectList";
 
-const ProjectPage = () => {
+const ProjectPage = async () => {
   return (
     <div className="p-8 lg:p-0">
-      ProjectPage
+      <ProjectList />
       <CreateProjectButton />
     </div>
   );

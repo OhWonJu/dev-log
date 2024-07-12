@@ -141,7 +141,7 @@ const ProjectSection = ({ initialData }: ProjectSectionProps) => {
         ) => (newData.current[target] = value)}
       />
 
-      <div className="flex w-full">
+      <div className="flex w-full md:max-w-4xl">
         <Editor
           initialContent={initialData.content}
           editable={auth}

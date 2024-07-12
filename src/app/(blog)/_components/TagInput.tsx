@@ -4,6 +4,7 @@ import React, { ElementRef, useRef, useState } from "react";
 import TextAreaAutoSize from "react-textarea-autosize";
 import { Tag } from "prisma/prisma-client";
 import { EditIcon } from "lucide-react";
+import { Tag as TagCard } from "@/components";
 
 interface TagInputProps {
   initialTags: Tag[];
@@ -68,12 +69,11 @@ const TagInput = ({ initialTags, onChange, preview }: TagInputProps) => {
                 .trimEnd()
                 .split(" ")
                 .map((tag: string, index: number) => (
-                  <div
+                  <TagCard
                     key={index}
-                    className="px-3 py-2 rounded-full border bg-background shadow-sm border-zinc-400 dark:border-zinc-600"
-                  >
-                    {tag.replace(/#/g, "")}
-                  </div>
+                    tagName={tag.replace(/#/g, "")}
+                    className="px-3 py-2"
+                  />
                 ))}
           </div>
           {!preview && (

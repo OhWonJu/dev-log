@@ -30,6 +30,7 @@ import {
   StackItem,
   SubHeader,
 } from "./_components";
+import ProjectList from "../(project)/_components/ProjectList";
 
 const STACK_MAP = [
   {
@@ -208,13 +209,10 @@ const MainPage = () => {
       <Section
         id={TAB_MAP[2].contant} // project
         index={2}
-        className="h-screen font-bold text-center"
+        className="min-h-screen font-bold"
       >
         <MainHeader>Project</MainHeader>
-        <div className="flex text-3xl flex-col">
-          🚧 뚝딱뚝딱 작업중! 🚧
-          <span className="text-xs text-zinc-400">위이이잉 그르륵캌 깡깡</span>
-        </div>
+        <ProjectList />
       </Section>
       <Section
         id={TAB_MAP[4].contant} // contact

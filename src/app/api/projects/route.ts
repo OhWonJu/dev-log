@@ -16,6 +16,15 @@ export async function POST(req: Request) {
       data: {
         title,
       },
+      select: {
+        createdAt: true,
+        description: true,
+        headCount: true,
+        images: true,
+        period: true,
+        stacks: true,
+        title: true,
+      },
     });
 
     return NextResponse.json(projects);

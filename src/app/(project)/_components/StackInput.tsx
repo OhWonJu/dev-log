@@ -3,6 +3,7 @@
 import React, { ElementRef, useRef, useState } from "react";
 import TextAreaAutoSize from "react-textarea-autosize";
 import { EditIcon } from "lucide-react";
+import { Tag } from "@/components";
 
 interface StackInputProps {
   initialStacks: string[];
@@ -64,18 +65,13 @@ const StackInput = ({ initialStacks, onChange, preview }: StackInputProps) => {
                 .trimEnd()
                 .split(" ")
                 .map((stack: string, index: number) => (
-                  <div
-                    key={index}
-                    className="px-2 py-1 rounded-full text-xs border bg-background shadow-sm border-zinc-400 dark:border-zinc-600"
-                  >
-                    <span>{stack}</span>
-                  </div>
+                  <Tag key={index} tagName={stack} />
                 ))}
           </div>
           {!preview && (
             <div
               role={!preview ? "button" : "article"}
-              aria-label="TagEdit"
+              aria-label="StackEdit"
               onClick={enableInput}
               className="p-2 ml-4"
             >
