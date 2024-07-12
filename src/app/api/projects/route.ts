@@ -36,7 +36,11 @@ export async function POST(req: Request) {
 
 export async function GET(req: Request) {
   try {
-    const projects = await db.project.findMany({});
+    const projects = await db.project.findMany({
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
 
     return NextResponse.json(projects);
   } catch (error) {
