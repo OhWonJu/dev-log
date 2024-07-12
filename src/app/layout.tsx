@@ -12,9 +12,8 @@ import { QueryProvider } from "@/components/providers/QueryProvider";
 import ModalProvider from "@/components/providers/ModalProvider";
 import AuthProvider from "@/components/providers/AuthProvider";
 import NavProvider from "@/components/providers/NavProvider";
-import { Navigator } from "@/components";
-import ChatListButton from "@/components/ChatListButton";
-import GTM from "@/components/GTM";
+import { GTM, Navigator, ChatListButton } from "@/components";
+import { Suspense } from "react";
 
 const font = Open_Sans({ subsets: ["latin"] });
 
@@ -43,7 +42,7 @@ export default async function RootLayout({
   const isAdmin = await checkAdmin();
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="ko" suppressHydrationWarning>
       <body
         className={cn(
           font.className,

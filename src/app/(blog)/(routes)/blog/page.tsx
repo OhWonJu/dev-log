@@ -3,7 +3,7 @@ import { Document, Series, Tag } from "prisma/prisma-client";
 
 import { env } from "@/lib/env";
 
-import { Card, Header, PostCreateButton, Tags } from "../../_components";
+import { Card, CreatePostButton, Header, Tags } from "../../_components";
 
 export const dynamic = "force-dynamic";
 
@@ -109,7 +109,7 @@ const BlogPage = async () => {
         {/* Tags */}
         <Tags tags={tags} />
       </div>
-      <PostCreateButton />
+      <CreatePostButton />
     </div>
   );
 };

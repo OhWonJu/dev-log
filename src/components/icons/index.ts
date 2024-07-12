@@ -1,5 +1,6 @@
 export { default as Apollo } from "./Apollo";
 export { default as Github } from "./Github";
+export { default as GraphQl } from "./GraphQl";
 export { default as JavaScript } from "./JavaScript";
 export { default as NestJsIcon } from "./NestJsIcon";
 export { default as NextJsIcon } from "./NextJsIcon";

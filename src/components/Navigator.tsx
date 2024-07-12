@@ -78,7 +78,7 @@ const Navigator = () => {
       className={cn(
         "z-[9999] bg-transparent fixed top-0 w-full",
         scrolled && "bg-background border-b shadow-sm",
-        !isCollapsed && "bg-background"
+        isMobile && !isCollapsed && "bg-background"
       )}
       style={{ height: NAV_HEIGHT }}
     >

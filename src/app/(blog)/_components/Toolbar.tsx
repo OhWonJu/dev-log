@@ -5,15 +5,16 @@ import { format } from "date-fns";
 import { DocumentWithTagsWithSeries } from "@/types";
 import { Calendar, Globe, ImageIcon, Trash } from "lucide-react";
 
-import { useModal } from "@/store/useModalStore";
+import { cn } from "@/lib/utils";
 
+import { useModal } from "@/store/useModalStore";
+import { useCoverImage } from "@/hooks/UseCoverImage";
+
+import { TitleInput } from "@/components";
 import { Button } from "@/components/ui/button";
 
-import TitleInput from "./TitleInput";
 import TagInput from "./TagInput";
-import { useCoverImage } from "@/hooks/UseCoverImage";
 import Cover from "./Cover";
-import { cn } from "@/lib/utils";
 import SubTitleInput from "./SubTitleInput";
 
 interface ToolbarProps {
@@ -72,7 +73,7 @@ const Toolbar = ({ initialData, onChange, preview }: ToolbarProps) => {
   return (
     <div
       className={cn(
-        "py-8 mb-8 roup relative md:max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto border-b",
+        "py-8 mb-8 group relative md:max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto border-b",
         !preview && "px-[54px]",
         preview && "px-6 md:px-[54px]"
       )}
