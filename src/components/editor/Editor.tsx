@@ -17,15 +17,15 @@ import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
 
 import {
+  NextImageBlock,
+  insertNextImage,
   CalloutBlock,
   insertCallout,
   CodeBlock,
   insertCode,
-} from "../../app/(blog)/_components/index";
-import {
-  NextImageBlock,
-  insertNextImage,
-} from "../../app/(blog)/_components/NextImageBlock/NextImageBlock";
+  SeparatorBlock,
+  insertSeparator,
+} from "./index";
 
 interface EditorProps {
   initialContent?: string | null;
@@ -41,6 +41,7 @@ const schema = BlockNoteSchema.create({
     callout: CalloutBlock,
     procode: CodeBlock,
     nextImage: NextImageBlock,
+    separator: SeparatorBlock,
   },
 });
 
@@ -84,6 +85,7 @@ const Editor = ({
                 insertCallout(),
                 insertCode(),
                 insertNextImage(),
+                insertSeparator(),
               ],
               query
             )

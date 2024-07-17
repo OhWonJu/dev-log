@@ -11,12 +11,12 @@ import { generateDocumentIndexMap } from "@/lib/utils";
 import useAuthStore from "@/store/useAuthsStore";
 
 import { Skeleton } from "@/components/ui/skeleton";
+import { SaveButton } from "@/components";
 
 import Toolbar from "./Toolbar";
-import Course from "./Course/Course";
+import Course from "./Course";
 import Giscus from "./Giscus";
 import DocumentIndexCard from "./DocumentIndexCard";
-import { SaveButton } from "@/components";
 
 interface PostSectionProps {
   initialData: DocumentWithTagsWithSeries;

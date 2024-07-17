@@ -21,7 +21,7 @@ const Course = ({ documentId, seriesId, initialData }: CourseProps) => {
   const { data } = useQuery({
     queryKey: ["serise-list", seriesId],
     queryFn: async () => await axios.get(`/api/series/${seriesId}`),
-    enabled: !!seriesId || !initialData,
+    enabled: !!seriesId,
   });
   const seriesData = (data?.data as SeriesWithDocuments) ?? initialData;
 
