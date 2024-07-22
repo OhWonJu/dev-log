@@ -9,6 +9,7 @@ export { default as PostSection } from "./PostSection";
 export { default as RecipesSection } from "./RecipesSection";
 export { default as Searchbar } from "./Searchbar";
 export { default as SearchSection } from "./SearchSection";
+export { default as SectionHeader } from "./SectionHeader";
 export { default as SubTitleInput } from "./SubTitleInput";
 export { default as Toolbar } from "./Toolbar";
 export { default as TagInput } from "./TagInput";

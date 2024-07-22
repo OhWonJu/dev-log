@@ -84,9 +84,13 @@ const Navigator = () => {
     >
       <div className="px-6 flex w-full items-center box-border h-full">
         {scrolled && (
-          <div className="min-w-[80px] w-[80px]">
+          <Link
+            href={"/"}
+            onClick={() => setSelected(0)}
+            className="min-w-[80px] w-[80px]"
+          >
             <Recipe fill={true} />
-          </div>
+          </Link>
         )}
         {isMobile ? (
           <Button

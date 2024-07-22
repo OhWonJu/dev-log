@@ -3,7 +3,13 @@ import { Document, Series, Tag } from "prisma/prisma-client";
 
 import { env } from "@/lib/env";
 
-import { Card, CreatePostButton, Header, Tags } from "../../_components";
+import {
+  Card,
+  CreatePostButton,
+  Header,
+  SectionHeader,
+  Tags,
+} from "../../_components";
 
 export const dynamic = "force-dynamic";
 
@@ -40,14 +46,10 @@ const BlogPage = async () => {
         <div className="lg:flex-[3.3] lg:mr-12">
           {/* Pinned Posts */}
           <section className="flex flex-col mb-24">
-            <Link href={"/blog/recipes?type=pinned"}>
-              <h2
-                role="button"
-                className="text-4xl font-bold text-zinc-600 dark:text-zinc-300 mr-4 mb-6"
-              >
-                Signature Recipes
-              </h2>
-            </Link>
+            <SectionHeader
+              url="/blog/recipes?type=pinned"
+              title="Signature Recipes"
+            />
             <div className="flex-1 grid md:grid-cols-3 gap-3 h-full">
               {pinnedDocuments.map((document) => (
                 <Card
@@ -63,14 +65,10 @@ const BlogPage = async () => {
           </section>
           {/* Recent Posts */}
           <section className="flex flex-col mb-24">
-            <Link href={"/blog/recipes?type=recent"}>
-              <h2
-                role="button"
-                className="text-4xl font-bold text-zinc-600 dark:text-zinc-300 mr-4 mb-6"
-              >
-                Recent Recipes
-              </h2>
-            </Link>
+            <SectionHeader
+              url="/blog/recipes?type=recent"
+              title="Recent Recipes"
+            />
             <div className="flex-1 grid md:grid-cols-3 gap-6 md:gap-3 h-full">
               {recentDocuments.map((document) => (
                 <Card
@@ -86,14 +84,7 @@ const BlogPage = async () => {
           </section>
           {/* Series */}
           <section className="flex flex-col mb-24">
-            <Link href={"/blog/coures"}>
-              <h2
-                role="button"
-                className="text-4xl font-bold text-zinc-600 dark:text-zinc-300 mr-4 mb-6"
-              >
-                Course
-              </h2>
-            </Link>
+            <SectionHeader url="/blog/coures" title="Course" />
             <div className="flex-1 grid md:grid-cols-3 gap-6 md:gap-3 h-full">
               {serieses.map((series) => (
                 <Card
