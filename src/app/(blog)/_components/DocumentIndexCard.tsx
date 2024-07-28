@@ -5,6 +5,7 @@ import useCopy from "@/hooks/useCopy";
 import { useOrigin } from "@/hooks/useOrigin";
 
 import { Receipt, ReceiptSeparator } from "@/components";
+import { NAV_HEIGHT } from "@/constants/style";
 
 interface DocumentIndexCardProps {
   postId: string;
@@ -48,7 +49,7 @@ const DocumentIndexCard = ({
   };
 
   return (
-    <div className="sticky top-[200px] ml-auto">
+    <div className="sticky ml-auto" style={{top: NAV_HEIGHT + 10}}>
       <Receipt
         className="flex flex-col items-center text-xs py-6"
         wrapperClassName="max-w-[250px]"
