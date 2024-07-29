@@ -70,7 +70,7 @@ const useChatSocket = ({ addKey, updateKey, queryKey }: ChatSocketProps) => {
 
     return () => {
       socket.off(addKey);
-      socket.off(addKey);
+      socket.off(updateKey);
     };
   }, [queryClient, addKey, queryKey, socket, updateKey]);
 };
