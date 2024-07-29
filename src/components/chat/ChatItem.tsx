@@ -8,7 +8,6 @@ import qs from "query-string";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSessionStorage } from "usehooks-ts";
-import { useParams, useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import useAuthStore from "@/store/useAuthsStore";
@@ -108,10 +107,10 @@ const ChatItem = ({
     >
       <div
         className={cn(
+          "relative group flex items-center hover:bg-black/5 p-4 rounded-xl max-w-[80%]",
           isOwner
-            ? "bg-symbol-500 bg-opacity-50 text-white"
-            : "bg-zinc-200 text-black",
-          "relative group flex items-center hover:bg-black/5 p-4 rounded-md"
+            ? "bg-symbol-500 bg-opacity-50 text-white rounded-tr-none"
+            : "bg-zinc-200 text-black rounded-tl-none"
         )}
       >
         <div className=" flex gap-x-2 items-start w-full">

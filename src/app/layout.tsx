@@ -13,7 +13,6 @@ import ModalProvider from "@/components/providers/ModalProvider";
 import AuthProvider from "@/components/providers/AuthProvider";
 import NavProvider from "@/components/providers/NavProvider";
 import { GTM, Navigator, ChatListButton } from "@/components";
-import { Suspense } from "react";
 
 const font = Open_Sans({ subsets: ["latin"] });
 

@@ -34,7 +34,7 @@ export async function generateMetadata(
   const post = (await getPostData(id)) as DocumentWithTagsWithSeries;
 
   // optionally access and extend (rather than replace) parent metadata
-  const previousImages = (await parent).openGraph?.images || [];
+  //const previousImages = (await parent).openGraph?.images || [];
 
   return {
     title: `${post.title} | Recipe`,
@@ -44,10 +44,10 @@ export async function generateMetadata(
     openGraph: {
       title: `${post.title} | Recipe`,
       url: `${process.env.NEXT_PUBLIC_SITE_URL!}/blog/${id}`,
-      description: post.subTitle ?? post.title,
+        description: post.subTitle ?? post.title,
       locale: "ko-KR",
       type: "article",
-      images: [post.coverImage ?? "/recipe.svg", ...previousImages],
+      images: [post.coverImage ?? "/recipe.svg"],
     },
   };
 }
