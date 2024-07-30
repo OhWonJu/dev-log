@@ -1,9 +1,8 @@
 import { RecipesSection } from "@/app/(blog)/_components";
-
-export const dynamic = "force-dynamic";
+import React from "react";
 
 const RecipesPage = () => {
-  return <RecipesSection />;
+  return <RecipesSection type="recent" />;
 };
 
 export default RecipesPage;

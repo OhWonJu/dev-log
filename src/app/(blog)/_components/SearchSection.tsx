@@ -9,7 +9,8 @@ import { useQuery } from "@tanstack/react-query";
 
 import { Skeleton } from "@/components/ui/skeleton";
 
-import { Card, Header } from "@/app/(blog)/_components";
+import Symbol from "./Symbol";
+import Card from "./Card";
 
 const RecipesSection = () => {
   const searchParams = useSearchParams();
@@ -37,11 +38,10 @@ const RecipesSection = () => {
 
   return (
     <section className="flex flex-col p-8 lg:p-0 mb-24">
-      <Header
+      <Symbol
         title={"Search"}
         titleClassName="text-5xl"
         wrapperClassName="mb-4"
-        searchable={false}
       />
       <span className="text-sm font-semibold text-zinc-400 dark:text-zinc-600 mb-16">
         Result of Searching with {keyword || tags?.split("-").join(", ")}

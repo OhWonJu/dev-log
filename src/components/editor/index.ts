@@ -1,6 +1,5 @@
 export { CalloutBlock, insertCallout } from "./CalloutBlock/CalloutBlock";
 export { CodeBlock, insertCode } from "./CodeBlock/CodeBlock";
-export { default as Course } from "../../app/(blog)/_components/Course";
 export {
   NextImageBlock,
   insertNextImage,

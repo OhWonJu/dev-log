@@ -1,12 +1,11 @@
 "use client";
 
-import React from "react";
-import { Series } from "prisma/prisma-client";
-
-import { Card, Header } from "@/app/(blog)/_components";
+import { Card } from "@/app/(blog)/_components";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { Series } from "prisma/prisma-client";
+import React from "react";
 
 const CoursePage = () => {
   const { data, isLoading } = useQuery({
@@ -16,8 +15,7 @@ const CoursePage = () => {
   const seriesList = data?.data as Series[];
 
   return (
-    <section className="flex flex-col p-8 lg:p-0 mb-24">
-      <Header title="Course" titleClassName="text-5xl" wrapperClassName="mb-16" />
+    <section className="flex flex-col mb-24">
       <div className="flex-1 grid md:grid-cols-3 lg:grid-cols-4 gap-3 h-full">
         {isLoading &&
           Array(8)

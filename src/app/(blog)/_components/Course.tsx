@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { Fragment } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 import { ListMinus } from "lucide-react";
 

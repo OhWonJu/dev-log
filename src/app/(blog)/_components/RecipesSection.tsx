@@ -2,24 +2,20 @@
 
 import React, { Fragment, useEffect } from "react";
 import { useIntersectionObserver } from "usehooks-ts";
+import { Document } from "prisma/prisma-client";
+import { ServerCrash } from "lucide-react";
 
 import usePostQuery from "@/hooks/usePostQuery";
-import { Document } from "prisma/prisma-client";
-import { Card, Header } from "@/app/(blog)/_components";
-import { ServerCrash } from "lucide-react";
+
 import { Skeleton } from "@/components/ui/skeleton";
-import { useSearchParams } from "next/navigation";
 
-const HEADER_MAP = {
-  pinned: "Signature Recipes",
-  recent: "Recent Recipes",
-};
+import Card from "./Card";
 
-const RecipesSection = () => {
-  const searchParams = useSearchParams();
+interface RecipesSectionProps {
+  type: "recent" | "pinned";
+}
 
-  const type = searchParams?.get("type") as "recent" | "pinned";
-
+const RecipesSection = ({ type }: RecipesSectionProps) => {
   const { isIntersecting, ref: bottomRef } = useIntersectionObserver({
     rootMargin: "20%",
   });
@@ -55,12 +51,7 @@ const RecipesSection = () => {
     );
   }
   return (
-    <section className="flex flex-col p-8 lg:p-0 mb-24">
-      <Header
-        title={HEADER_MAP[type]}
-        titleClassName="text-5xl"
-        wrapperClassName="mb-16"
-      />
+    <section className="flex flex-col mb-24">
       <div className="flex-1 grid md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-3 h-full">
         {isLoading &&
           Array(8)

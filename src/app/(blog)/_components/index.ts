@@ -1,10 +1,11 @@
+export { default as BlogTab } from "./BlogTab";
 export { default as Card } from "./Card";
 export { default as Course } from "./Course";
 export { default as Cover } from "./Cover";
 export { default as CreatePostButton } from "./CreatePostButton";
 export { default as DocumentIndexCard } from "./DocumentIndexCard";
 export { default as Giscus } from "./Giscus";
-export { default as Header } from "./Header";
+export { default as Symbol } from "./Symbol";
 export { default as PostSection } from "./PostSection";
 export { default as RecipesSection } from "./RecipesSection";
 export { default as Searchbar } from "./Searchbar";

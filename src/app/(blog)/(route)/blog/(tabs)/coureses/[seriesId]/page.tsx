@@ -1,9 +1,9 @@
+import { Document } from "prisma/prisma-client";
+
 import { SeriesWithDocuments } from "@/types";
 import { env } from "@/lib/env";
 
 import { Card } from "@/app/(blog)/_components";
-
-import { Document } from "prisma/prisma-client";
 
 interface PostIdPageProps {
   params: {
