@@ -1,5 +1,7 @@
-import { SearchSection } from "@/app/(blog)/_components";
 import { Suspense } from "react";
+
+import { SearchSection } from "@/app/(blog)/_components";
+
 import LoadingPage from "../(tabs)/loading";
 
 export const dynamic = "force-dynamic";
