@@ -59,7 +59,7 @@ export const useHorizontalScroll = (ref: React.RefObject<HTMLElement>) => {
       eventHandler?.removeEventListener("mousedown", mouseDownHandler);
       cancelAnimationFrame(frame.current);
     };
-  }, [ref]);
+  }, [isGrabbing, ref]);
 
   return isGrabbing;
 };

@@ -16,4 +16,3 @@ export { default as Tagbar } from "./Tagbar";
 export { default as Toolbar } from "./Toolbar";
 export { default as TagInput } from "./TagInput";
 export { default as TagItem } from "./TagItem";
-export { default as Tags } from "./Tags";
