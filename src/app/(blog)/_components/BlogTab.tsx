@@ -1,12 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 
-import { NAV_HEIGHT } from "@/constants/style";
 import { cn } from "@/lib/utils";
-import { usePathname } from "next/navigation";
 
 const BLOG_TAB_MAP = [
   {
@@ -44,7 +43,7 @@ const BlogTab = () => {
         >
           <span
             className={cn(
-              "text-base font-semibold capitalize text-zinc-400 py-2",
+              "text-base font-semibold capitalize text-zinc-400 py-3",
               item.url === selected && "text-primary"
             )}
           >
@@ -63,4 +62,4 @@ const BlogTab = () => {
   );
 };
 
-export default React.memo(BlogTab);
+export default BlogTab;

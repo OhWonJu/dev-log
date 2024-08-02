@@ -1,8 +1,15 @@
+import React, { Suspense } from "react";
+
 import { RecipesSection } from "@/app/(blog)/_components";
-import React from "react";
+
+import LoadingPage from "../loading";
 
 const RecentRecipesPage = () => {
-  return <RecipesSection type="pinned" />;
+  return (
+    <Suspense fallback={<LoadingPage />}>
+      <RecipesSection type="pinned" />
+    </Suspense>
+  );
 };
 
 export default RecentRecipesPage;

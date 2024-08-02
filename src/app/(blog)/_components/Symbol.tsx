@@ -12,7 +12,7 @@ const Symbol = ({ title, wrapperClassName, titleClassName }: SymbolProps) => {
   return (
     <header
       className={cn(
-        "flex flex-col sm:flex-row w-full justify-between sm:items-center gap-y-16 sm:gap-y-0 mt-10 mb-10",
+        "flex flex-col sm:flex-row w-full justify-between sm:items-center gap-y-16 sm:gap-y-0 mt-5 mb-10",
         wrapperClassName
       )}
     >
