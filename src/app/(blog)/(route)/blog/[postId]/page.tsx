@@ -5,7 +5,6 @@ import { DocumentWithTagsWithSeries } from "@/types";
 import { env } from "@/lib/env";
 
 import { PostSection } from "@/app/(blog)/_components";
-import LoadingPage from "./loading";
 
 interface PostIdPageProps {
   params: {
