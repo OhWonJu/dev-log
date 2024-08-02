@@ -4,6 +4,8 @@ import { RecipesSection } from "@/app/(blog)/_components";
 
 import LoadingPage from "./loading";
 
+export const dynamic = "force-dynamic";
+
 const RecipesPage = () => {
   return (
     <Suspense fallback={<LoadingPage />}>

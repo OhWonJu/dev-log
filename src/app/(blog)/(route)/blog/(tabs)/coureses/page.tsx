@@ -8,6 +8,8 @@ import { Series } from "prisma/prisma-client";
 import React, { Suspense } from "react";
 import LoadingPage from "../loading";
 
+export const dynamic = "force-dynamic";
+
 const CoursePage = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["all-serieses"],
