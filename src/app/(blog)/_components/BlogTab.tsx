@@ -18,7 +18,7 @@ const BLOG_TAB_MAP = [
   },
   {
     url: "/blog/courses",
-    title: "Coureses",
+    title: "Courses",
   },
 ];
 
