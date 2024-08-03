@@ -17,14 +17,20 @@ const Searchbar = () => {
       role="button"
       onClick={searchClickHandler}
       className={cn(
-        "flex group w-full sm:w-fit min-h-[27px] text-sm py-2 px-3 rounded-md items-center shadow-sm text-muted-foreground font-medium border bg-background"
+        "text-xs text-muted-foreground font-medium rounded-full bg-zinc-100 dark:bg-zinc-700 shadow-inner"
       )}
     >
-      <SearchIcon className="w-4 h-4 mr-2" />
-      <span className="mr-4">Search Recipe</span>
-      <kbd className="ml-auto pointer-events-none inline-flex select-none items-center gap-1 rounded font-mono text-[10px] font-medium opacity-100">
-        <span className="text-xs">cmd</span>k
-      </kbd>
+      <div className="searchbar hidden md:flex items-center group py-3 px-3">
+        <SearchIcon className="w-4 h-4 mr-2 text-primary stroke-[3px]" />
+        <span className="mr-4">Search Recipes ...</span>
+        <kbd className="ml-auto pointer-events-none inline-flex select-none items-center gap-1 rounded font-mono text-[10px] font-medium opacity-40">
+          <span className="text-xs">cmd</span>k
+        </kbd>
+      </div>
+
+      <div className="search_button md:hidden flex items-center p-2">
+        <SearchIcon className="w-4 h-4 text-primary stroke-[3px]" />
+      </div>
     </div>
   );
 };

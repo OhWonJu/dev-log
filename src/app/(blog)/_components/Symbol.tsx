@@ -2,25 +2,17 @@ import React from "react";
 
 import { cn } from "@/lib/utils";
 
-import Searchbar from "./Searchbar";
-
-interface HeaderProps {
+interface SymbolProps {
   title: string;
   wrapperClassName?: string;
   titleClassName?: string;
-  searchable?: boolean;
 }
 
-const Header = ({
-  title,
-  wrapperClassName,
-  titleClassName,
-  searchable = true,
-}: HeaderProps) => {
+const Symbol = ({ title, wrapperClassName, titleClassName }: SymbolProps) => {
   return (
     <header
       className={cn(
-        "flex flex-col sm:flex-row w-full justify-between sm:items-center gap-y-16 sm:gap-y-0 mt-10 mb-20",
+        "flex flex-col sm:flex-row w-full justify-between sm:items-center gap-y-16 sm:gap-y-0 mt-5 mb-10",
         wrapperClassName
       )}
     >
@@ -30,9 +22,8 @@ const Header = ({
       >
         {title}
       </h1>
-      {searchable && <Searchbar />}
     </header>
   );
 };
 
-export default Header;
+export default Symbol;

@@ -117,6 +117,7 @@ const Navigator = () => {
                   <motion.div
                     layoutId="underline"
                     className="absolute -bottom-[1px] left-0 right-0 h-[1px] bg-primary"
+                    style={{ originY: "0px" }}
                   />
                 )}
               </Link>

@@ -59,7 +59,7 @@ const TitleInput = ({
           value={value}
           onChange={(e) => onInput(e.target.value)}
           className={cn(
-            "text-6xl text-center w-full mb-6 bg-transparent font-bold break-words outline-none resize-none",
+            "text-2xl sm:text-3xl md:text-6xl text-center w-full mb-6 bg-transparent font-bold break-words outline-none resize-none",
             textClassName
           )}
         />
@@ -68,7 +68,7 @@ const TitleInput = ({
           role="heading"
           onClick={enableInput}
           className={cn(
-            "text-6xl text-center mb-6 font-bold break-words outline-none",
+            "text-2xl sm:text-3xl md:text-6xl text-center mb-6 font-bold break-words outline-none",
             textClassName
           )}
         >
