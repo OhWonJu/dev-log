@@ -7,10 +7,10 @@ import { Tag } from "prisma/prisma-client";
 import { cn } from "@/lib/utils";
 
 import TagItem from "./TagItem";
-import { useScrollReached } from "@/hooks/useScrollReached";
+// import { useScrollReached } from "@/hooks/useScrollReached";
 import { useHorizontalScroll } from "@/hooks/useHorizontalScroll";
 
-const THRESHOLD = 50;
+// const THRESHOLD = 50;
 
 interface TagbarProps {
   tagData: Tag[];
@@ -23,11 +23,11 @@ const Tagbar = ({ tagData }: TagbarProps) => {
 
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
-  const { isOverflowed, isReached } = useScrollReached({
-    ref: tagbarRef,
-    direction: "horizontal",
-    threshold: THRESHOLD,
-  });
+  // const { isOverflowed, isReached } = useScrollReached({
+  //   ref: tagbarRef,
+  //   direction: "horizontal",
+  //   threshold: THRESHOLD,
+  // });
   const isGrabbing = useHorizontalScroll(tagbarRef);
 
   const handleTagClick = (tagName: string) => {
@@ -62,10 +62,10 @@ const Tagbar = ({ tagData }: TagbarProps) => {
           {selectedTags.length > 0 ? "searching by tags" : "🍽️ Ingredients"}
         </span>
       </button>
-      <div className="flex w-[83%]">
+      <div className="flex pl-8" style={{ width: "calc(100% - 130px)" }}>
         <div
           ref={tagbarRef}
-          className="flex w-full gap-x-2 whitespace-nowrap  overflow-x-scroll scrollbar-hide pr-20"
+          className="flex w-full gap-x-2 whitespace-nowrap  overflow-x-scroll scrollbar-hide pr-10"
         >
           {tagData.map((tag) => (
             <TagItem
@@ -79,8 +79,7 @@ const Tagbar = ({ tagData }: TagbarProps) => {
       </div>
       <div
         className={cn(
-          "absolute flex h-full flex-row-reverse w-[1px] right-0 top-1/2 -translate-y-1/2 p-2 px-10 bg-gradient-to-l from-background to-background/0 transition-opacity",
-          isOverflowed && !isReached ? "opacity-100" : "opacity-0"
+          "absolute flex h-full flex-row-reverse w-[1px] right-0 top-1/2 -translate-y-1/2 p-2 px-5 bg-gradient-to-l from-background to-background/0 transition-opacity"
         )}
       />
     </div>

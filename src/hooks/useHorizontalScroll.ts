@@ -42,7 +42,7 @@ export const useHorizontalScroll = (ref: React.RefObject<HTMLElement>) => {
       if (!ref.current) return;
       setTimeout(() => {
         setIsGrabbing(false);
-      }, 500);
+      }, 300);
 
       ref.current.style.cursor = "grab";
       ref.current.style.removeProperty("user-select");
