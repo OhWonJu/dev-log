@@ -3,7 +3,7 @@ export { default as Card } from "./Card";
 export { default as Course } from "./Course";
 export { default as Cover } from "./Cover";
 export { default as CreatePostButton } from "./CreatePostButton";
-export { default as CouresesSection } from "./CoursesSection";
+export { default as CoursesSection } from "./CoursesSection";
 export { default as DocumentIndexCard } from "./DocumentIndexCard";
 export { default as Giscus } from "./Giscus";
 export { default as PostSection } from "./PostSection";

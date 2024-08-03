@@ -8,7 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 import { Card } from "@/app/(blog)/_components";
 
-const CouresesSection = () => {
+const CoursesSection = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["all-serieses"],
     queryFn: async () => await axios.get("/api/series?simple"),
@@ -41,4 +41,4 @@ const CouresesSection = () => {
   );
 };
 
-export default CouresesSection;
+export default CoursesSection;

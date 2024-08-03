@@ -17,7 +17,7 @@ const BLOG_TAB_MAP = [
     title: "Signature Recipes",
   },
   {
-    url: "/blog/coureses",
+    url: "/blog/courses",
     title: "Coureses",
   },
 ];
