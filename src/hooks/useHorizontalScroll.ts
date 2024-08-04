@@ -1,10 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 
-export const useHorizontalScroll = (ref: React.RefObject<HTMLElement>) => {
+export const useHorizontalScroll = (
+  ref: React.RefObject<HTMLElement>,
+  sensitive: number = 10
+) => {
   const frame = useRef(0);
   const pos = useRef({ left: 0, x: 0 });
 
   const [isGrabbing, setIsGrabbing] = useState(false);
+  const currentGrabbingState = useRef(isGrabbing);
 
   useEffect(() => {
     const mouseDownHandler = (event: MouseEvent) => {
@@ -25,9 +29,13 @@ export const useHorizontalScroll = (ref: React.RefObject<HTMLElement>) => {
       event.stopPropagation();
 
       if (!ref.current) return;
-      if (!isGrabbing) setIsGrabbing(true);
 
       const dx = event.clientX - pos.current.x;
+
+      if (Math.abs(dx) > sensitive && !currentGrabbingState.current) {
+        currentGrabbingState.current = true;
+        setIsGrabbing(true);
+      }
 
       frame.current = requestAnimationFrame(() => {
         if (!ref.current) return;
@@ -40,9 +48,13 @@ export const useHorizontalScroll = (ref: React.RefObject<HTMLElement>) => {
       event.stopPropagation();
 
       if (!ref.current) return;
-      setTimeout(() => {
-        setIsGrabbing(false);
-      }, 300);
+
+      if (isGrabbing) {
+        setTimeout(() => {
+          currentGrabbingState.current = false;
+          setIsGrabbing(false);
+        }, 1);
+      }
 
       ref.current.style.cursor = "grab";
       ref.current.style.removeProperty("user-select");
@@ -59,7 +71,7 @@ export const useHorizontalScroll = (ref: React.RefObject<HTMLElement>) => {
       eventHandler?.removeEventListener("mousedown", mouseDownHandler);
       cancelAnimationFrame(frame.current);
     };
-  }, [isGrabbing, ref]);
+  }, [isGrabbing, ref, sensitive]);
 
   return isGrabbing;
 };
