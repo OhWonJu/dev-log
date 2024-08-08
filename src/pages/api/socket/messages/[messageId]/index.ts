@@ -68,7 +68,9 @@ export default async function handler(
 
     const isMessageOwner =
       (!isAdmin && message.chatCode === chatCode) || isAdmin;
-    const canModify = isMessageOwner || chatCode === env.CHAT_ADMIN_CODE;
+    const canModify =
+      isMessageOwner ||
+      (env.CHAT_ADMIN_CODE && chatCode === env.CHAT_ADMIN_CODE);
 
     if (!canModify) return res.status(401).json({ error: "Unauthorized" });
 

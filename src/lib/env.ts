@@ -2,7 +2,7 @@ import { z } from "zod";
 
 const envSchema = z.object({
   ADMIN_CODE: z.string().default(""),
-  CHAT_ADMIN_CODE: z.string(),
+  CHAT_ADMIN_CODE: z.string().optional(),
   SITE_URL: z.string(),
   GTM_KEY: z.string().optional(),
 });
