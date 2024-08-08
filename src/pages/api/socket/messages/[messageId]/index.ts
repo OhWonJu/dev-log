@@ -5,6 +5,7 @@ import axios from "axios";
 import { db } from "@/lib/db";
 import { NextApiResponseServerIO } from "@/types";
 import { checkAdmin } from "@/lib/checkAdmin";
+import { env } from "@/lib/env";
 
 export default async function handler(
   req: NextApiRequest,
@@ -67,9 +68,9 @@ export default async function handler(
 
     const isMessageOwner =
       (!isAdmin && message.chatCode === chatCode) || isAdmin;
-    const canModify = isMessageOwner;
+    const canModify = isMessageOwner || chatCode === env.CHAT_ADMIN_CODE;
 
-    if (!canModify) return res.status(404).json({ error: "Unauthorized" });
+    if (!canModify) return res.status(401).json({ error: "Unauthorized" });
 
     if (req.method === "DELETE") {
       message = await db.message.update({

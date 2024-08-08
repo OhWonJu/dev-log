@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 const RecipesPage = () => {
   return (
     <Suspense fallback={<LoadingPage />}>
-      <RecipesSection type="recent" />;
+      <RecipesSection type="recent" />
     </Suspense>
   );
 };
