@@ -106,10 +106,11 @@ const ChatMessages = ({
     if (!auth && newChatItem.chatCode !== chatCode) return;
 
     if (
-      newChatItem.createdAt !== optimisticChat[0].createdAt ||
+      new Date(newChatItem.createdAt).getTime() !==
+        optimisticChat[0].createdAt.getTime() ||
       newChatItem.content !== optimisticChat[0].content
     ) {
-      toast.error("메시지 전송에 실패했습니다.", {duration:2000});
+      toast.error("메시지 전송에 실패했습니다.", { duration: 2000 });
     }
     setOptimisticChat((prev) => prev.slice(1));
 
