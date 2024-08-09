@@ -1,9 +1,10 @@
 "use client";
 
-import { Fragment, useRef, ElementRef } from "react";
+import { Fragment, useRef, ElementRef, useEffect, useState } from "react";
 import { Message } from "@prisma/client";
 import { Loader2, ServerCrash } from "lucide-react";
 import { format } from "date-fns";
+import { toast } from "sonner";
 
 import useChatQuery from "@/hooks/useChatQuery";
 import useChatSocket from "@/hooks/useChatSocket";
@@ -11,6 +12,10 @@ import useChatScroll from "@/hooks/useChatScroll";
 
 import ChatWelcome from "./ChatWelcome";
 import ChatItem from "./ChatItem";
+import { useMutationState } from "@tanstack/react-query";
+import { NewChatProps } from "./ChatInput";
+import useAuthStore from "@/store/useAuthsStore";
+import { useSessionStorage } from "usehooks-ts";
 
 const DATE_FORMAT = "d MMM yyyy, HH:mm";
 
@@ -35,8 +40,16 @@ const ChatMessages = ({
   const addKey = `chat:${chatId}:messages`;
   const updateKey = `chat:${chatId}:messages:update`;
 
+  const { auth } = useAuthStore();
+  const [chatCode] = useSessionStorage("chat-code", "");
+
   const chatRef = useRef<ElementRef<"div">>(null);
   const bottomRef = useRef<ElementRef<"div">>(null);
+
+  const updateOMTheck = useRef<number>(0);
+  const [optimisticChat, setOptimisticChat] = useState<
+    { content: string; createdAt: Date }[]
+  >([]);
 
   const {
     data,
@@ -54,13 +67,54 @@ const ChatMessages = ({
 
   useChatSocket({ queryKey, addKey, updateKey });
 
-  useChatScroll({
+  const { goToBottom } = useChatScroll({
     chatRef,
     bottomRef,
     loadMore: fetchNextPage,
     shouldLoadMore: !isFetchingNextPage && !!hasNextPage,
     count: data?.pages?.[0]?.items?.length ?? 0,
   });
+
+  const variables = useMutationState<any>({
+    filters: { mutationKey: ["addNewChat", chatId], status: "pending" },
+    select: (mutation) => mutation.state.variables,
+  }) as NewChatProps[];
+
+  useEffect(() => {
+    if (variables.length > 0 && variables.length > updateOMTheck.current) {
+      setOptimisticChat((prev) => [
+        ...prev,
+        {
+          content: variables[variables.length - 1].values.content,
+          createdAt: variables[variables.length - 1].values.createdAt,
+        },
+      ]);
+
+      goToBottom();
+    }
+    updateOMTheck.current = variables.length;
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [variables]);
+
+  useEffect(() => {
+    const newChatItem = data?.pages[0].items[0] as Message;
+
+    if (!newChatItem) return;
+    if (!optimisticChat || optimisticChat.length < 1) return;
+    if (auth && newChatItem.chatCode !== "---") return;
+    if (!auth && newChatItem.chatCode !== chatCode) return;
+
+    if (
+      newChatItem.createdAt !== optimisticChat[0].createdAt ||
+      newChatItem.content !== optimisticChat[0].content
+    ) {
+      toast.error("메시지 전송에 실패했습니다.", {duration:2000});
+    }
+    setOptimisticChat((prev) => prev.slice(1));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
   if (isLoading) {
     return (
@@ -124,6 +178,24 @@ const ChatMessages = ({
           </Fragment>
         ))}
       </div>
+      {optimisticChat.length > 0 && (
+        <div className="flex flex-col pt-1 gap-y-1">
+          {optimisticChat.map((chat, index) => (
+            <ChatItem
+              key={index}
+              id={""}
+              chatCode={""}
+              content={chat.content}
+              deleted={false}
+              timestamp={format(chat.createdAt, DATE_FORMAT)}
+              isUpdated={false}
+              socketQuery={{}}
+              socketUrl=""
+              isOpitmistic={true}
+            />
+          ))}
+        </div>
+      )}
       <div ref={bottomRef} />
     </div>
   );
