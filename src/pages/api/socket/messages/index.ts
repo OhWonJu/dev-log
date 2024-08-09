@@ -52,7 +52,7 @@ export default async function handler(
         content,
         chatCode: !isAdmin ? (chatCode as string) : "",
         conversationId: chatId as string,
-        createdAt,
+        createdAt: createdAt,
         updatedAt: createdAt,
       },
     });
