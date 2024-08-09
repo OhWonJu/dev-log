@@ -60,6 +60,14 @@ const useChatScroll = ({
       });
     }
   }, [bottomRef, chatRef, count, hasInit]);
+
+  const goToBottom = () => {
+    setTimeout(() => {
+      bottomRef.current?.scrollIntoView({ behavior: "smooth" }), 100;
+    });
+  };
+
+  return { goToBottom };
 };
 
 export default useChatScroll;
