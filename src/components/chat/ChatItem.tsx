@@ -105,16 +105,6 @@ const ChatItem = ({
     });
   }, [content, form]);
 
-  // const { mutate: retryMutate } = useMutation({
-  //   mutationKey: ["addNewChat", socketQuery.chatId],
-  //   mutationFn: async ({ url, values }: NewChatProps) =>
-  //     await axios.post(url, values),
-  //   onSuccess: () => {
-  //     errorHandler && errorHandler();
-  //   },
-  //   gcTime: 60 * 1000,
-  // });
-
   const { mutate: retryMutate } = useNewChatMutation(
     socketQuery.chatId,
     async ({ url, values }: NewChatProps) => await axios.post(url, values),

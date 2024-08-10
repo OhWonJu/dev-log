@@ -34,12 +34,6 @@ const ChatInput = ({ apiUrl, query }: ChatInputProps) => {
 
   const isLoading = form.formState.isSubmitting;
 
-  // const { mutate } = useMutation({
-  //   mutationKey: ["addNewChat", query.chatId],
-  //   mutationFn: async ({ url, values }: NewChatProps) =>
-  //     await axios.post(url, values),
-  // });
-
   const { mutate } = useNewChatMutation(
     query.chatId,
     async ({ url, values }: NewChatProps) => await axios.post(url, values)
