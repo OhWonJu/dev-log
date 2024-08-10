@@ -107,10 +107,7 @@ const ChatItem = ({
 
   const { mutate: retryMutate } = useNewChatMutation(
     socketQuery.chatId,
-    async ({ url, values }: NewChatProps) => await axios.post(url, values),
-    () => {
-      errorHandler && errorHandler();
-    }
+    async ({ url, values }: NewChatProps) => await axios.post(url, values)
   );
 
   const handleRetry = () => {
@@ -119,7 +116,7 @@ const ChatItem = ({
         url: socketUrl,
         query: socketQuery,
       });
-
+      errorHandler && errorHandler();
       retryMutate({ url, values: { content, createdAt: new Date() } });
     } catch (error) {
       console.log(error);

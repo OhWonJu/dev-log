@@ -45,7 +45,7 @@ const ChatMessages = ({
   const chatRef = useRef<ElementRef<"div">>(null);
   const bottomRef = useRef<ElementRef<"div">>(null);
 
-  const updateOMTheck = useRef<number>(0);
+  const updateOMTCheck = useRef<number>(0);
   const [optimisticChat, setOptimisticChat] = useState<
     { content: string; createdAt: Date; isError?: boolean }[]
   >([]);
@@ -84,11 +84,14 @@ const ChatMessages = ({
     select: (mutation) => mutation.state.variables,
   }) as NewChatProps[];
 
+  // pending 상태의 message varibales 를 optimisticItems 상태에 추가
   useEffect(() => {
+    // 새로운 pending state varibale 생긴 경우 optmisticItems 에 해당 variable 을 추가
     if (
       pendingItems.length > 0 &&
-      pendingItems.length > updateOMTheck.current
+      pendingItems.length > updateOMTCheck.current
     ) {
+      // pendingItems 의 마지막 원소가 최신 pending 데이터
       setOptimisticChat((prev) => [
         ...prev,
         {
@@ -96,54 +99,82 @@ const ChatMessages = ({
           createdAt: pendingItems[pendingItems.length - 1].values.createdAt,
         },
       ]);
-
       goToBottom();
     }
-    updateOMTheck.current = pendingItems.length;
+    // pendingItems 는 궁극적으로 감소하므로
+    // 신규 pending varibale 여부 판별을 위해 updateOMTCheck 갱신
+    updateOMTCheck.current = pendingItems.length;
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pendingItems]);
 
+  // error 상태의 variable 값을 통해 optimistic items 내부의 item 에 erro 여부 표시
   useEffect(() => {
     if (errorItems.length < 1) return;
+    if (optimisticChat.length < 1) return;
+
+    let flag = false; // optimisticItem 갱신 여부 플레그
 
     const newOMT = optimisticChat;
 
-    errorItems.forEach((item) => {
-      const index = newOMT.findIndex(
-        (OMTItem) =>
-          item.values.content === OMTItem.content &&
-          item.values.createdAt.getTime() === OMTItem.createdAt.getTime()
+    // 최신 error varibale 부터 탐색
+    for (let i = errorItems.length - 1; i >= 0; i--) {
+      // 기저 조건 가장 오래된 optimistic Item 보다 error varibale 이 오래된 경우 error 상태를 표시할 optimistic item 이 없다고 판정
+      if (
+        errorItems[i].values.createdAt.getTime() < newOMT[0].createdAt.getTime()
+      )
+        break;
+
+      const errorItemIndex = newOMT.findIndex(
+        (item) =>
+          item.content === errorItems[i].values.content &&
+          item.createdAt.getTime() ===
+            errorItems[i].values.createdAt.getTime() &&
+          !item.isError
       );
 
-      if (index > -1) newOMT[index].isError = true;
-    });
+      if (errorItemIndex > -1 && !newOMT[errorItemIndex].isError) {
+        flag = true;
+        newOMT[errorItemIndex].isError = true;
+      }
+    }
+
+    // 1개 이상의 신규 isError item 있는 경우 상태 갱신
+    if (flag) {
+      setOptimisticChat(newOMT);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errorItems]);
 
   const handleErrorChatItem = (index: number) => {
-    errorItems.splice(index, 1);
     setOptimisticChat((prev) => [
       ...prev.slice(0, index),
       ...prev.slice(index + 1),
     ]);
   };
 
+  // 실제 데이터와 대조하여 OptimisticItem 제거
   useEffect(() => {
     const newChatItems = data?.pages[0].items as Message[];
     if (!newChatItems) return;
+    // 가장 최근에 emit 된 데이터 
     const newChatItem = newChatItems[0];
 
+    // 기저조건
     if (!newChatItem) return;
     if (!optimisticChat || optimisticChat.length < 1) return;
+    // 최근 emit 메시지 데이터의 소유권 확인
     if (auth && newChatItem.chatCode !== "---") return;
     if (!auth && newChatItem.chatCode !== chatCode) return;
 
+    // 최근 emit 데이터와 가장 오래된 optimistic 데이터가 같지 않은 경우 (emit 에 복수개의 신규 데이터가 포함된 경우)
+    // Error 상태가 표시되지 않았다면, 마지막 Emit 데이터 이전의 모든 not error Optimistic item 이 정상적으로 패칭된 것으로 간주
     if (
       new Date(newChatItem.createdAt).getTime() !==
         optimisticChat[0].createdAt.getTime() ||
       newChatItem.content !== optimisticChat[0].content
     ) {
+      // emit 된 가장 마지막 데이터에 해당하는 optimistic item index 획득
       const index = optimisticChat.findIndex(
         (item) =>
           item.createdAt.getTime() ===
@@ -154,11 +185,12 @@ const ChatMessages = ({
       if (index) {
         const errorOMTItems = [];
 
+        // 획득된 인덱스 이전의 에러 데이터 분리
         for (let i = 0; i < index; i++) {
-          if (i > index) break;
           optimisticChat[i].isError && errorOMTItems.push(optimisticChat[i]);
         }
 
+        // 에러 데이터 + 획득된 인덱스 이후의 optimistic item 만 포함되도록  optimisticItems 갱신
         const newOMTItmes = [
           ...errorOMTItems,
           ...optimisticChat.slice(index + 1),
@@ -168,6 +200,9 @@ const ChatMessages = ({
         return;
       }
     }
+    // 신규 Emit Hit
+    // 신규 emit 된 데이터의 가장 최신 item 과 optimistic items 의 가장 오래된 item 같으므로
+    // optimisticItems 의 첫번째 원소 제거
     setOptimisticChat((prev) => prev.slice(1));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
