@@ -7,10 +7,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import qs from "query-string";
 
+import useNewChatMutation, { NewChatProps } from "@/hooks/useNewChatMutation";
+
 import { Form, FormControl, FormField, FormItem } from "../ui/form";
 import { Input } from "../ui/input";
 import EmojiPicker from "../EmojiPicker";
-import { useMutation } from "@tanstack/react-query";
 
 interface ChatInputProps {
   apiUrl: string;
@@ -20,14 +21,6 @@ interface ChatInputProps {
 const formSchema = z.object({
   content: z.string().min(1),
 });
-
-export type NewChatProps = {
-  url: string;
-  values: {
-    content: string;
-    createdAt: Date;
-  };
-};
 
 const ChatInput = ({ apiUrl, query }: ChatInputProps) => {
   const router = useRouter();
@@ -41,11 +34,16 @@ const ChatInput = ({ apiUrl, query }: ChatInputProps) => {
 
   const isLoading = form.formState.isSubmitting;
 
-  const { mutate } = useMutation({
-    mutationKey: ["addNewChat", query.chatId],
-    mutationFn: async ({ url, values }: NewChatProps) =>
-      await axios.post(url, values),
-  });
+  // const { mutate } = useMutation({
+  //   mutationKey: ["addNewChat", query.chatId],
+  //   mutationFn: async ({ url, values }: NewChatProps) =>
+  //     await axios.post(url, values),
+  // });
+
+  const { mutate } = useNewChatMutation(
+    query.chatId,
+    async ({ url, values }: NewChatProps) => await axios.post(url, values)
+  );
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {

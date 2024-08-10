@@ -13,12 +13,12 @@ import { cn } from "@/lib/utils";
 import useAuthStore from "@/store/useAuthsStore";
 import { useModal } from "@/store/useModalStore";
 
+import useNewChatMutation, { NewChatProps } from "@/hooks/useNewChatMutation";
+
 import ActionTooltip from "../ActionTooltip";
 import { Form, FormControl, FormField, FormItem } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { useMutation } from "@tanstack/react-query";
-import { NewChatProps } from "./ChatInput";
 
 interface ChatItemProps {
   id: string;
@@ -105,14 +105,23 @@ const ChatItem = ({
     });
   }, [content, form]);
 
-  const { mutate: retryMutate } = useMutation({
-    mutationKey: ["addNewChat", socketQuery.chatId],
-    mutationFn: async ({ url, values }: NewChatProps) =>
-      await axios.post(url, values),
-    onSuccess: () => {
+  // const { mutate: retryMutate } = useMutation({
+  //   mutationKey: ["addNewChat", socketQuery.chatId],
+  //   mutationFn: async ({ url, values }: NewChatProps) =>
+  //     await axios.post(url, values),
+  //   onSuccess: () => {
+  //     errorHandler && errorHandler();
+  //   },
+  //   gcTime: 60 * 1000,
+  // });
+
+  const { mutate: retryMutate } = useNewChatMutation(
+    socketQuery.chatId,
+    async ({ url, values }: NewChatProps) => await axios.post(url, values),
+    () => {
       errorHandler && errorHandler();
-    },
-  });
+    }
+  );
 
   const handleRetry = () => {
     try {
