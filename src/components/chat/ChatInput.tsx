@@ -58,7 +58,7 @@ const ChatInput = ({ apiUrl, query }: ChatInputProps) => {
         url,
         values: { content: values.content, createdAt: new Date() },
       });
-      
+
       form.reset();
       router.refresh();
 
@@ -82,9 +82,10 @@ const ChatInput = ({ apiUrl, query }: ChatInputProps) => {
                 <div className="relative p-4 pb-6">
                   <Input
                     disabled={isLoading}
-                    placeholder={`Message`}
+                    placeholder="Message"
+                    autoComplete="off"
                     {...field}
-                    className="pl-6 pr-14 py-6 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
+                    className="pl-6 pr-14 py-6 bg-zinc-200/50 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
                   />
                   <div className="absolute top-7 right-8">
                     <EmojiPicker

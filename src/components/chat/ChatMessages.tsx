@@ -48,7 +48,7 @@ const ChatMessages = ({
 
   const updateOMTheck = useRef<number>(0);
   const [optimisticChat, setOptimisticChat] = useState<
-    { content: string; createdAt: Date }[]
+    { content: string; createdAt: Date; isError?: boolean }[]
   >([]);
 
   const {
@@ -75,30 +75,65 @@ const ChatMessages = ({
     count: data?.pages?.[0]?.items?.length ?? 0,
   });
 
-  const variables = useMutationState<any>({
+  const pendingItems = useMutationState<any>({
     filters: { mutationKey: ["addNewChat", chatId], status: "pending" },
     select: (mutation) => mutation.state.variables,
   }) as NewChatProps[];
 
+  const errorItems = useMutationState<any>({
+    filters: { mutationKey: ["addNewChat", chatId], status: "error" },
+    select: (mutation) => mutation.state.variables,
+  }) as NewChatProps[];
+
   useEffect(() => {
-    if (variables.length > 0 && variables.length > updateOMTheck.current) {
+    if (
+      pendingItems.length > 0 &&
+      pendingItems.length > updateOMTheck.current
+    ) {
       setOptimisticChat((prev) => [
         ...prev,
         {
-          content: variables[variables.length - 1].values.content,
-          createdAt: variables[variables.length - 1].values.createdAt,
+          content: pendingItems[pendingItems.length - 1].values.content,
+          createdAt: pendingItems[pendingItems.length - 1].values.createdAt,
         },
       ]);
 
       goToBottom();
     }
-    updateOMTheck.current = variables.length;
+    updateOMTheck.current = pendingItems.length;
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [variables]);
+  }, [pendingItems]);
 
   useEffect(() => {
-    const newChatItem = data?.pages[0].items[0] as Message;
+    if (errorItems.length < 1) return;
+
+    const newOMT = optimisticChat;
+
+    errorItems.forEach((item) => {
+      const index = newOMT.findIndex(
+        (OMTItem) =>
+          item.values.content === OMTItem.content &&
+          item.values.createdAt.getTime() === OMTItem.createdAt.getTime()
+      );
+
+      if (index > -1) newOMT[index].isError = true;
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [errorItems]);
+
+  const handleErrorChatItem = (index: number) => {
+    errorItems.splice(index, 1);
+    setOptimisticChat((prev) => [
+      ...prev.slice(0, index),
+      ...prev.slice(index + 1),
+    ]);
+  };
+
+  useEffect(() => {
+    const newChatItems = data?.pages[0].items as Message[];
+    if (!newChatItems) return;
+    const newChatItem = newChatItems[0];
 
     if (!newChatItem) return;
     if (!optimisticChat || optimisticChat.length < 1) return;
@@ -110,7 +145,29 @@ const ChatMessages = ({
         optimisticChat[0].createdAt.getTime() ||
       newChatItem.content !== optimisticChat[0].content
     ) {
-      toast.error("메시지 전송에 실패했습니다.", { duration: 2000 });
+      const index = optimisticChat.findIndex(
+        (item) =>
+          item.createdAt.getTime() ===
+            new Date(newChatItem.createdAt).getTime() ||
+          item.content === newChatItem.content
+      );
+
+      if (index) {
+        const errorOMTItems = [];
+
+        for (let i = 0; i < index; i++) {
+          if (i > index) break;
+          optimisticChat[i].isError && errorOMTItems.push(optimisticChat[i]);
+        }
+
+        const newOMTItmes = [
+          ...errorOMTItems,
+          ...optimisticChat.slice(index + 1),
+        ];
+
+        setOptimisticChat(newOMTItmes);
+        return;
+      }
     }
     setOptimisticChat((prev) => prev.slice(1));
 
@@ -160,43 +217,47 @@ const ChatMessages = ({
           )}
         </div>
       )}
-      <div className="flex flex-col-reverse mt-auto gap-y-1">
-        {data?.pages?.map((group, i) => (
-          <Fragment key={i}>
-            {group.items.map((message: Message) => (
-              <ChatItem
-                key={message.id}
-                id={message.id}
-                chatCode={message.chatCode}
-                content={message.content}
-                deleted={message.deleted}
-                timestamp={format(new Date(message.createdAt), DATE_FORMAT)}
-                isUpdated={message.updatedAt !== message.createdAt}
-                socketUrl={socketUrl}
-                socketQuery={socketQuery}
-              />
-            ))}
-          </Fragment>
-        ))}
-      </div>
-      {optimisticChat.length > 0 && (
-        <div className="flex flex-col pt-1 gap-y-1">
-          {optimisticChat.map((chat, index) => (
-            <ChatItem
-              key={index}
-              id={""}
-              chatCode={""}
-              content={chat.content}
-              deleted={false}
-              timestamp={format(chat.createdAt, DATE_FORMAT)}
-              isUpdated={false}
-              socketQuery={{}}
-              socketUrl=""
-              isOpitmistic={true}
-            />
+      <div className="flex flex-col gap-y-1">
+        <div className="flex flex-col-reverse mt-auto gap-y-1">
+          {data?.pages?.map((group, i) => (
+            <Fragment key={i}>
+              {group.items.map((message: Message) => (
+                <ChatItem
+                  key={message.id}
+                  id={message.id}
+                  chatCode={message.chatCode}
+                  content={message.content}
+                  deleted={message.deleted}
+                  timestamp={format(new Date(message.createdAt), DATE_FORMAT)}
+                  isUpdated={message.updatedAt !== message.createdAt}
+                  socketUrl={socketUrl}
+                  socketQuery={socketQuery}
+                />
+              ))}
+            </Fragment>
           ))}
         </div>
-      )}
+        {optimisticChat.length > 0 && (
+          <div className="flex flex-col gap-y-1">
+            {optimisticChat.map((chat, index) => (
+              <ChatItem
+                key={index}
+                id={""}
+                chatCode={""}
+                content={chat.content}
+                deleted={false}
+                timestamp={format(chat.createdAt, DATE_FORMAT)}
+                isUpdated={false}
+                socketQuery={socketQuery}
+                socketUrl={socketUrl}
+                isOpitmistic={true}
+                isError={chat.isError}
+                errorHandler={() => handleErrorChatItem(index)}
+              />
+            ))}
+          </div>
+        )}
+      </div>
       <div ref={bottomRef} />
     </div>
   );
