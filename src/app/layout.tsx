@@ -13,6 +13,7 @@ import ModalProvider from "@/components/providers/ModalProvider";
 import AuthProvider from "@/components/providers/AuthProvider";
 import NavProvider from "@/components/providers/NavProvider";
 import { GTM, Navigator, ChatListButton } from "@/components";
+import { Toaster } from "sonner";
 
 const font = Open_Sans({ subsets: ["latin"] });
 
@@ -64,6 +65,7 @@ export default async function RootLayout({
                 className="relative bg-background text-primary min-h-screen max-w-screen transition-colors"
                 style={{ backgroundImage: "var(--background-image)" }}
               >
+                <Toaster position="bottom-center" />
                 <ModalProvider />
                 <NavProvider>
                   <Navigator />

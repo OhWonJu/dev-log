@@ -15,15 +15,16 @@ export default async function handler(
 
   const isAdmin = await checkAdmin();
 
-  const { content } = req.body;
+  const { content, createdAt } = req.body;
   const { chatId, chatCode } = req.query;
 
-  // 로컬에서 메시지 emit 편법 ㅠㅠ
+  // // 로컬에서 메시지 emit 편법 ㅠㅠ
   if (process.env.NODE_ENV === "development" && isAdmin) {
     const data = await axios.post(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/socket/messages?chatId=${chatId}&chatCode=---`,
       {
         content,
+        createdAt,
       }
     );
 
@@ -51,6 +52,8 @@ export default async function handler(
         content,
         chatCode: !isAdmin ? (chatCode as string) : "",
         conversationId: chatId as string,
+        createdAt: createdAt,
+        updatedAt: createdAt,
       },
     });
 

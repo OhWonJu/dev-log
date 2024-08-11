@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Edit, Trash } from "lucide-react";
+import { Edit, RotateCw, Trash, X } from "lucide-react";
 import * as z from "zod";
 import axios from "axios";
 import qs from "query-string";
@@ -12,6 +12,8 @@ import { useSessionStorage } from "usehooks-ts";
 import { cn } from "@/lib/utils";
 import useAuthStore from "@/store/useAuthsStore";
 import { useModal } from "@/store/useModalStore";
+
+import useNewChatMutation, { NewChatProps } from "@/hooks/useNewChatMutation";
 
 import ActionTooltip from "../ActionTooltip";
 import { Form, FormControl, FormField, FormItem } from "../ui/form";
@@ -27,6 +29,9 @@ interface ChatItemProps {
   isUpdated: boolean;
   socketUrl: string;
   socketQuery: Record<string, string>;
+  isOpitmistic?: boolean;
+  isError?: boolean;
+  errorHandler?: () => void;
 }
 
 const formSchema = z.object({
@@ -42,6 +47,9 @@ const ChatItem = ({
   isUpdated,
   socketUrl,
   socketQuery,
+  isOpitmistic = false,
+  isError = false,
+  errorHandler = () => null,
 }: ChatItemProps) => {
   const { onOpen } = useModal();
 
@@ -49,7 +57,9 @@ const ChatItem = ({
   const [value] = useSessionStorage("chat-code", "");
 
   // const isOwner = chatCode ? chatCode === value : auth; // chat code -> gest, if not admin
-  const isOwner = auth ? !chatCode || chatCode === "---" : chatCode === value;
+  const isOwner =
+    (auth ? !chatCode || chatCode === "---" : chatCode === value) ||
+    isOpitmistic;
 
   const [isEditing, setIsEditing] = useState(false);
 
@@ -95,8 +105,121 @@ const ChatItem = ({
     });
   }, [content, form]);
 
+  const { mutate: retryMutate } = useNewChatMutation(
+    socketQuery.chatId,
+    async ({ url, values }: NewChatProps) => await axios.post(url, values)
+  );
+
+  const handleRetry = () => {
+    try {
+      const url = qs.stringifyUrl({
+        url: socketUrl,
+        query: socketQuery,
+      });
+      errorHandler && errorHandler();
+      retryMutate({ url, values: { content, createdAt: new Date() } });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const canDeleteMessage = isOwner || auth;
   const canEditMessage = isOwner;
+
+  const EditForm = () => (
+    <>
+      {isEditing && (
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="flex items-center w-full gap-x-2 pt-2"
+          >
+            <FormField
+              control={form.control}
+              name="content"
+              render={({ field }) => (
+                <FormItem className="flex-1">
+                  <FormControl>
+                    <div className="relative w-full">
+                      <Input
+                        disabled={isLoading}
+                        placeholder="Edited message"
+                        {...field}
+                        className="p-2 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:right-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
+                      />
+                    </div>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <Button disabled={isLoading} size="sm">
+              Save
+            </Button>
+          </form>
+          <span className="text-[10px] mt-1 text-zinc-400">
+            Press escape to cancel, enter to save
+          </span>
+        </Form>
+      )}
+    </>
+  );
+
+  const ActionButton = () => (
+    <>
+      {canDeleteMessage && (
+        <div
+          className={cn(
+            "hidden group-hover:flex items-center gap-x-2 absolute top-1/2 -translate-y-1/2 p-1 bg-white dark:bg-zinc-800 border rounded-sm",
+            isOwner && "-left-14",
+            !isOwner && "-right-8"
+          )}
+        >
+          {canEditMessage && (
+            <ActionTooltip label="Edit">
+              <Edit
+                onClick={() => setIsEditing(true)}
+                className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
+              />
+            </ActionTooltip>
+          )}
+          <ActionTooltip label="Delete">
+            <Trash
+              onClick={() =>
+                onOpen("deleteMessage", {
+                  apiUrl: `${socketUrl}/${id}`,
+                  query: socketQuery,
+                })
+              }
+              className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
+            />
+          </ActionTooltip>
+        </div>
+      )}
+    </>
+  );
+
+  const ErrorActionButton = () => (
+    <div
+      className={cn(
+        "flex  items-center gap-x-2 absolute top-1/2 -translate-y-1/2 p-1 bg-white dark:bg-zinc-800 border rounded-sm",
+        isOwner && "-left-14",
+        !isOwner && "-right-8"
+      )}
+    >
+      <ActionTooltip label="Retry">
+        <RotateCw
+          onClick={handleRetry}
+          className="cursor-pointer ml-auto w-3 h-3 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
+        />
+      </ActionTooltip>
+      <ActionTooltip label="Delete">
+        <X
+          onClick={errorHandler}
+          className="cursor-pointer ml-auto w-4 h-4 text-red-600 dark:hover:text-zinc-300 transition"
+        />
+      </ActionTooltip>
+    </div>
+  );
 
   return (
     <div
@@ -124,73 +247,14 @@ const ChatItem = ({
                 <span className="text-[10px] mx-2">(edited)</span>
               )}
             </p>
-            {isEditing && (
-              <Form {...form}>
-                <form
-                  onSubmit={form.handleSubmit(onSubmit)}
-                  className="flex items-center w-full gap-x-2 pt-2"
-                >
-                  <FormField
-                    control={form.control}
-                    name="content"
-                    render={({ field }) => (
-                      <FormItem className="flex-1">
-                        <FormControl>
-                          <div className="relative w-full">
-                            <Input
-                              disabled={isLoading}
-                              placeholder="Edited message"
-                              {...field}
-                              className="p-2 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:right-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
-                            />
-                          </div>
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                  <Button disabled={isLoading} size="sm">
-                    Save
-                  </Button>
-                </form>
-                <span className="text-[10px] mt-1 text-zinc-400">
-                  Press escape to cancel, enter to save
-                </span>
-              </Form>
-            )}
+            {!isOpitmistic && <EditForm />}
           </div>
         </div>
-        {canDeleteMessage && (
-          <div
-            className={cn(
-              "hidden group-hover:flex items-center gap-x-2 absolute top-1/2 -translate-y-1/2 p-1 bg-white dark:bg-zinc-800 border rounded-sm",
-              isOwner && "-left-14",
-              !isOwner && "-right-8"
-            )}
-          >
-            {canEditMessage && (
-              <ActionTooltip label="Edit">
-                <Edit
-                  onClick={() => setIsEditing(true)}
-                  className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
-                />
-              </ActionTooltip>
-            )}
-            <ActionTooltip label="Delete">
-              <Trash
-                onClick={() =>
-                  onOpen("deleteMessage", {
-                    apiUrl: `${socketUrl}/${id}`,
-                    query: socketQuery,
-                  })
-                }
-                className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
-              />
-            </ActionTooltip>
-          </div>
-        )}
+        {!isOpitmistic && <ActionButton />}
+        {isOpitmistic && isError && <ErrorActionButton />}
       </div>
     </div>
   );
 };
 
-export default ChatItem;
+export default React.memo(ChatItem);
