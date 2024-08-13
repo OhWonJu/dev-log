@@ -4,6 +4,10 @@ import { Fragment, useRef, ElementRef, useEffect, useState } from "react";
 import { Message } from "@prisma/client";
 import { Loader2, ServerCrash } from "lucide-react";
 import { format } from "date-fns";
+import { useMutationState } from "@tanstack/react-query";
+
+import useAuthStore from "@/store/useAuthsStore";
+import { NewChatProps } from "@/hooks/useNewChatMutation";
 
 import useChatQuery from "@/hooks/useChatQuery";
 import useChatSocket from "@/hooks/useChatSocket";
@@ -11,10 +15,7 @@ import useChatScroll from "@/hooks/useChatScroll";
 
 import ChatWelcome from "./ChatWelcome";
 import ChatItem from "./ChatItem";
-import { useMutationState } from "@tanstack/react-query";
-import useAuthStore from "@/store/useAuthsStore";
 import { useSessionStorage } from "usehooks-ts";
-import { NewChatProps } from "@/hooks/useNewChatMutation";
 
 const DATE_FORMAT = "d MMM yyyy, HH:mm";
 
@@ -157,7 +158,7 @@ const ChatMessages = ({
   useEffect(() => {
     const newChatItems = data?.pages[0].items as Message[];
     if (!newChatItems) return;
-    // 가장 최근에 emit 된 데이터 
+    // 가장 최근에 emit 된 데이터
     const newChatItem = newChatItems[0];
 
     // 기저조건
