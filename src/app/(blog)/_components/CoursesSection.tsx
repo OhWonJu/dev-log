@@ -1,6 +1,5 @@
 "use client";
 
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { Series } from "prisma/prisma-client";
 
@@ -11,9 +10,17 @@ import { Card } from "@/app/(blog)/_components";
 const CoursesSection = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["all-serieses"],
-    queryFn: async () => await axios.get("/api/series?simple"),
+    queryFn: async () => {
+      const res = await fetch("/api/series?simple");
+
+      if (!res.ok) {
+        throw new Error("Failed to fetch courses");
+      }
+
+      return res.json();
+    },
   });
-  const seriesList = data?.data as Series[];
+  const seriesList = data as Series[];
 
   return (
     <section className="flex flex-col mb-24">

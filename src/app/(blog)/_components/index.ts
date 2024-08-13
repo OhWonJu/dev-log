@@ -1,4 +1,5 @@
 export { default as BlogTab } from "./BlogTab";
+export { default as BlogTabViewWrapper } from "./BlogTabViewWrapper";
 export { default as Card } from "./Card";
 export { default as Course } from "./Course";
 export { default as Cover } from "./Cover";
