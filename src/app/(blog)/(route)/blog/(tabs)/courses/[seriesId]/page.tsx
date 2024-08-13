@@ -28,10 +28,10 @@ const SeriesIdPage = async ({ params }: PostIdPageProps) => {
     params.seriesId
   )) as SeriesWithDocuments;
 
-  if (!seriesData) return <div>Coures Not Found.</div>;
+  if (!seriesData) return <div>Course Not Found.</div>;
 
   return (
-    <section className="flex flex-col p-8 lg:p-0 mb-24">
+    <section className="flex flex-col mb-24">
       <h1
         role="banner"
         className="text-5xl font-bold text-zinc-600 dark:text-zinc-300 mr-4 mb-12"

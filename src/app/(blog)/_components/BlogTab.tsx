@@ -1,62 +1,64 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
+import { useBlogTab } from "@/store/useBlogTab";
+import { usePathname, useRouter } from "next/navigation";
 
 const BLOG_TAB_MAP = [
   {
-    url: "/blog",
     title: "Recent Recipes",
   },
   {
-    url: "/blog/signature-recipes",
     title: "Signature Recipes",
   },
   {
-    url: "/blog/courses",
     title: "Courses",
   },
 ];
 
 const BlogTab = () => {
   const pathname = usePathname();
+  const router = useRouter();
 
-  const [selected, setSelected] = useState<string>(pathname ?? "/blog");
+  const selected = useBlogTab((state) => state.selected);
+  const setSelected = useBlogTab((state) => state.setSelected);
 
-  const handleTabClick = (url: string) => {
-    setSelected(url);
+  const handleTabClick = (index: number) => {
+    if (pathname !== "/blog") {
+      router.push("/blog");
+    }
+
+    setSelected(index);
   };
 
   return (
-    <div className="relative flex items-center gap-x-6">
+    <div className="relative flex items-center gap-x-2 xs:gap-x-4 sm:gap-x-6">
       {BLOG_TAB_MAP.map((item, index) => (
-        <Link
+        <div
           key={index}
-          href={item.url}
-          scroll={false}
-          onClick={() => handleTabClick(item.url)}
+          role="button"
+          onClick={() => handleTabClick(index)}
           className="relative h-full flex items-center"
         >
           <span
             className={cn(
-              "text-base font-semibold capitalize text-zinc-400 py-3",
-              item.url === selected && "text-primary"
+              "text-sm sm:text-base font-semibold capitalize text-zinc-400 py-3",
+              index === selected && "text-primary"
             )}
           >
             {item.title}
           </span>
-          {item.url === selected && (
+          {index === selected && (
             <motion.span
               layoutId="blogtab-underline"
               className="absolute -bottom-[1px] left-0 right-0 h-[1.5px] bg-primary"
               style={{ originY: "0px" }}
             />
           )}
-        </Link>
+        </div>
       ))}
     </div>
   );
