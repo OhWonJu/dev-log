@@ -23,6 +23,8 @@ const config = {
       },
     },
     screens: {
+      xs: "420px",
+
       sm: "640px",
       // => @media (min-width: 640px) { ... }
 
