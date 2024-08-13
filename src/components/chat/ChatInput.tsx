@@ -12,6 +12,7 @@ import useNewChatMutation, { NewChatProps } from "@/hooks/useNewChatMutation";
 import { Form, FormControl, FormField, FormItem } from "../ui/form";
 import { Input } from "../ui/input";
 import EmojiPicker from "../EmojiPicker";
+import { useMutation } from "@tanstack/react-query";
 
 interface ChatInputProps {
   apiUrl: string;
@@ -21,6 +22,14 @@ interface ChatInputProps {
 const formSchema = z.object({
   content: z.string().min(1),
 });
+
+export type NewChatProps = {
+  url: string;
+  values: {
+    content: string;
+    createdAt: Date;
+  };
+};
 
 const ChatInput = ({ apiUrl, query }: ChatInputProps) => {
   const router = useRouter();
