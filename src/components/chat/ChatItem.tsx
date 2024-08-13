@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Edit, Trash } from "lucide-react";
+import { Edit, RotateCw, Trash, X } from "lucide-react";
 import * as z from "zod";
 import axios from "axios";
 import qs from "query-string";
@@ -12,6 +12,8 @@ import { useSessionStorage } from "usehooks-ts";
 import { cn } from "@/lib/utils";
 import useAuthStore from "@/store/useAuthsStore";
 import { useModal } from "@/store/useModalStore";
+
+import useNewChatMutation, { NewChatProps } from "@/hooks/useNewChatMutation";
 
 import ActionTooltip from "../ActionTooltip";
 import { Form, FormControl, FormField, FormItem } from "../ui/form";
@@ -28,6 +30,8 @@ interface ChatItemProps {
   socketUrl: string;
   socketQuery: Record<string, string>;
   isOpitmistic?: boolean;
+  isError?: boolean;
+  errorHandler?: () => void;
 }
 
 const formSchema = z.object({
@@ -44,6 +48,8 @@ const ChatItem = ({
   socketUrl,
   socketQuery,
   isOpitmistic = false,
+  isError = false,
+  errorHandler = () => null,
 }: ChatItemProps) => {
   const { onOpen } = useModal();
 
@@ -98,6 +104,24 @@ const ChatItem = ({
       content: content,
     });
   }, [content, form]);
+
+  const { mutate: retryMutate } = useNewChatMutation(
+    socketQuery.chatId,
+    async ({ url, values }: NewChatProps) => await axios.post(url, values)
+  );
+
+  const handleRetry = () => {
+    try {
+      const url = qs.stringifyUrl({
+        url: socketUrl,
+        query: socketQuery,
+      });
+      errorHandler && errorHandler();
+      retryMutate({ url, values: { content, createdAt: new Date() } });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const canDeleteMessage = isOwner || auth;
   const canEditMessage = isOwner;
@@ -174,6 +198,29 @@ const ChatItem = ({
     </>
   );
 
+  const ErrorActionButton = () => (
+    <div
+      className={cn(
+        "flex  items-center gap-x-2 absolute top-1/2 -translate-y-1/2 p-1 bg-white dark:bg-zinc-800 border rounded-sm",
+        isOwner && "-left-14",
+        !isOwner && "-right-8"
+      )}
+    >
+      <ActionTooltip label="Retry">
+        <RotateCw
+          onClick={handleRetry}
+          className="cursor-pointer ml-auto w-3 h-3 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
+        />
+      </ActionTooltip>
+      <ActionTooltip label="Delete">
+        <X
+          onClick={errorHandler}
+          className="cursor-pointer ml-auto w-4 h-4 text-red-600 dark:hover:text-zinc-300 transition"
+        />
+      </ActionTooltip>
+    </div>
+  );
+
   return (
     <div
       className={cn(
@@ -204,6 +251,7 @@ const ChatItem = ({
           </div>
         </div>
         {!isOpitmistic && <ActionButton />}
+        {isOpitmistic && isError && <ErrorActionButton />}
       </div>
     </div>
   );
