@@ -47,38 +47,40 @@ const BlogPage = async () => {
     return res.json();
   };
 
-  await queryClient.prefetchInfiniteQuery({
-    queryKey: ["posts", "recent"],
-    queryFn: async () =>
-      await fetchPost({
-        type: "recent",
-      }),
-    getNextPageParam: (lastPage: any) => lastPage?.nextCursor,
-    initialPageParam: undefined,
-  });
+  await Promise.all([
+    queryClient.prefetchInfiniteQuery({
+      queryKey: ["posts", "recent"],
+      queryFn: async () =>
+        await fetchPost({
+          type: "recent",
+        }),
+      getNextPageParam: (lastPage: any) => lastPage?.nextCursor,
+      initialPageParam: undefined,
+    }),
 
-  await queryClient.prefetchInfiniteQuery({
-    queryKey: ["posts", "pinned"],
-    queryFn: async () =>
-      await fetchPost({
-        type: "pinned",
-      }),
-    getNextPageParam: (lastPage: any) => lastPage?.nextCursor,
-    initialPageParam: undefined,
-  });
+    queryClient.prefetchInfiniteQuery({
+      queryKey: ["posts", "pinned"],
+      queryFn: async () =>
+        await fetchPost({
+          type: "pinned",
+        }),
+      getNextPageParam: (lastPage: any) => lastPage?.nextCursor,
+      initialPageParam: undefined,
+    }),
 
-  await queryClient.prefetchQuery({
-    queryKey: ["all-serieses"],
-    queryFn: async () => {
-      const res = await fetch(`${apiUrl}/series?simple`);
+    queryClient.prefetchQuery({
+      queryKey: ["all-serieses"],
+      queryFn: async () => {
+        const res = await fetch(`${apiUrl}/series?simple`);
 
-      if (!res.ok) {
-        throw new Error("Failed to fetch courses");
-      }
+        if (!res.ok) {
+          throw new Error("Failed to fetch courses");
+        }
 
-      return res.json();
-    },
-  });
+        return res.json();
+      },
+    }),
+  ]);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
