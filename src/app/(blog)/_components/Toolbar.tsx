@@ -74,8 +74,8 @@ const Toolbar = ({ initialData, onChange, preview }: ToolbarProps) => {
     <div
       className={cn(
         "py-8 mb-8 group relative md:max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto border-b",
-        !preview && "px-[54px]",
-        preview && "px-6 md:px-[54px]"
+        !preview && "px-0 md:px-[54px]",
+        preview && "px-0 md:px-[54px]"
       )}
     >
       {/* Title */}

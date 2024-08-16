@@ -173,7 +173,7 @@ const PostSection = ({ initialData }: PostSectionProps) => {
       </div>
       <Course documentId={initialData.id} seriesId={initialData.seriesId} />
       {initialData.isPublished && (
-        <footer className="px-6 md:px-[56px] mt-20">
+        <footer className="px-0 md:px-[56px] mt-20">
           <Giscus />
         </footer>
       )}

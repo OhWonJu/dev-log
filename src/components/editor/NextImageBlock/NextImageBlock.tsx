@@ -116,7 +116,7 @@ export const ImagePreview = (
         draggable={false}
         width={width}
         height={0}
-        sizes="33vw"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         style={{ height: "auto" }}
       />
     </ResizeHandlesWrapper>
@@ -149,7 +149,7 @@ export const ImageToExternalHTML = (
       draggable={false}
       width={props.block.props.previewWidth}
       height={0}
-      sizes="33vw"
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
       style={{ height: "auto" }}
     />
   ) : (
