@@ -43,7 +43,7 @@ const BlogPage = async () => {
       },
     });
 
-    const res = await fetch(url);
+    const res = await fetch(url, { cache: "no-cache" });
     return res.json();
   };
 
@@ -71,7 +71,9 @@ const BlogPage = async () => {
     queryClient.prefetchQuery({
       queryKey: ["all-serieses"],
       queryFn: async () => {
-        const res = await fetch(`${apiUrl}/series?simple`);
+        const res = await fetch(`${apiUrl}/series?simple`, {
+          cache: "no-cache",
+        });
 
         if (!res.ok) {
           throw new Error("Failed to fetch courses");
