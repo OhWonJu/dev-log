@@ -21,9 +21,9 @@ export const metadata: Metadata = {
   metadataBase: new URL(`${process.env.NEXT_PUBLIC_SITE_URL!}`),
   title: "Recipe",
   description: "Portfolio & Dev recipe",
-  icons: {
-    icon: { url: "/favicon.svg", href: "/favicon.svg" },
-  },
+  // icons: {
+  //   icon: { url: "/favicon.svg", href: "/favicon.svg" },
+  // },
   openGraph: {
     title: "Recipe",
     url: `${process.env.NEXT_PUBLIC_SITE_URL!}`,
