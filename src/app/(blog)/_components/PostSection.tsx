@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import dynamic from "next/dynamic";
 import { Tag } from "prisma/prisma-client";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
 import { DocumentWithTagsWithSeries } from "@/types";
@@ -22,45 +22,32 @@ interface PostSectionProps {
   initialData: DocumentWithTagsWithSeries;
 }
 
+interface PostSchema {
+  title?: string | null;
+  subTitle?: string | null;
+  oldTags?: Tag[] | null;
+  newTags?: string | null;
+  seriesId?: string | null;
+  isPublished?: boolean | null;
+  isPinned?: boolean | null;
+  content?: string | null;
+  indexMap?: string | null;
+}
+
 const PostSection = ({ initialData }: PostSectionProps) => {
   const { auth } = useAuthStore();
 
-  const infoData = useRef<{
-    title: string;
-    subTitle: string | null;
-    oldTags: Tag[];
-    newTags: string | null;
-    seriesId: string | null;
-    isPublished: boolean | null;
-    isPinned: boolean | null;
-  }>({
-    title: initialData.title ?? "Untitled",
-    subTitle: initialData.subTitle ?? null,
-    seriesId: initialData.seriesId ?? null,
-    oldTags: initialData.tags ?? [],
+  const infoData = useRef<Omit<PostSchema, "content" | "indexMap">>({
+    title: null,
+    subTitle: null,
+    seriesId: null,
+    oldTags: null,
     newTags: null,
-    isPublished: initialData.isPublished ?? null,
-    isPinned: initialData.isPinned ?? null,
+    isPublished: null,
+    isPinned: null,
   });
-  const content = useRef<string | null>(
-    initialData.content ? initialData.content : ""
-  );
+  const content = useRef<string | null>(null);
 
-  const onSubmit = () => {
-    const indexStructure = generateDocumentIndexMap(content.current);
-
-    updatePost({
-      title: infoData.current.title,
-      subTitle: infoData.current.subTitle,
-      content: content.current,
-      indexMap: JSON.stringify(indexStructure),
-      newTags: infoData.current.newTags,
-      isPublished: infoData.current.isPublished,
-      isPinned: infoData.current.isPinned,
-    });
-  };
-
-  const queryClient = useQueryClient();
   const { mutate: updatePost, isPending } = useMutation({
     mutationFn: async ({
       content,
@@ -70,15 +57,7 @@ const PostSection = ({ initialData }: PostSectionProps) => {
       newTags,
       isPublished,
       isPinned,
-    }: {
-      title?: string | null;
-      subTitle?: string | null;
-      content?: string | null;
-      indexMap?: string | null;
-      newTags?: string | null;
-      isPublished?: boolean | null;
-      isPinned?: boolean | null;
-    }) =>
+    }: PostSchema) =>
       await axios.patch(`/api/documents/${initialData.id}`, {
         title,
         subTitle,
@@ -88,7 +67,43 @@ const PostSection = ({ initialData }: PostSectionProps) => {
         isPublished,
         isPinned,
       }),
+    onSuccess: () => {
+      infoData.current = {
+        title: null,
+        subTitle: null,
+        seriesId: null,
+        oldTags: null,
+        newTags: null,
+        isPublished: null,
+        isPinned: null,
+      };
+      content.current = null;
+    },
   });
+
+  const onSubmit = () => {
+    if (isPending) return;
+
+    const indexStructure = generateDocumentIndexMap(content.current);
+
+    if (
+      content.current === null &&
+      Object.values(infoData.current).every((value) => value === null)
+    ) {
+      console.log("Post not changed");
+      return;
+    }
+
+    updatePost({
+      title: infoData.current.title,
+      subTitle: infoData.current.subTitle,
+      content: content.current,
+      indexMap: indexStructure ? JSON.stringify(indexStructure) : null,
+      newTags: infoData.current.newTags,
+      isPublished: infoData.current.isPublished,
+      isPinned: infoData.current.isPinned,
+    });
+  };
 
   // short cut submit event handle
   useEffect(() => {
@@ -98,39 +113,30 @@ const PostSection = ({ initialData }: PostSectionProps) => {
       if (e.key === "s" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
 
-        const indexStructure = generateDocumentIndexMap(content.current);
-
-        updatePost({
-          title: infoData.current.title,
-          subTitle: infoData.current.subTitle,
-          content: content.current,
-          indexMap: JSON.stringify(indexStructure),
-          newTags: infoData.current.newTags,
-          isPublished: infoData.current.isPublished,
-          isPinned: infoData.current.isPinned,
-        });
+        onSubmit();
       }
     };
 
     document.addEventListener("keydown", down);
 
     return () => document.removeEventListener("keydown", down);
-  }, [auth, updatePost]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [auth]);
 
   const Editor = useMemo(
     () =>
       dynamic(() => import("@/components/editor/Editor"), {
         ssr: false,
         loading: () => (
-          <div className="md:max-w-4xl lg:max-w-6xl xl:max-w-7xl mx-auto">
-            <div className="space-y-4 pl-[56px] pt-[78px]">
-              <Skeleton className="h-16 w-[30%]" />
-              <Skeleton className="h-6 w-[50%]" />
-              <Skeleton className="h-6 w-[40%]" />
-              <Skeleton className="h-6 w-[50%]" />
-              <Skeleton className="h-6 w-[60%]" />
-              <Skeleton className="h-6 w-[40%]" />
-              <Skeleton className="h-6 w-[20%]" />
+          <div className="w-full">
+            <div className="space-y-4 pt-[78px]">
+              <Skeleton className="h-16 w-[60%] sm:w-[30%]" />
+              <Skeleton className="h-6 w-[100%] sm:w-[50%]" />
+              <Skeleton className="h-6 w-[80%] sm:w-[40%]" />
+              <Skeleton className="h-6 w-[100%] sm:w-[50%]" />
+              <Skeleton className="h-6 w-[60%] sm:w-[60%]" />
+              <Skeleton className="h-6 w-[80%] sm:w-[40%]" />
+              <Skeleton className="h-6 w-[40%] sm:w-[20%]" />
             </div>
           </div>
         ),
@@ -177,17 +183,7 @@ const PostSection = ({ initialData }: PostSectionProps) => {
           <Giscus />
         </footer>
       )}
-      {auth && (
-        <SaveButton clickHandler={onSubmit} disabled={isPending} />
-        // <Button
-        //   className="fixed bottom-10 right-[10%] bg-symbol-500 text-white text-lg"
-        //   role="button"
-        //   onClick={onSubmit}
-        //   disabled={isPending}
-        // >
-        //   저장하기
-        // </Button>
-      )}
+      {auth && <SaveButton clickHandler={onSubmit} disabled={isPending} />}
     </div>
   );
 };
