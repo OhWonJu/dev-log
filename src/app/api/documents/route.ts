@@ -24,7 +24,15 @@ export async function POST(req: Request) {
     });
 
     revalidatePath("/blog");
-    
+    // revalidate signal to server
+    await fetch(
+      `$${process.env.NEXT_PUBLIC_SERVER_URL}/api/documents/revalidate/blog}`,
+      {
+        method: "POST",
+        cache: "no-cache",
+      }
+    );
+
     return NextResponse.json(documents);
   } catch (error) {
     console.log("DOCUMENTS_POST ->", error);

@@ -132,9 +132,26 @@ export async function PATCH(
     }
 
     revalidateTag(documentId);
+    // revalidate signal to server
+    await fetch(
+      `$${process.env.NEXT_PUBLIC_SERVER_URL}/api/documents/revalidate/post}`,
+      {
+        method: "POST",
+        cache: "no-cache",
+        body: JSON.stringify({ documentId }),
+      }
+    );
 
     if (typeof title === "string") {
       revalidatePath("/blog");
+      // revalidate signal to server
+      await fetch(
+        `$${process.env.NEXT_PUBLIC_SERVER_URL}/api/documents/revalidate/blog}`,
+        {
+          method: "POST",
+          cache: "no-cache",
+        }
+      );
     }
 
     return NextResponse.json(document);
@@ -172,6 +189,14 @@ export async function DELETE(
     });
 
     revalidatePath("/blog");
+    // revalidate signal to server
+    await fetch(
+      `$${process.env.NEXT_PUBLIC_SERVER_URL}/api/documents/revalidate/blog}`,
+      {
+        method: "POST",
+        cache: "no-cache",
+      }
+    );
 
     return NextResponse.json(document);
   } catch (error) {
