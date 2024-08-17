@@ -32,6 +32,19 @@ const TAB_VIEWS = [
   <CoursesSection key="courses" />,
 ];
 
+const fetchData = async (url: string) => {
+  const res = await fetch(url, {
+    cache: "force-cache",
+    next: { tags: ["blog"] },
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+};
+
 const BlogPage = async () => {
   const queryClient = getQueryClient();
 
@@ -45,8 +58,8 @@ const BlogPage = async () => {
       },
     });
 
-    const res = await fetch(url, { cache: "force-cache" });
-    return res.json();
+    const result = await fetchData(url);
+    return result;
   };
 
   await Promise.all([
@@ -73,15 +86,9 @@ const BlogPage = async () => {
     queryClient.prefetchQuery({
       queryKey: ["all-serieses"],
       queryFn: async () => {
-        const res = await fetch(`${apiUrl}/series?simple`, {
-          cache: "force-cache",
-        });
+        const result = await fetchData(`${apiUrl}/series?simple`);
 
-        if (!res.ok) {
-          throw new Error("Failed to fetch courses");
-        }
-
-        return res.json();
+        return result;
       },
     }),
   ]);

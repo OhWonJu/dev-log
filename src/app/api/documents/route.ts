@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
+import { revalidateTag } from "next/cache";
+import axios from "axios";
 
 import { db } from "@/lib/db";
 import { checkAdmin } from "@/lib/checkAdmin";
-import { revalidatePath } from "next/cache";
 
 const DOCUMENTS_BATCH = 12;
 
@@ -23,14 +24,10 @@ export async function POST(req: Request) {
       },
     });
 
-    revalidatePath("/blog");
+    revalidateTag("blog");
     // revalidate signal to server
-    await fetch(
-      `$${process.env.NEXT_PUBLIC_SERVER_URL}/api/documents/revalidate/blog}`,
-      {
-        method: "POST",
-        cache: "no-cache",
-      }
+    await axios.post(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/documents/revalidate/blog`
     );
 
     return NextResponse.json(documents);
