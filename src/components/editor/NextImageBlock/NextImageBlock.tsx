@@ -114,10 +114,10 @@ export const ImagePreview = (
         blurDataURL="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
         contentEditable={false}
         draggable={false}
-        width={width}
+        width={0}
         height={0}
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        style={{ height: "auto" }}
+        style={{ width, height: "auto" }}
       />
     </ResizeHandlesWrapper>
   );
@@ -147,10 +147,10 @@ export const ImageToExternalHTML = (
       blurDataURL="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
       contentEditable={false}
       draggable={false}
-      width={props.block.props.previewWidth}
+      width={0}
       height={0}
       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-      style={{ height: "auto" }}
+      style={{ width: props.block.props.previewWidth, height: "auto" }}
     />
   ) : (
     <a href={props.block.props.url}>

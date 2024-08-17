@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
 import { checkAdmin } from "@/lib/checkAdmin";
+import { revalidatePath } from "next/cache";
 
 const DOCUMENTS_BATCH = 12;
 
@@ -22,6 +23,8 @@ export async function POST(req: Request) {
       },
     });
 
+    revalidatePath("/blog");
+    
     return NextResponse.json(documents);
   } catch (error) {
     console.log("DOCUMENTS_POST ->", error);

@@ -6,6 +6,8 @@ import { env } from "@/lib/env";
 
 import { PostSection } from "@/app/(blog)/_components";
 
+export const dynamic = "force-static";
+
 interface PostIdPageProps {
   params: {
     postId: string;
@@ -14,7 +16,8 @@ interface PostIdPageProps {
 
 const getPostData = async (postId: string) => {
   const res = await fetch(`${env.SITE_URL}/api/documents/${postId}`, {
-    cache: "no-cache",
+    cache: "force-cache",
+    next: { tags: [postId] },
   });
 
   if (!res.ok) {
@@ -32,9 +35,6 @@ export async function generateMetadata(
   const id = params.postId;
 
   const post = (await getPostData(id)) as DocumentWithTagsWithSeries;
-
-  // optionally access and extend (rather than replace) parent metadata
-  //const previousImages = (await parent).openGraph?.images || [];
 
   return {
     title: `${post.title} | Recipe`,

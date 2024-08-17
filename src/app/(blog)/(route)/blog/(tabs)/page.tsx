@@ -1,5 +1,5 @@
 import React from "react";
-import dynamic from "next/dynamic";
+import dynamicImport from "next/dynamic";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import qs from "query-string";
 
@@ -8,7 +8,9 @@ import { env } from "@/lib/env";
 
 import LoadingPage from "./loading";
 
-const BlogTabViewWrapper = dynamic(
+// export const dynamic = "force-dynamic";
+
+const BlogTabViewWrapper = dynamicImport(
   () => import("../../../_components/BlogTabViewWrapper"),
   {
     ssr: false,
@@ -16,11 +18,11 @@ const BlogTabViewWrapper = dynamic(
   }
 );
 
-const RecipesSection = dynamic(
+const RecipesSection = dynamicImport(
   () => import("../../../_components/RecipesSection")
 );
 
-const CoursesSection = dynamic(
+const CoursesSection = dynamicImport(
   () => import("../../../_components/CoursesSection")
 );
 
@@ -43,7 +45,7 @@ const BlogPage = async () => {
       },
     });
 
-    const res = await fetch(url, { cache: "no-cache" });
+    const res = await fetch(url, { cache: "force-cache" });
     return res.json();
   };
 
@@ -72,7 +74,7 @@ const BlogPage = async () => {
       queryKey: ["all-serieses"],
       queryFn: async () => {
         const res = await fetch(`${apiUrl}/series?simple`, {
-          cache: "no-cache",
+          cache: "force-cache",
         });
 
         if (!res.ok) {

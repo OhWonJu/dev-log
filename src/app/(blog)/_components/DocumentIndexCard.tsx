@@ -49,7 +49,7 @@ const DocumentIndexCard = ({
   };
 
   return (
-    <div className="sticky ml-auto" style={{top: NAV_HEIGHT + 10}}>
+    <div className="sticky ml-auto" style={{ top: NAV_HEIGHT + 10 }}>
       <Receipt
         className="flex flex-col items-center text-xs py-6"
         wrapperClassName="max-w-[250px]"
@@ -60,12 +60,15 @@ const DocumentIndexCard = ({
           <span className="w-[20%]">IDX</span>
         </div>
         <ReceiptSeparator />
-        <ul className="flex flex-col w-full justify-center truncate">
+        <ul
+          role="menu"
+          className="flex flex-col w-full justify-center truncate"
+        >
           {indexMap &&
             indexMap.map((data: IndexMap, index: number) => (
               <li
                 key={index}
-                role="button"
+                role="none"
                 onClick={(event) => handleIndexClick(event, data.id)}
                 className="py-1 hover:bg-primary-foreground dark:hover:bg-secondary-foreground truncate"
                 style={{ paddingLeft: (data.level - 1) * 12 }}

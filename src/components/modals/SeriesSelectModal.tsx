@@ -57,7 +57,6 @@ const SeriesSelectModal = () => {
     mutationFn: async (id: string) =>
       await axios.patch(`/api/series/${id}`, { documentId: data.documentId }),
     onSuccess: (data) => {
-      console.log(data);
       queryClient.invalidateQueries({
         queryKey: ["serise-list", data.data.id],
       });

@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { checkAdmin } from "@/lib/checkAdmin";
 import { processTags } from "@/lib/utils";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 export async function GET(
   req: Request,
@@ -83,20 +84,22 @@ export async function PATCH(
         id: documentId,
       },
       data: {
-        title,
-        subTitle,
-        isPublished,
-        isPinned,
-        content,
-        coverImage,
-        indexMap,
+        ...(typeof title === "string" && {
+          title: title.trim() === "" ? "Untitled" : title,
+        }),
+        ...(typeof subTitle === "string" && { subTitle: subTitle }),
+        ...(typeof isPublished === "boolean" && { isPublished: isPublished }),
+        ...(typeof isPinned === "boolean" && { isPinned: isPinned }),
+        ...(content && { content: content }),
+        coverImage: coverImage,
+        ...(indexMap && { indexMap: indexMap }),
         ...(oldTagIds && {
           tags: {
             disconnect: oldTagIds,
             connectOrCreate: processTags(newTags),
           },
         }),
-        seriesId,
+        ...(seriesId && { seriesId: seriesId }),
       },
     });
 
@@ -128,6 +131,12 @@ export async function PATCH(
       }
     }
 
+    revalidateTag(documentId);
+
+    if (typeof title === "string") {
+      revalidatePath("/blog");
+    }
+
     return NextResponse.json(document);
   } catch (error) {
     console.log("DOCUMENT_ID_PATCH ->", error);
@@ -146,7 +155,8 @@ export async function DELETE(
 
     // guard
     if (!isAdmin) return new NextResponse("Unauthorized", { status: 401 });
-    if (!documentId) return new NextResponse("Document ID missing", { status: 400 });
+    if (!documentId)
+      return new NextResponse("Document ID missing", { status: 400 });
 
     const existingPost = await db.document.findFirst({
       where: {
@@ -160,6 +170,8 @@ export async function DELETE(
     const document = await db.document.delete({
       where: { id: documentId },
     });
+
+    revalidatePath("/blog");
 
     return NextResponse.json(document);
   } catch (error) {

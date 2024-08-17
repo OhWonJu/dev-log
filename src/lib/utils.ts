@@ -11,10 +11,10 @@ export function cn(...inputs: ClassValue[]) {
 export const generateChatCode = () =>
   Math.random().toString(36).substring(2, 8).toUpperCase();
 
-export const generateDocumentIndexMap = (indexData?: string | null) => {
-  if (!indexData) return "";
+export const generateDocumentIndexMap = (content?: string | null) => {
+  if (!content) return null;
 
-  const data = JSON.parse(indexData) as Block[];
+  const data = JSON.parse(content) as Block[];
 
   let indexMap: IndexMap[] = [];
 
