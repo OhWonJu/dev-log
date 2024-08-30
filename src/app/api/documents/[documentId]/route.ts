@@ -135,14 +135,14 @@ export async function PATCH(
 
     revalidateTag(documentId);
     // revalidate signal to server
-    await axios.post(
+    await axios.put(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/documents/revalidate/${documentId}`
     );
 
     if (typeof title === "string") {
       revalidateTag("blog");
       // revalidate signal to server
-      await axios.post(
+      await axios.put(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/api/documents/revalidate/blog`
       );
     }
@@ -183,7 +183,7 @@ export async function DELETE(
 
     revalidateTag("blog");
     // revalidate signal to server
-    await axios.post(
+    await axios.put(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/documents/revalidate/blog`
     );
 

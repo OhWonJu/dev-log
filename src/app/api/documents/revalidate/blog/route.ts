@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { revalidateTag } from "next/cache";
 
-export async function POST(req: Request) {
+export async function PUT(req: Request) {
   try {
     revalidateTag("blog");
 
