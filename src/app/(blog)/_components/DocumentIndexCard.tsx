@@ -62,7 +62,7 @@ const DocumentIndexCard = ({
         <ReceiptSeparator />
         <ul
           role="menu"
-          className="flex flex-col w-full justify-center truncate"
+          className="flex flex-col w-full justify-center truncate select-none"
         >
           {indexMap &&
             indexMap.map((data: IndexMap, index: number) => (
@@ -70,7 +70,7 @@ const DocumentIndexCard = ({
                 key={index}
                 role="none"
                 onClick={(event) => handleIndexClick(event, data.id)}
-                className="py-1 hover:bg-primary-foreground dark:hover:bg-secondary-foreground truncate"
+                className="py-1 hover:bg-primary-foreground dark:hover:bg-secondary-foreground truncate cursor-pointer"
                 style={{ paddingLeft: (data.level - 1) * 12 }}
               >
                 <span>{data.content}</span>
