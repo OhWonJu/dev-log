@@ -12,6 +12,11 @@ const nextConfig = {
         hostname: "img.notionusercontent.com",
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "common-sheet-da1.notion.site",
+        pathname: "**",
+      },
     ],
     formats: ["image/avif", "image/webp"],
   },
