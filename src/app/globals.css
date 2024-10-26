@@ -151,6 +151,12 @@
   }
 }
 
+.bn-block-content[data-content-type="paragraph"] {
+  p {
+    line-height: 1.7rem;
+  }
+}
+
 .ProseMirror [contenteditable="false"] {
   white-space: pre-wrap !important;
 }
