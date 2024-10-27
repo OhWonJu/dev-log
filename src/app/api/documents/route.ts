@@ -93,6 +93,9 @@ export async function GET(req: Request) {
           coverImage: true,
           createdAt: true,
         },
+        orderBy: {
+          createdAt: "desc",
+        },
       });
     } else {
       documents = await db.document.findMany({
