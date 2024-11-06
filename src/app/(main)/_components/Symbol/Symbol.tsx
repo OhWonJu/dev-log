@@ -1,3 +1,5 @@
+"use client";
+
 import { Recipe } from "@/components/icons";
 
 import style from "./symbo.style.module.css";
