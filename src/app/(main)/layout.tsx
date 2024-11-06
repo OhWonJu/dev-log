@@ -1,7 +1,7 @@
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="relative flex h-full md:max-w-2xl lg:max-w-4xl xl:max-w-5xl mx-auto">
-      <main className="flex-1 h-full w-full">{children}</main>
+    <div className="relative flex h-full max-w-screen mx-auto">
+      <main className="w-full relative overflow-x-clip">{children}</main>
     </div>
   );
 };

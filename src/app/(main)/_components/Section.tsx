@@ -29,11 +29,11 @@ const Section = ({ id = "", index, className, children }: SectionProps) => {
   }, [sectionEelement]);
 
   useEffect(() => {
-    function updateNavSelected() {
+    const updateNavSelected = () => {
       if (!sectionOffset || typeof index !== "number") return;
 
       if (window.scrollY >= sectionOffset.topOffset - 1) setSelected(index); // -1 : 보정값
-    }
+    };
 
     window.addEventListener("scroll", updateNavSelected);
 

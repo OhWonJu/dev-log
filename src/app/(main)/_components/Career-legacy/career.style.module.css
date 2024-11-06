@@ -1,0 +1,39 @@
+.careerTab {
+  position: relative;
+  height: 130px;
+}
+
+.careerTab::before {
+  display: block;
+  position: absolute;
+  top: -10px;
+  left: -78px;
+  padding: 3px;
+  text-align: right;
+  content: attr(data-year);
+  font-size: 1.5rem;
+  font-weight: bold;
+  line-height: 25px;
+}
+
+.careerTab::after {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: -7px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  text-align: right;
+  content: "";
+}
+
+.active::before {
+  color: var(--primary);
+  transition: color 300ms ease 0s;
+}
+
+.active::after {
+  box-shadow: var(--primary) 0px 0px 0px 4px;
+  transition: box-shadow 300ms ease 0s;
+}
