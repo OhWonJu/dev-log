@@ -39,12 +39,14 @@ const content = [
           <div className="absolute top-0 left-0 w-full h-full justify-center items-center hidden group-hover:flex space-x-2">
             <Link
               href={"https://github.com/OhWonJu/playce-client"}
+              target="_blank"
               className="block hover:bg-zinc-700 p-1 rounded-full"
             >
               <Github className="w-8 h-8 fill-white" />
             </Link>
             <Link
               href={"https://www.playce.kr/"}
+              target="_blank"
               className="block hover:bg-zinc-700 p-1 rounded-full"
             >
               <Link2Icon className="w-8 h-8 stroke-white" />
@@ -73,12 +75,14 @@ const content = [
               href={
                 "https://github.com/Team-SilverTown/Team-SilverTown-MasilGasil-FE"
               }
+              target="_blank"
               className="block hover:bg-zinc-700 p-1 rounded-full"
             >
               <Github className="w-8 h-8 fill-white" />
             </Link>
             <Link
               href={"https://www.masilgasil.app/"}
+              target="_blank"
               className="block hover:bg-zinc-700 p-1 rounded-full"
             >
               <Link2Icon className="w-8 h-8 stroke-white" />
@@ -105,6 +109,7 @@ const content = [
           <div className="absolute top-0 left-0 w-full h-full justify-center items-center hidden group-hover:flex space-x-2">
             <Link
               href={"https://github.com/prgrms-fe-devcourse/FEDC5_looky_heejin"}
+              target="_blank"
               className="block hover:bg-zinc-700 p-1 rounded-full"
             >
               <Github className="w-8 h-8 fill-white" />
@@ -117,7 +122,7 @@ const content = [
   {
     title: "Smary Buoy",
     description:
-      "Smary Buoy 는 스마트 부표로 부터 오는 여러 정보를 종합하여, 해양 양식 어민에게 도움이 되고자 시작된 프로젝트 입니다. \n여러 센서 정보를 통해 양식장 구역의 해양정보, 출하 시기 등에 대한 정보를 제공해요.",
+      "Smary Buoy 는 스마트 부표로부터 오는 여러 정보를 종합하여, 해양 양식 어민에게 도움이 되고자 시작된 프로젝트 입니다. \n여러 센서 정보를 통해 양식장 구역의 해양정보, 출하 시기 등에 대한 정보를 제공해요.",
     content: (
       <div className="relative flex items-center w-full h-full">
         <div className="relative w-full aspect-[1907/1516] overflow-hidden rounded-lg group">
