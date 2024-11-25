@@ -25,6 +25,7 @@ export async function POST(req: Request) {
     });
 
     revalidateTag("blog");
+
     // revalidate signal to server
     await axios.put(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/api/documents/revalidate/blog`

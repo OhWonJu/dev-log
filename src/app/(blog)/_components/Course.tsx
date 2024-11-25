@@ -1,9 +1,10 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import React from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 import { ListMinus } from "lucide-react";
 
 import { SeriesWithDocuments } from "@/types";
@@ -59,12 +60,16 @@ const Course = ({ documentId, seriesId, initialData }: CourseProps) => {
                 key={document.id}
                 role="button"
                 onClick={() => handleItemClick(document.id)}
-                className={cn(
-                  "px-2 py-1 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-700 truncate",
-                  document.id === documentId && "font-bold"
-                )}
               >
-                {index + 1}. {document.title}
+                <Link
+                  href={`/blog/${document.id}`}
+                  className={cn(
+                    "px-2 py-1 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-700 truncate",
+                    document.id === documentId && "font-bold"
+                  )}
+                >
+                  {index + 1}. {document.title}
+                </Link>
               </li>
             ))}
         </ul>
