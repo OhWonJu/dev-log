@@ -8,7 +8,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: "/chats/",
+      disallow: ["/chats/", "/blog/search"],
     },
     sitemap: `${BASE_URL}/sitemap.xml`,
   };
