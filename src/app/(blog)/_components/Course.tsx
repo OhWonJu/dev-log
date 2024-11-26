@@ -2,7 +2,6 @@
 
 import React from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { ListMinus } from "lucide-react";
@@ -17,18 +16,12 @@ interface CourseProps {
 }
 
 const Course = ({ documentId, seriesId, initialData }: CourseProps) => {
-  const router = useRouter();
-
   const { data } = useQuery({
     queryKey: ["serise-list", seriesId],
     queryFn: async () => await axios.get(`/api/series/${seriesId}`),
     enabled: !!seriesId,
   });
   const seriesData = (data?.data as SeriesWithDocuments) ?? initialData;
-
-  const handleItemClick = (id: string) => {
-    router.push(`/blog/${id}`);
-  };
 
   if (!seriesData) return null;
 
@@ -56,11 +49,7 @@ const Course = ({ documentId, seriesId, initialData }: CourseProps) => {
         <ul>
           {seriesData &&
             seriesData.documents?.map((document, index) => (
-              <li
-                key={document.id}
-                role="button"
-                onClick={() => handleItemClick(document.id)}
-              >
+              <li key={document.id}>
                 <Link
                   href={`/blog/${document.id}`}
                   className={cn(

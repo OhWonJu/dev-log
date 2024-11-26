@@ -1,12 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Conversation } from "prisma/prisma-client";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-
-import { cn } from "@/lib/utils";
 
 import Item from "./Item";
 

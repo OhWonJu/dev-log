@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { format } from "date-fns";
 import { Calendar } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface CardProps {
   cardType: "post" | "series";
@@ -20,8 +21,8 @@ const Card = ({ cardType, id, title, coverImage, createdAt }: CardProps) => {
         href={`/blog/${id}`}
         className="flex flex-col rounded-lg w-full aspect-[4/3] md:aspect-[3/4] bg-background shadow-lg border overflow-hidden hover:scale-[1.02] transition"
       >
-        <div className="relative w-full h-[65%]">
-          {coverImage && (
+        {coverImage && (
+          <div className="relative w-full h-[65%]">
             <Image
               src={coverImage}
               alt={title}
@@ -31,12 +32,19 @@ const Card = ({ cardType, id, title, coverImage, createdAt }: CardProps) => {
               priority
               className="object-cover"
             />
+          </div>
+        )}
+        <div
+          className={cn(
+            "flex flex-col justify-between w-full p-4",
+            coverImage ? "h-[35%]" : "h-[100%]"
           )}
-        </div>
-        <div className="flex flex-col justify-between w-full h-[36%] p-4">
-          <h3 className="font-bold text-lg sm:text-xl md:text-lg line-clamp-1 sm:line-clamp-2 tracking-tight">
-            {title}
-          </h3>
+        >
+          <div className="flex-1 flex items-center">
+            <h3 className="font-bold text-lg sm:text-xl md:text-lg line-clamp-1 sm:line-clamp-2 tracking-tight">
+              {title}
+            </h3>
+          </div>
           <div className="flex justify-end items-center text-xs font-semibold text-zinc-400 dark:text-zinc-600">
             {createdAt && (
               <>
