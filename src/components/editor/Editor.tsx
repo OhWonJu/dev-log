@@ -67,7 +67,7 @@ const Editor = ({
   });
 
   return (
-    <div className="flex-1 overflow-x-hidden">
+    <article className="flex-1 overflow-x-hidden">
       <BlockNoteView
         editor={editor}
         editable={editable}
@@ -92,7 +92,7 @@ const Editor = ({
           }
         />
       </BlockNoteView>
-    </div>
+    </article>
   );
 };
 
