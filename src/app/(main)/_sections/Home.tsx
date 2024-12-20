@@ -28,9 +28,9 @@ const Home = () => {
           variants={fadeIn}
           initial="animate"
           motionValue={sectionOpacity}
-          className="absolute  top-0 w-full h-full"
+          className="absolute top-0 w-full h-full"
         >
-          <div className="h-full w-[90%] md:w-full flex justify-center items-center">
+          <div className="h-full w-full flex justify-center items-center px-6 md:px-0">
             <Hero />
           </div>
         </AnimatedBox>
