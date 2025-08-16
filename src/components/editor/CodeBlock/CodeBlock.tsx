@@ -125,9 +125,10 @@ const CodeBlock = createReactBlockSpec(
   }
 );
 
-const insertCode = () => ({
-  title: "Code",
-  onItemClick: (editor: BlockNoteEditor) => {
+const insertCode = (editor: BlockNoteEditor) => ({
+  title: "코드",
+  subtext: "코드 스니펫을 작성하세요.",
+  onItemClick: () => {
     insertOrUpdateBlock(editor, {
       //@ts-ignore
       type: "procode",
@@ -136,7 +137,6 @@ const insertCode = () => ({
   aliases: ["code"],
   group: "Custom blocks",
   icon: <MdCode />,
-  subtext: "Insert a code block.",
 });
 
 export { CodeBlock, insertCode };

@@ -217,9 +217,10 @@ export const parseImageElement = (imageElement: HTMLImageElement) => {
   return { url, previewWidth };
 };
 
-export const insertNextImage = () => ({
+export const insertNextImage = (editor: BlockNoteEditor) => ({
   title: "Next Image",
-  onItemClick: (editor: BlockNoteEditor) => {
+  subtext: "웹 성능 최적화에 도움이 되는 Next Image",
+  onItemClick: () => {
     insertOrUpdateBlock(editor, {
       //@ts-ignore
       type: "nextImage",
@@ -228,5 +229,4 @@ export const insertNextImage = () => ({
   aliases: ["Next Image"],
   group: "Custom blocks",
   icon: <ImageIcon />,
-  subtext: "Insert a NextImage block.",
 });

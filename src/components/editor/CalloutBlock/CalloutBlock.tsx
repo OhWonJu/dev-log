@@ -150,9 +150,10 @@ const CalloutBlock = createReactBlockSpec(
   }
 );
 
-const insertCallout = () => ({
-  title: "Callout",
-  onItemClick: (editor: BlockNoteEditor) => {
+const insertCallout = (editor: BlockNoteEditor) => ({
+  title: "콜아웃",
+  subtext: "돋보이는 글을 작성하세요.",
+  onItemClick: () => {
     insertOrUpdateBlock(editor, {
       //@ts-ignore
       type: "callout",

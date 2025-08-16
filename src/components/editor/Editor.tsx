@@ -2,15 +2,18 @@
 
 import { useTheme } from "next-themes";
 import {
+  DefaultReactSuggestionItem,
   SuggestionMenuController,
   getDefaultReactSlashMenuItems,
   useCreateBlockNote,
 } from "@blocknote/react";
 import {
+  BlockNoteEditor,
   BlockNoteSchema,
   PartialBlock,
   defaultBlockSpecs,
   filterSuggestionItems,
+  locales,
 } from "@blocknote/core";
 import { BlockNoteView } from "@blocknote/mantine";
 
@@ -35,15 +38,23 @@ interface EditorProps {
 
 const schema = BlockNoteSchema.create({
   blockSpecs: {
-    // Adds all default blocks.
     ...defaultBlockSpecs,
-    // Adds the Alert block.
     callout: CalloutBlock,
     procode: CodeBlock,
     nextImage: NextImageBlock,
     separator: SeparatorBlock,
   },
 });
+
+const getCustomSlashMenuItems = (
+  editor: BlockNoteEditor
+): DefaultReactSuggestionItem[] => [
+  ...getDefaultReactSlashMenuItems(editor),
+  insertCallout(editor),
+  insertCode(editor),
+  insertNextImage(editor),
+  insertSeparator(editor),
+];
 
 const Editor = ({
   initialContent,
@@ -63,6 +74,7 @@ const Editor = ({
     initialContent: initialContent
       ? (JSON.parse(initialContent) as PartialBlock[])
       : undefined,
+    dictionary: locales.ko,
     // uploadFile: handleUpload,
   });
 
@@ -74,21 +86,13 @@ const Editor = ({
         onChange={() => onChange(JSON.stringify(editor.document, null, 2))}
         theme={resolvedTheme === "dark" ? "dark" : "light"}
         data-theming-css
+        slashMenu={false}
       >
-        {/* @ts-ignore */}
         <SuggestionMenuController
           triggerCharacter={"/"}
-          getItems={async (query) =>
-            filterSuggestionItems(
-              [
-                ...getDefaultReactSlashMenuItems(editor),
-                insertCallout(),
-                insertCode(),
-                insertNextImage(),
-                insertSeparator(),
-              ],
-              query
-            )
+          getItems={async (query: any) =>
+            // @ts-ignore
+            filterSuggestionItems(getCustomSlashMenuItems(editor), query)
           }
         />
       </BlockNoteView>

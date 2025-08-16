@@ -28,9 +28,9 @@ const SeparatorBlock = createReactBlockSpec(
   }
 );
 
-const insertSeparator = () => ({
-  title: "Separator",
-  onItemClick: (editor: BlockNoteEditor) => {
+const insertSeparator = (editor: BlockNoteEditor) => ({
+  title: "구분선",
+  onItemClick: () => {
     insertOrUpdateBlock(editor, {
       //@ts-ignore
       type: "separator",
