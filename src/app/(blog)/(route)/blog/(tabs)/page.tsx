@@ -8,7 +8,7 @@ import { env } from "@/lib/env";
 
 import LoadingPage from "./loading";
 
-// export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 
 const BlogTabViewWrapper = dynamicImport(
   () => import("../../../_components/BlogTabViewWrapper"),
